@@ -564,3 +564,71 @@ Left Shift: 10
 Right Shift: 2
 Unsigned Right Shift: 2
 ```
+
+## 13. Conditional statement
+
+1. Empezamos creando el archivo **`02-JavaScriptBasics/operators.jsconditionStatement.js`**.
+2. Agrego este código, con un condicional básico:
+```js
+let age = 20;
+if (age < 18) {
+  console.log("You are a minor.");
+} else if (age >= 18 && age < 65) {
+  console.log("You are an adult.");
+} else {
+  console.log("You are a senior citizen.");
+}
+```
+3. Esta sería la respuesta:</br>`You are an adult.`
+
+## 14. Switch Statement
+
+1. Creamos el archivo **`02-JavaScriptBasics/switchStatement.js`**.
+2. Pongo este código:
+```js
+// Switch Statement Example
+function getDayName(dayNumber) {
+    let dayName;
+
+    switch (dayNumber) {
+        case 0:
+            dayName = "Sunday";
+            break;
+        case 1:
+            dayName = "Monday";
+            break;
+        case 2:
+            dayName = "Tuesday";
+            break;
+        case 3:
+            dayName = "Wednesday";
+            break;
+        case 4:
+            dayName = "Thursday";
+            break;
+        case 5:
+            dayName = "Friday";
+            break;
+        case 6:
+            dayName = "Saturday";
+            break;
+        default:
+            dayName = "Invalid day number";
+    }
+
+    return dayName;
+}
+// Example usage
+console.log(getDayName(0)); // Output: Sunday
+console.log(getDayName(3)); // Output: Wednesday
+console.log(getDayName(6)); // Output: Saturday
+console.log(getDayName(7)); // Output: Invalid day number
+```
+3. Al ejecutar obtengo esto:
+```dos
+Sunday
+Wednesday
+Saturday
+Invalid day number
+```
+
