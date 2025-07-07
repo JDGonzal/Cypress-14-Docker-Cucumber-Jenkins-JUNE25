@@ -177,7 +177,7 @@
 >Como ingeniero de automatización de pruebas, aprender JavaScript puede ayudarnos de muchas, muchas maneras al adherirnos a aprender muchas herramientas
 >nuevas como `Cypress`, `PlayWright` y etcétera, las cuales todas han sido escritas por JavaScript.
 
-## 9. Prerequisite Needed
+### 9. Prerequisite Needed
 
 >[!IMPORTANT]
 >
@@ -201,7 +201,7 @@ node HelloWorld.js
 5. El Instructor sugiere instalar en `Visual Studio Code`, la extensión [![Code Runner](https://formulahendry.gallerycdn.vsassets.io/extensions/formulahendry/code-runner/0.12.2/1712309175692/Microsoft.VisualStudio.Services.Icons.Default "Code Runer")](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) de [Jun Han](https://marketplace.visualstudio.com/publishers/formulahendry)
 6. En la parte izquierda donde sale los archivos y carpetas, se da clic derecho sobre el archivo, y se puede seleccionar `Run Code`.
 
-## 10. Variables
+### 10. Variables
 
 >[!NOTE]
 >
@@ -244,7 +244,7 @@ console.log("Updated Age:", myAge);
 // console.log("Updated Country:", myCountry); // Uncommenting this line would cause an error
 ```
 
-## 11. Datatypes
+### 11. Datatypes
 
 1. Creamos el archivo **`02-JavaScriptBasics/dataTypes.js`**.
 >[!NOTE]
@@ -345,7 +345,7 @@ WeakMap: WeakMap value
 WeakSet contains obj3: true
 ```
 
-## 12. Operators
+### 12. Operators
 
 1. Creamos el archivo **`02-JavaScriptBasics/operators.js`**.
 >[!NOTE]
@@ -565,7 +565,7 @@ Right Shift: 2
 Unsigned Right Shift: 2
 ```
 
-## 13. Conditional statement
+### 13. Conditional statement
 
 1. Empezamos creando el archivo **`02-JavaScriptBasics/operators.jsconditionStatement.js`**.
 2. Agrego este código, con un condicional básico:
@@ -581,7 +581,7 @@ if (age < 18) {
 ```
 3. Esta sería la respuesta:</br>`You are an adult.`
 
-## 14. Switch Statement
+### 14. Switch Statement
 
 1. Creamos el archivo **`02-JavaScriptBasics/switchStatement.js`**.
 2. Pongo este código:
@@ -632,3 +632,110 @@ Saturday
 Invalid day number
 ```
 
+
+## Section 3: Javascript Advanced Level
+
+### 15. Loops
+
+1. Empezamos creando la carpeta **"03_JavascriptAdvancedLevel"**.
+2. Dentro de la nueva carpeta creamos el archivo **`loops.js`**.
+>[!NOTE]
+>
+>Los bucles en JavaScript son estructuras de control que permiten ejecutar un bloque de código repetidamente, siempre que se cumpla
+>una determinada condición, o hasta que se alcance un número especificado de iteraciones.
+>
+>JavaScript ofrece tres tipos principales de bucles.
+>Bucle `for`, bucle `while` y bucle `do while`, veremos uno por uno.
+3. Empezamos con el bucle `for`:
+```js
+/* for loop
+for (initialization; condition; increment/decrement) {
+     // code to be executed
+ }
+*/
+for (let i = 0; i < 5; i++) {
+  console.log(i); // Output: 0 1 2 3 4
+}
+```
+4. El siguiente es el bucle `while`:
+```js
+/* while loop
+while (condition) {
+     // code to be executed
+ }
+*/
+let j = 0;
+while (j < 5) {
+  console.log(j); // Output: 0 1 2 3 4
+  j++;
+}
+```
+5. Por último el bucle `do while`:
+```js
+/* do while loop
+do {
+     // code to be executed
+} while (condition);
+*/
+let k = 0;
+do {
+  console.log(k); // Output: 0 1 2 3 4
+  k++;
+}while (k < 5);
+```
+6. Las declaraciones `Break` y `Continue`:
+```js
+// Break and Continue
+for (let l = 0; l < 5; l++) {
+  if (l === 2) {
+    continue; // Skip the iteration when l is 2
+  }
+  console.log(l); // Output: 0 1 3 4
+} 
+for (let m = 0; m < 5; m++) {
+  if (m === 3) {
+    break; // Exit the loop when m is 3
+  }
+  console.log(m); // Output: 0 1 2
+}
+```
+
+### 16. Dynamic-Typing
+
+1. Creamos el archivo **`03_JavascriptAdvancedLevel/dynamicTyping.js`**.
+>[!NOTE]  
+>
+>La tipificación dinámica, también conocida como tipificación duck, es un concepto fundamental en JavaScript y en muchos otros lenguajes de programación
+>de tipificación dinámica.
+>
+>Se refiere a la capacidad de las variables para cambiar sus tipos de datos durante el tiempo de ejecución, lo que permite un comportamiento
+>flexible y dinámico en su código.
+2. Este sería el código y su respuesta esperada:}
+```js
+// Type inference in JavaScript is a feature that allows the JavaScript engine to automatically determine the type of a variable at runtime.
+//  This means that you do not need to explicitly declare the type of a variable when you create it. Instead, the engine infers the type based on the value assigned to the variable.
+
+let dynamicVariable = 42; // Initially a number
+console.log(typeof dynamicVariable); // Output: "number"
+dynamicVariable = "Hello, World!"; // Now a string
+console.log(typeof dynamicVariable); // Output: "string"
+dynamicVariable = true; // Now a boolean
+console.log(typeof dynamicVariable); // Output: "boolean"
+dynamicVariable = { key: "value" }; // Now an object
+console.log(typeof dynamicVariable); // Output: "object"
+dynamicVariable = [1, 2, 3]; // Now an array (which is also an object)
+console.log(typeof dynamicVariable); // Output: "object"
+dynamicVariable = null; // Now null
+console.log(typeof dynamicVariable); // Output: "object" (this is a known quirk in JavaScript)
+dynamicVariable = undefined; // Now undefined
+console.log(typeof dynamicVariable); // Output: "undefined"
+dynamicVariable = Symbol("unique"); // Uncommenting this line would make it a Symbol
+console.log(typeof dynamicVariable); // Output: "symbol"
+dynamicVariable = function () {}; // Uncommenting this line would make it a function
+console.log(typeof dynamicVariable);
+```
+3. Otro ejemplo sería validanto el tipo:
+```js
+
+```
+4. 
