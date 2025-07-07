@@ -736,6 +736,15 @@ console.log(typeof dynamicVariable);
 ```
 3. Otro ejemplo sería validanto el tipo:
 ```js
-
+// Type checking
+dynamicVariable = [1, 2, 3];
+console.log('is number?', typeof dynamicVariable === "number"); // Output: false
+console.log('is string?', typeof dynamicVariable === "string"); // Output: false
+console.log('is boolean?', typeof dynamicVariable === "boolean"); // Output: false
+console.log('is object?', typeof dynamicVariable === "object"); // Output: true
+console.log('is array?', Array.isArray(dynamicVariable)); // Output: false (since it's not an array)
+console.log('is null?', dynamicVariable === null); // Output: false (since it's not null)
+console.log('is undefinied?', dynamicVariable === undefined); // Output: false (since it's not undefined)
+console.log('is symbol?', typeof dynamicVariable === "symbol"); // Output: false (since it's not a symbol)
+console.log('is function?', typeof dynamicVariable === "function"); // Output: false (since it's not a function)
 ```
-4. 
