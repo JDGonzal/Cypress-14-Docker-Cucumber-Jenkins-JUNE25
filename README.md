@@ -748,3 +748,61 @@ console.log('is undefinied?', dynamicVariable === undefined); // Output: false (
 console.log('is symbol?', typeof dynamicVariable === "symbol"); // Output: false (since it's not a symbol)
 console.log('is function?', typeof dynamicVariable === "function"); // Output: false (since it's not a function)
 ```
+
+
+### 17. Arrays
+
+1. Creamos el archivo **`03_JavascriptAdvancedLevel/arrays.js`**.
+2. Empezamos con esta tanda:
+```js
+// Arrays
+
+// Array literal
+const fruits = ['apple', 'banana', 'orange']; 
+
+// Array constructor
+const vegetables = new Array('carrot', 'broccoli', 'spinach');  
+
+console.log(fruits); // ['apple', 'banana', 'orange']
+console.log(vegetables[1]); // 'broccoli'
+```
+3. Luego probamos esta:
+```js
+// Length of an array
+console.log(fruits.length); // 3
+```
+4. Agregamos un elemento al final del arreglo:
+```js
+// Add elemento to the end of an array
+fruits.push('grape');
+console.log(fruits); // ['apple', 'banana', 'orange', 'grape']
+```
+5. Borramosel último elemento del arreglo:
+```js
+// Delete the last element of an array
+fruits.pop();
+console.log(fruits); // ['apple', 'banana', 'orange']
+```
+6. Recorrerlo a través de un ciclo:
+```js
+// Iterate using loop
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]); // 'apple', 'banana', 'orange'
+} 
+```
+7. Recorrelo con `forEach`:
+```js
+// Iterate using forEach
+fruits.forEach((fruit) => {
+    console.log(fruit); // 'apple', 'banana', 'orange'
+});
+
+```
+8. Recorrer usando `for..of`:
+```js
+// Iterate using for...of
+for (const fruit of fruits) {
+    console.log(fruit); // 'apple', 'banana', 'orange'
+}
+```
+
