@@ -1233,3 +1233,17 @@ DevTools listening on ws://127.0.0.1:63246/devtools/browser/d2543309-...-f3e04a2
 22. Y cerramos la ventana de `Cypress`, abajo la `TERMINAL` muestra que ya se detuvo la ejecución  de [`npx cypress open`](#24-how-to-use-test-runner-to-execute-cypress-tests).
 
 
+
+### 25. Cross browser testing
+
+1. En primer lugar, vamos a abrir el ejecutor de pruebas, en una `TERMINAL` de `Visual Studio Code` con el comando:</br>`npx cypress open`
+2. Esperamos un rato largo , hasta que aparece la ventana de: </br> ![E2E Testing](images/2025-07-08_173120.png "E2E Testing")
+3. Luego de un rato, aparece la ventana para seleccionar los diferentes browsers. El instructor nos sugiere utilizar `Edge`, en mi caso voy a utilizar `Firefox`.
+4. Y luego clic en el botón verde de ![.](images/2025-07-08_173939.png "").
+5. Esperamos otra vez un rato largo y nos aparece la ventana de `Firefox` bajo el control de `Cypress`, con la siguiente _URL_:</br> <http://localhost:57747/__/#/specs>
+6. Vamos a darle clic al archivo **`cypress/e2e/2-advanced-examples/aliasing.cy.js`**
+7. Empieza y termina el proceso:</br>![Firefox -> aliasing.cy.js -> inicio](images/2025-07-08_174914.png "Firefox -> aliasing.cy.js -> inicio") </br> ![Firefox-> aliasing.cy.js -> fin](images/2025-07-08_175108.png "Firefox -> aliasing.cy.js -> fin").
+8. Repetimos buscando en <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="shrink-0 h-[24px] m-[12px] w-[24px] children:transition children:duration-300 icon-dark-indigo-300 icon-light-indigo-700"><path d="M21 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2h18V6Z" fill="#D0D2E0" class="icon-light"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M21 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2h18V6Z" fill="#D0D2E0" class="icon-light"></path><path d="M3 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8M3 8V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 8h18m-7 4 2 2-2 2m-4-4-2 1.929 2 1.928" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`Specs`, el archivo **`cypress/e2e/2-advanced-examples/assertions.cy.js`**: </br> ![assertions.cy.js](images/2025-07-08_175710.png "Firefox -> assertions.cy.js")
+9. Me regreso a la página anterior y allí obtengo un selector en la parte superior derecha, para cambiar de browser y voy a seleccionar `Electron`:</br> ![Browser Selector](images/2025-07-08_180408.png "Browser Selector")
+10. Y allí seleccionamos el archivo **`cypress/e2e/2-advanced-examples/aliasing.cy.js`**:</br> ![.](images/2025-07-08_180842.png "Electron -> aliasing.cy.js")
+
