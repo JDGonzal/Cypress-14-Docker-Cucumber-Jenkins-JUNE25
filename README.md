@@ -1084,3 +1084,110 @@ function hoistingExample() {
 }
 hoistingExample(); // Call the function to see hoisting in action
 ```
+
+
+## Section 4: Cypress Installation & Setup
+
+### 21. Prerequisites needed for Cypress installation
+
+1. Instalar `NODEJS` y `npm` en su sistema, usando el `nvm`:
+  [Instalar múltiples versiones de Node.js en Windows](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
+```bash
+nvm install [version]
+nvm use [version]
+```
+2. Verificar las versiones de `NODEJS` instaladas en una `TERMINAL`:
+```bash
+nvm list
+```
+3. Instalar también el `pnpm` [pnpm installation](https://pnpm.io/installation), es mas rápido que el  `npm`.
+4. Instalar [Visual Studio Code](https://code.visualstudio.com/insiders/).
+5. Dentro de `Visual Studio Code`, se recomiendan estas extensiones:
+* `ES7+ React/Redux/React-Native snippets` de `dsznajder` 4.4.x.
+* `Better Comments` de `Aaron Bond` 3.0.x.
+* `ESLint` de `Microsoft` 3.0.x.
+* `Paste JSON as Code` de `quicktype` 23.0.x.
+* `Prettier - Code formatter` de `Prettier` 11.0.x.
+* `React Create Component` de `Javier Gutierrez` 1.5.x.
+* `Simple React Snippets` de `Burke Holland` 1.2.x
+* `TSLint` de `Microsoft` 1.3.x.
+* `vscode-styled-components` de `Styled Components` 1.7.x.
+
+### 22. Important Note: Cypress Version Update
+
+>[!NOTE]
+>
+>**Nota importante: Actualización de la versión de Cypress**
+>
+>En el próximo video, instalaremos la versión 12.12 de Cypress.
+>
+>Pero la última versión de Cypress del mes es la 14.5.1.
+>
+>No se preocupen. Todos los videos del curso funcionan con la última versión de Cypress, la 14.5.1.
+>
+>![npm -> cypress (version)](images/2025-07-08_074348.png "npm -> cypress (version)")
+>¡Feliz aprendizaje!
+
+
+
+### 23. Installation of Cypress
+
+1. La carpeta es la misma que tenemos de raíz en el repositorio, en nuestro caso se llama [`Cypress-14-Docker-Cucumber-Jenkins-JUNE25`](https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25)
+2. Aquí ya tenemos corriendo el `Visual Studio Code`.
+3. Abrimos una `TERMINAL` y escribimos este comando:
+```bash
+npm init -y
+```
+4. Al ejecutar este comando se crea el archivo **`package.json`**:</br>![package.json](images/2025-07-08_075529.png "package.json")
+```json
+{
+  "name": "cypress-14-docker-cucumber-jenkins-june25",
+  "version": "1.0.0",
+  "description": "[![Curso reciente ](images/2025-07-02_141637.png \"Crea y Despliega un Sistema de Ventas FULL STACK con REACT y PostgreSQL | 2025\")](https://www.udemy.com/course/cypress-ultimate-course/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25/issues"
+  },
+  "homepage": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25#readme"
+}
+```
+5. El instructor sugiere el uso de `npm` para el resto de procesos, pero yo voy a seguir utilizando el `pnpm` ([Paso 3 del #21](#21-prerequisites-needed-for-cypress-installation)). En una `TERMINAL` ejecutamos:
+```bash
+pnpm i
+```
+6. El comando creó la carpeta **"node_modules"** y el archivo **`pnpm-lock.yaml`**:</br>![pnpm i](images/2025-07-08_080712.png "pnpm i")
+7. Instalamos ahora si [`Cypress`](https://www.npmjs.com/package/cypress), en una `TERMINAL`, ejecutamos esto:
+```bash
+pnpm add cypress -E
+```
+>[!WARNING]
+>
+>Aparece este mensaje:</br>`Ignored build scripts: cypress.`      </br>`Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.`
+>1. En una `TERMINAL` ejecuté el comando sugerido:</br>`pnpm approve-builds`
+>2. El paquete a seleccionar con la `[SPACE-BAR]` es `cypress`.
+>3. Me dice los próximos paquetes van a ser construídos en `cypress`, le doy la tecla `[y]`.
+>4. Y sale este mensaje:</br>`node_modules/.pnpm/cypress@14.5.1/node_modules/cypress: Running postinstall script`
+
+8. Ejecuto este comando en la `TERMINAL`:
+```bash
+npx cypress version
+```
+9. La respuesta es lenta pero se obtiene lo siguiente:
+```dos
+Cypress package version: 14.5.1
+Cypress binary version: 14.5.1
+Electron version: 33.2.1
+Bundled Node version: 
+20.18.1
+```
+* **Significa que la Instalación fue exitosa.**
