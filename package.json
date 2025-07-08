@@ -1,0 +1,23 @@
+{
+  "name": "cypress-14-docker-cucumber-jenkins-june25",
+  "version": "1.0.0",
+  "description": "[![Curso reciente ](images/2025-07-02_141637.png \"Crea y Despliega un Sistema de Ventas FULL STACK con REACT y PostgreSQL | 2025\")](https://www.udemy.com/course/cypress-ultimate-course/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25/issues"
+  },
+  "homepage": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25#readme",
+  "dependencies": {
+    "cypress": "14.5.1"
+  }
+}
