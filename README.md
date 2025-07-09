@@ -184,9 +184,7 @@
 >* [Visual Studio Code](https://code.visualstudio.com/download), editor liviano y muy acorde con `JavaScript`, pero ya existen otros que le compiten y con `I.A.` integrado ejemplos:
 >   * [Las 10 mejores alternativas a Cursor AI (mejores que Github Copilot, código abierto)](https://apidog-com.translate.goog/blog/top-10-cursor-ai-alternatives/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true)
 >   * [Cursor vs Windsurf vs GitHub Copilot](https://www-builder-io.translate.goog/blog/cursor-vs-windsurf-vs-github-copilot?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true).
->* [Download Node.js®](https://nodejs.org/en/download), Esta es la versión para Windows, pero...
->* [Instalar múltiples versiones de Node.js en Windows](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/), prefiero utilizar esta que se instala con [nvm-Windows](https://github.com/coreybutler/nvm-windows/releases), pues permite varias versiones.
->* [pnpm Installation](https://pnpm.io/installation), similar a `npm` (que viene por defecto en la instalación de `nodejs`), pero mas rápido y con mejor manejo de almacenamiento.
+>
 
 1. Creamos la csarpeta **"02-JavaScriptBasics"**.
 2. Allí creamos el archivo **`HelloWorld.js`**,y le ponemos este código: </br>`console.log("HELLO WORLD!!");`
@@ -1248,4 +1246,59 @@ DevTools listening on ws://127.0.0.1:63246/devtools/browser/d2543309-...-f3e04a2
 10. Y allí seleccionamos el archivo **`cypress/e2e/2-advanced-examples/aliasing.cy.js`**:</br> ![.](images/2025-07-08_180842.png "Electron -> aliasing.cy.js")
 11. Cerramos la ventana de `Electron` gobernada por `Cypress`.
 12. Y cerramos la ventana de `Cypress`, abajo la `TERMINAL` muestra que ya se detuvo la ejecución  de [`npx cypress open`](#24-how-to-use-test-runner-to-execute-cypress-tests).
+
+
+## Section 6: Folder Structure
+
+### 26. Folder Structure in Cypress
+
+>[!NOTE]
+>
+>**La primera carpeta bajo el `cypress` es de `e2e`.**
+>
+>Todos los archivos de prueba se encuentran en esta carpeta sólo a lo largo de nuestro curso.
+>También voy a escribir todas nuestras pruebas en esta carpeta solamente.
+>Todos los archivos de esta carpeta tienen una extensión punto js, lo que significa que son archivos JavaScript.
+>Incluso los archivos de prueba de ejemplo creados por Cypress se encuentran en esta carpeta `e2e`.
+>
+>**Sólo la siguiente carpeta es `fixtures`.**
+>
+>Esta carpeta se utiliza para guardar los datos estáticos.
+>Puede contener los datos de prueba o los archivos a cargar por los scripts de prueba, o los archivos a
+>la derecha por el ejemplo de prueba.
+>Supongamos que queremos probar una página de inicio de sesión con varios ID de correo electrónico y contraseñas.
+>
+>A continuación, todos los datos de prueba de varios ID de correo electrónico deben almacenarse sólo en esta carpeta `fixtures`.
+>Estos son los mismos archivos de fijación añadir por el `Cypress`.
+>Algunos de ellos son ejemplo de perfil `Json`.
+>
+>Todos estos son los archivos de `fixtures` añadidos automáticamente por el `Cypress` durante la instalación.
+>
+>**La siguiente carpeta es la carpeta de `support`.**
+>
+>Dentro de la carpeta de `support` tiene dos archivos comandos punto js.
+> * El primer archivo es **`Command.js`** se utiliza para crear el comando personalizado y también para sobrescribir los comandos existentes en el `Cypress`.
+> * El segundo archivo es **`e2e.js`**.
+>Este archivo se utiliza para almacenar la configuración global y los comportamientos que modifican el Chipre en el momento de la ejecución
+>de la prueba.
+>Este archivo se carga automáticamente antes de que comience la prueba.
+>
+>**El siguiente archivo es **`cypress.config.js`**.**
+>
+>Se encuentra en la carpeta raíz.
+>Este archivo se utiliza para almacenar la configuración básica necesaria para `Cypress`, como la base, la URL, el
+>entorno de puertos, etc.
+>
+>**El siguiente archivo es **`package.json`**.**
+>
+>El archivo **`package.json`** se utiliza para gestionar las dependencias del proyecto.
+>Incluso durante nuestra instalación de `Cypress` hemos añadido las dependencias de `Cypress` dev bajo este paquete dot Json
+>solamente.
+
+>[!TIP]
+>
+>El instructor habla del archivo **`package-lock.json`**, porque está usando el nativo `npm`, que viene con la instalación del `nodejs`, yo en cambio uso el [`pnpm`](#21-prerequisites-needed-for-cypress-installation), y en mi caso el archivo sería **`pnpm-lock.yaml`**.
+>
+>Este archivo es un archivo de registro que contiene la información sobre las dependencias o paquetes instalados para un proyecto de
+>proceso de `node`, incluyendo su número exacto de versión.
 
