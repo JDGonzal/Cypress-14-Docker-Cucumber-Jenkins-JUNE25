@@ -1302,3 +1302,30 @@ DevTools listening on ws://127.0.0.1:63246/devtools/browser/d2543309-...-f3e04a2
 >Este archivo es un archivo de registro que contiene la información sobre las dependencias o paquetes instalados para un proyecto de
 >proceso de `node`, incluyendo su número exacto de versión.
 
+
+## Section 7: Locator strategy & Write First test in Cypress
+
+### 27. Locator Strategies
+
+1. Para iniciar el ejercicio ingresamos al sitio [Swag Labs](https://www.saucedemo.com/).
+2. Damos clic derecho al cuadro de `Username` y seleccionamos el último que es `Inspect`:</br>![Inspect -> `Username`](images/2025-07-14_095916.png "Inspect -> `Username`")
+3. Se puede cambiar la posición de este muelle (`Dock side`):</br>![Dock side](images/2025-07-14_100707.png "Dock side")
+4. La segunda manera es con la tecla [`F12`].
+5. Dando clic en el lado del _Dock_, presione las teclas [`Ctrl`]+[`F`], y aparece un rectángulo para búsquedas.
+
+>[!TIP]
+>
+>#### **DOM**: Modelo de Objetos del Documento (_Document Object Model_)
+>
+>Es una interfaz de programación que representa una página web como un árbol de nodos, permitiendo a JavaScript acceder y manipular dinámicamente el contenido, la estructura y el estilo del documento HTML.
+>
+
+6. Empiezo por escribir `id="password"`, pero no obtenermos ningún elemento en el _DOM_ señalado.
+7. Si escribo solo `password`, me mostrará varios elementos en el _DOM_.
+8. Pero si escribo `#password`, obtengo un único elemento en el _DOM_:</br>![#password](images/2025-07-14_102928.png "#password")
+9. Mientras que el _ID_ da el 100% de seguridad de seleccionar un elemento del _DOM_, que que sigue en prioridad es `name` y la forma de utilizarlo es nombrando el elemento que lo contiene, y entre corchetes el _name_:</br> `input[name="password"]` </br> ![`input[name="password"]`](images/2025-07-14_104001.png 'input[name="password"]')
+10. Otro modo de búsqueda puede ser la clase o _class_, este es antecediendo un punto en la búsqueda, ejemplo:</br>`.input_error.form_input` y tiene dos selecciones:</br> ![.input_error.form_input [1 of 2]](images/2025-07-14_112024.png ".input_error.form_input [1 of 2]")
+11. Puedo indicar para el nombre o _name_, solo con los corchetes:</br>`[name="password"]` y te selecciona el que tiene ese _name_.
+
+
+
