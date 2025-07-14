@@ -1361,3 +1361,19 @@ context("Actions", () => {
 11. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
 
+### 29. Plugin to ease locator finding process
+
+1. En `Chrome`, buscar `conduit react-redux.realworld.io`, y de la lista el primero [`conduit`](https://react-redux.realworld.io/#).
+2. Damos clic al botón de arriba de `[Sign in]`.
+3. Damos clic derecho al cuadro de `Email` y seleccionamos `Inspect`, y veremos este contenido `HTML` de este elemento:
+```html
+<input type="email" class="form-control form-control-lg" placeholder="Email">
+```
+4. Sugiere instalar en `Chrome` el _plugin_ o extensión de nombre `SelectorHub`:</br> ![SelectorsHub](images/2025-07-14_175906.png "SelectorsHub")
+5. Regresando a la página de `conduit`, que nos pide el `Email` y el `Password`, en el _Dock_ de `Chrome`, buscamos el `SelectorsHub`: </br> ![SelectorsHub](images/2025-07-14_180336.png "Dock -> SelectorsHub")
+6. Nos trae todas las opciones con las que podemos acceder a dicho elemento y podemos copiar la primera que es:</br> **1** _Rel cssSelector_ `input[placeholder='Email']`
+7. En el _Dock_, en la zona de los elementos, damos las teclas [`Ctrl`]+[`F`] y pegamos el valor que conseguimos, y nos señala el elemento que requerimos:</br> ![`input[placeholder='Email']`](images/2025-07-14_181204.png "`input[placeholder='Email']`")
+8. Repetimos la prueba por el elemento con el texto `Password` y el primer elemento que nos ofrece es: </br> `input[placeholder='Password']`
+
+
+
