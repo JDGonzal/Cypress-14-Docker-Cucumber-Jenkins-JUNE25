@@ -137,3 +137,13 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Cypress Videos
+cypress/e2e/videos
+cypress/videos
+# Cypress screenshots
+cypress/e2e/screenshots
+cypress/screenshots
+# Cypress cache
+cypress/cache
+

@@ -1530,3 +1530,134 @@ describe("Login functionality", () => {
 >Así que ese es el uso de la línea de comandos.
 >Y es muy potente.
 
+
+### 34. Executing test from Command Line
+
+1. El primer comando para ejecutar en la `TERMINAL` de `Visual Studio Code` es: </br> `npx cypress run`
+2. El va a ejecutar todas las pruebas que tenga en la carpeta **"cypress/e2e"**, en modo _headless_.
+3. Movamos las dos carpetas **"cypress/e2e/1-getting-started"** y **"cypress/e2e/2-advanced-examples"**, a una en la raíz de nombre **"08-temp"**, y repitamos el comando: </br> `npx cypress run`
+4. Este es el resultado arrojado:
+```diff
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.1                                                                         │
+  │ Browser:        Electron 130 (headless)                                                        │
+  │ Node Version:   v22.16.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (Tc01_FirstScript.spec.cy.js)                                          │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  Tc01_FirstScript.spec.cy.js                                                     (1 of 1)
+
+
+  Login functionality
+>     √ Login Test using Conduit site (1964ms)
+
+
++  1 passing (4s)
+
+
++  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     4 seconds                                                                        │
+  │ Spec Ran:     Tc01_FirstScript.spec.cy.js                                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  Tc01_FirstScript.spec.cy.js              00:04        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
++    √  All specs passed!                        00:04        1        1        -        -        -
+```
+5. Al Instructor le aparece una nueva carpeta llamada **"videos"**, pero no aparece en mi caso.
+6. El cambio debe hacerse en el archivo **`cypress.config.js`**:
+```json
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+    video:true, // Enable video recording
+    videosFolder: "cypress/e2e/videos", // Specify the folder for videos
+  },
+});
+```
+* Si no especifico el `videosFolder`, por defecto los videos los graba en: `cypress/videos`.
+7. Ahora bien, cuando se tiene dicho archivo tambien se debe excluir de lo que se sube al repositorio agregando estas líneas en el archivo **`.gitignore`**:
+```ini
+# Cypress Videos
+cypress/e2e/videos
+cypress/videos
+# Cypress screenshots
+cypress/e2e/screenshots
+cypress/screenshots
+# Cypress cache
+cypress/cache
+```
+8. Agregamos unos _script_ en el archivo **`package.json`**:
+```json
+{
+  ...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "open": "cypress open",
+    "run-electron": "cypress run"
+  },
+  ...
+}
+```
+9. Ahora ejecuto en la `TERMINAL`, en vez de usar `npx`, usaremos el sustituto de `npm`, que es `pnpm`: </br> `pnpm open`:</br> ![pnpm open](images/2025-07-15_092108.png "pnpm open")
+10. Cierro la ventana de `Cypress`, par poder continuar.
+11. El otro comando en la `TERMINAL` sería: </br> `pnpm run-electron`
+12. Creamos la carpetas:
+* **"cypress/e2e/smokeTests"**
+* **"cypress/e2e/regressionTests"**
+13. Copiamos el arcchivo **`cypress/e2e/Tc01_FirstScript.spec.cy.js`**, en las dos nuevas carpetas y lo renombramos así:
+* **`cypress/e2e/smokeTests/smokeScript.spec.cy.js`**
+* **`cypress/e2e/regressionTests/regressionScript.spec.cy.js`**
+14. Creamos otros _Script_ en el archivo **`package.json`**:
+```json
+  "scripts": {
+    ...
+    "smoke-test": "cypress run --spec 'cypress/e2e/smokeTests/*.cy.js'",
+    "regression-test": "cypress run --spec 'cypress/e2e/regressionTests/*.cy.js'",
+  },
+```
+15. Probemos el primero en la `TERMINAL`: </br> `pnpm smoke-test`
+16. Probemos el segundo en la `TERMINAL`: </br> `pnpm regression-test`
+17. Creamos y corregimos _Script_ en **`package.json`**, para una ejecución que se puede visualizar es decir _headed_:
+```json
+  "scripts": {
+    ...
+    "run-electron": "cypress run --spec 'cypress/e2e/*.cy.js'",
+    "run-electron-headed": "cypress run --headed --browser electron --spec 'cypress/e2e/*.cy.js'",
+    "run-chrome-headed": "cypress run --headed --browser chrome --spec 'cypress/e2e/*.cy.js'",
+    ...
+  },
+```
+18. Ejecutamos en la `TERMINAL`: </br> `pnpm run-electron-headed`
+19. Ejecutamos en la `TERMINAL`: </br> `pnpm run-chrome-headed`
+20. Podemos regresar las carpeta que tiene **"08-temp"**, a sus sitios originales, borrar la carpeta **"08-temp"** y ejecutar en la `TERMINAL`: </br> `pnpm run-electron` </br> Y solo ejecuta un caso de prueba.
+
