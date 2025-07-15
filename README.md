@@ -1504,3 +1504,29 @@ describe("Login functionality", () => {
 >    })
 >})
 >```
+
+
+## Section 8: Command Line Interface to run Cypress Tests
+
+### 33. Understanding Importance of Command Line
+
+>[!NOTE]
+>
+>* Una interfaz de línea de comandos, o podemos llamarla como CLI procesa comandos a un programa informático en
+>forma de líneas de texto.
+>* El programa que maneja esta interfaz se denomina intérprete de línea de comandos o procesador de línea de comandos.
+>* En términos simples, el símbolo del sistema es una interfaz que permite al usuario dar comandos a su sistema operativo
+>para hacer un determinado trabajo.
+>
+>![Escenario ejemplo](images/2025-07-15_082643.png "Escenario ejemplo")
+>
+>Así que si Jenkins necesita ejecutar un script, no puede abrir ese proyecto y no puede ejecutarlo.
+>En su lugar, necesita ejecutar unos comandos determinados.
+>
+>Ahí es donde entra en escena la línea de comandos.
+>
+>Utilizando la línea de comandos, podemos ejecutar la prueba sin necesidad de abrir un IDE.
+>Es sólo un conjunto de comandos que deben ejecutarse en el símbolo del sistema para Windows o terminal en Mac.
+>Así que ese es el uso de la línea de comandos.
+>Y es muy potente.
+
