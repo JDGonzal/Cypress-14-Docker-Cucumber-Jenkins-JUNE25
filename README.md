@@ -1375,5 +1375,132 @@ context("Actions", () => {
 7. En el _Dock_, en la zona de los elementos, damos las teclas [`Ctrl`]+[`F`] y pegamos el valor que conseguimos, y nos señala el elemento que requerimos:</br> ![`input[placeholder='Email']`](images/2025-07-14_181204.png "`input[placeholder='Email']`")
 8. Repetimos la prueba por el elemento con el texto `Password` y el primer elemento que nos ofrece es: </br> `input[placeholder='Password']`
 
+### 30. Important Note on Cypress Intellisense
+
+>[!NOTE]
+>
+>**Important Note on Cypress Intellisense**
+>
+>In the next video we will be writing our First cypress test.
+>
+>Where I be showing a step to add below code as part of config.json in order to avoid writing cypress intellisense
+>
+>**`config.json`**
+>```json
+>{
+>    "include":[
+>        "./node_modules/cypress",
+>        "cypress/**/*.js"
+>    ]
+>}
+>```
+>Currently it does not work for javascript. So I request to skip that step and continue to add `/// <reference types="cypress" />` in all the test spec files.
+
+### 31. Write First test using Cypress
+
+1. Las pruebas las vamos a enfocar en este sitio [`conduit`](https://react-redux.realworld.io/).
+2. Nos sugiere probar con hacer esto:
+   * Clic en el botón `Sign in`.
+   * Poner en `Email`, el valor de `cypressdemo@gmail.com`.
+   * En `Password`, este valor `cypressdemo`.
+   * Dar clic en el botón verde de `[Sign in]`.
+   * Pero obtenemos un error.
+
+>[!WARNING]
+>
+>Sale el error:
+>```diff
+>-https://api.realworld.io/api/users/login net::ERR_FAILED
+>```
+>Pero parece que el error es mucho mas complejo, es un error de `CORS`:
+>```diff
+>-Access to XMLHttpRequest at 'https://api.realworld.io/api/users/login' (redirected from 'https://conduit.productionready.io/api/users/login') from origin 'https://react-redux.realworld.io' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+>```
+
+3. Haremos la prueba, hasta donde sea posible ,para obtener la respuesta exitosa.
+4. Creamos el archivo **`cypress/e2e/Tc01_FirstScript.spec.cy.js`**.
+5. La primera línea será:</br>`/// <reference types="cypress" />`
+6. Creamos este archivo **`config.json`** y copiamos esto dentro:
+```json
+{
+  "include": ["./node_modules/cypress", "cypress/**/*.js"]
+}
+```
+7. Regresamos al archivo **`Tc01_FirstScript.spec.cy.js`** e importamos `{ describe, it }` de `"mocha"`, a modo de ejemplo, para luego comentarlo.
+8. Empezamos con un `describe` y un `it`:
+```js
+describe("Login functionality", () => {
+  it("Login Test using Conduit site", () => {});
+});
+```
+9. Dentro de la función del `it`, hacemos un `visit` al sitio, requerido:
+```js
+  it("Login Test using Conduit site", () => {
+    cy.visit("https://react-redux.realworld.io/");
+  });
+```
+10. Veamos en un `inspect`, como conseguir el botón de arriba de `[Sign in]`, el valor sugerido por `SelectorHub` es: </br>`body > div:nth-child(1) > div:nth-child(1) > nav:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1)`,</br> pero el mejor es por el atributo `href="#login"` de la etiqueta o elemento `a`:</br>`a[href='#login']`, y le aplicamos un `click()`:
+```js
+    cy.get("a[href='#login']").click();
+```
+>[!WARNING]
+>El error detectado es por el tiempo o demora en escribir los textos, para eso se agrega el `{ delay: 0 }`
+
+11. Hacemos `cy.get` para `email` y para `password` y les cargamos los valores respectivos:
+```js
+    // Fill in the login form
+    cy.get("input[placeholder='Email']")
+      .type("cypressdemo@gmail.com", 
+      { delay: 0 });
+    cy.get("input[placeholder='Password']")
+      .type("cypressdemo", { delay: 0 });
+```
+12. Capturamos el botón tipo `submit` y le hacemos clic:
+```js
+    cy.get("button[type='submit']").click();
+```
+13. Verificamos que el botón queda en estado _disabled_:
+```js
+    cy.get("button[type='submit']").should("be.disabled");
+```
+14. Ejecutamos en nuestra `TERMINAL` de `Visual Studio Code` el comando:</br>`npx cypress open`</br> y esperamos un buen rato.
+15. Damos clic al cuadro de `E2E Testing` (que ya debe aparecer abajo con el botón verde de `🟢 Configured`).</br> Esperamos otro rato, hasta que nos sale la ventana `Choose a browser`.
+16. Seleccionamos `Chrome` y clic en el botón verde de:</br>`Start E2E Testing in Chrome`.
+17. Buscamos en la lista (al final), el archivo **`Tc01_FirstScript.spec.cy.js`** y le damos clic para que se ejecute:</br>![First Script](images/2025-07-15_051213.gif "First Script")
+
+>[!WARNING]
+>Los errores que salen al final:
+>```diff
+>-(uncaught exception)TypeError: Cannot read properties of undefined (reading 'body')
+>-(uncaught exception)TypeError: Cannot read properties of undefined (reading 'body')
+>```
+> Es porque los `GET` y `POST` a las _API_ no funcionan.
+> * `POST https://conduit.productionready.io/api/users/login`
+> * `GET https://api.realworld.io/api/articles?limit=10&offset=0`
+> * `GET https://api.realworld.io/api/tags`
+>
+
+18. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
 
+### 32. Code - First Script
+
+>[!NOTE]
+>
+>Este es el código sugerido por el instructor:
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Login Functionality',function(){
+> 
+>    it('Login Test using Conduit',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.get('a[href="#login"]').click()
+>        cy.get('input[placeholder="Email"]').type('cypressdemo@gmail.com')
+>        cy.get('input[placeholder="Password"]').type('cypressdemo')
+>        cy.get('button[type="submit"]').click()
+>        cy.get('a[href="#settings"]').click()
+>        cy.get('.btn.btn-outline-danger').click()
+>    })
+>})
+>```
