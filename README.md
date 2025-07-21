@@ -1681,7 +1681,7 @@ describe("Radio Button functionality", () => {
     // Visit the page with radio buttons
     cy.visit("https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/");
 ```
-5. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _Radio Button_ debajo de `Basic markup`: </br> `<input type="radio" name="radio-choice-0" id="radio-choice-0a" xpath="1">`
+5. Entramos a la página, le damos clic derecho e `Inspect`, apuntando al primer _Radio Button_ debajo de `Basic markup`: </br> `<input type="radio" name="radio-choice-0" id="radio-choice-0a" xpath="1">`
 6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.clic()` al momento de hacer el `cy.get`:
 ```js
     /* Basic Radio Button */
@@ -1772,8 +1772,8 @@ describe("Checkbox functionality", () => {
     // Visit the page with checkbox
     cy.visit("https://demos.jquerymobile.com/1.4.5/checkboxradio-checkbox/");
 ```
-5. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _Checkbox_ debajo de `Vertical group`: </br> `<input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">`
-6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.clic()` al momento de hacer el `cy.get`:
+5. Entramos a la página, le damos clic derecho e `Inspect`, apuntando al primer _Checkbox_ debajo de `Vertical group`: </br> `<input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">`
+6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.check()` al momento de hacer el `cy.get`:
 ```js
     // Basic Checkbox
     cy.get("#checkbox-v-2a").should("not.be.checked").check({force: true}).should("be.checked");
@@ -1799,4 +1799,144 @@ describe("Checkbox functionality", () => {
 >    })
 >})
 >```
+
+### 39. Dropdowns
+
+1. Empezamos ingresando a este sitio [Selenium->Demo Page](https://seleniumbase.io/demo_page).
+2. Creamos el archivo **`cypress/e2e/tc09039_Dropdowns.spec.cy.js`**
+3. Empezamos con el `/// <reference`, luego el `describe`, con una función anónima tipo flecha y dentro el `it`, también con una función anónima:
+```js
+/// <reference types="cypress" />
+
+describe("Dropdown functionality", () => {
+  it("Handling Static Dropdown", () => {});
+});
+```
+4. Agregamos el `cy.visit`, dentro del `it`, apuntando al sitio que vamos a probar de [Selenium->Demo Page](https://seleniumbase.io/demo_page):
+```js
+    // Visit the page with dropdown
+    cy.visit("https://seleniumbase.io/demo_page");
+```
+5. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _DropDown_ debajo de `Vertical group`: </br> `<input mbsc-input="" id="multiple-select-input" placeholder="Please select..." data-dropdown="true" data-input-style="outline" data-label-style="stacked" data-tags="true" autocomplete="off" class=" mbsc-ios mbsc-ltr  mbsc-textfield mbsc-textfield-outline mbsc-select mbsc-textfield-stacked mbsc-textfield-outline-stacked mbsc-textarea mbsc-textfield-hidden" value="" type="text">`
+6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.clic()` al momento de hacer el `cy.get`:
+```js
+    // Select the dropdown
+    cy.get("#mySelect").should("be.visible");
+    // Select an option from the dropdown
+    cy.get("#mySelect").select("25%");
+    // Verify the selected option
+    cy.get("#mySelect").should("have.value", "25%");
+    // Select another option from the dropdown
+    cy.get("#mySelect").select("50%");
+    // Verify the selected option again
+    cy.get("#mySelect").should("have.value", "50%");
+    // Select the first option from the dropdown
+    cy.get("#mySelect").select("75%");
+    // Verify the selected option again
+    cy.get("#mySelect").should("have.value", "75%");
+    // Select the last option from the dropdown
+    cy.get("#mySelect").select("100%");
+    // Verify the selected option again
+    cy.get("#mySelect").should("have.value", "100%"); 
+```
+7. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc09037_Checkbox.spec.cy.js`.
+8. Este sería el resultado esperado: </br> ![Static DropDown](images/2025-07-21_092309.png "Static DropDown")
+9. Creo otro `it`, apuntando la visita a esta página [Telerik->DropDownlList](https://demos.telerik.com/aspnet-ajax/dropdownlist/examples/overview/defaultcs.aspx)
+```js
+it("Handling Dynamic Dropdown", () => {
+    // Visit the page with dynamic dropdown
+    cy.visit("https://demos.telerik.com/aspnet-ajax/dropdownlist/examples/overview/defaultcs.aspx");
+  });
+```
+10. Entramos a la página, le damos clic derecho e `Inspect`, apuntando al primer _DropDownList_ debajo de `Select a product`: </br> `<div id="ctl00_ContentPlaceholder1_RadDropDownProducts" class="RadDropDownList RadDropDownList_Sunset" style="width:200px;" tabindex="0">    <span class="rddlInner rddlFocused"><span class="rddlFakeInput rddlDefaultMessage">Select a product</span><span class="rddlSelect"><span class="p-icon p-i-arrow-60-down"></span></span></span><div class="rddlSlide" id="ctl00_ContentPlaceholder1_RadDropDownProducts_DropDown" style="display: none; height: 200px;">    <div class="rddlPopup rddlPopup_Sunset" style="height: 198px;">   <ul class="rddlList">...</ul>   </div>    </div><input id="ctl00_ContentPlaceholder1_RadDropDownProducts_ClientState" name="ctl00_ContentPlaceholder1_RadDropDownProducts_ClientState" type="hidden" autocomplete="off">    </div>`
+11. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.click()` al momento de hacer el `cy.get`:
+```js
+    // Click on the dropdown to open it or expand it
+    cy.get("#ctl00_ContentPlaceholder1_RadDropDownProducts")
+      .should("be.visible").click()
+    // Select an option from the dropdown
+    cy.get(".rddlItem").contains("Gustaf's Knäckebröd").click();
+```
+12. Quiero darle clic al botón de `[Get Details]`, para ver abajo el resultado en `PRODUCT DETAILS`:
+```js
+    // Click on `Get Details` button
+    cy.get("#ctl00_ContentPlaceholder1_GetDetails").click();
+    // Verify the selected option
+    cy.get(".order-summary").should("contain.text", "Gustaf's Knäckebröd");
+```
+13. Este sería el resultado esperado: </br> ![Dynamic DropDown](images/2025-07-21_134129.png "Dynamic DropDown")
+14. Creamos otro `it` para visitar esta página [jQuery Select->Multiple select](https://demo.mobiscroll.com/jquery/select/multiple-select#):
+```js
+    it("Handling Multiple Dropdowns", () => {
+      // Visit the page with multiple dropdowns
+      cy.visit("https://demo.mobiscroll.com/jquery/select/multiple-select#");
+    });
+```
+15. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _DropDown_ debajo de `Multi-select`: </br> `<input mbsc-input="" id="multiple-select-input" placeholder="Please select..." data-dropdown="true" data-input-style="outline" data-label-style="stacked" data-tags="true" autocomplete="off" class=" mbsc-ios mbsc-ltr  mbsc-textfield mbsc-textfield-outline mbsc-select mbsc-textfield-stacked mbsc-textfield-outline-stacked mbsc-textarea mbsc-textfield-hidden" value="" type="text" xpath="1" readonly="">`
+16. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.click()` al momento de hacer el `cy.get`:
+```js
+    // Click on the dropdown to open it or expand it
+    cy.get("#multiple-select-input").click({ force: true });
+```
+17. Marcamos dos elementos de la lista y validamos que fueran los escogidos:
+```js
+    // Select an option from the dropdown
+    cy.get(
+      "div[class='mbsc-scroller-wheel-item mbsc-ios mbsc-ltr mbsc-wheel-item-checkmark mbsc-wheel-item-multi']"
+    )
+      .contains("Books")
+      .click();
+    // Select another option from the dropdown
+    cy.get(
+      "div[class='mbsc-scroller-wheel-item mbsc-ios mbsc-ltr mbsc-wheel-item-checkmark mbsc-wheel-item-multi']"
+    )
+      .contains("Health & Beauty")
+      .click();
+    // Verify the selected options
+    cy.get("#multiple-select-input").should(
+      "have.value",
+      "Books, Health & Beauty"
+    );
+```
+18. Cierro la lista del _DropDown_:
+```js
+    // Click on the popup-overlay to close it 
+    cy.get(
+      "div[class='mbsc-popup-overlay mbsc-popup-overlay-anchored mbsc-ios']"
+    ).click({ force: true });
+```
+19. Este es el resultado esperado ocultando o comenytando los otros `it` y dejando el del Múltiple: </br> ![Multiple select](images/2025-07-21_145135.png "Multiple select")
+20. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 40. Code - DropDowns
+
+>[!NOTE]
+>
+>**Code - DropDowns**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Dropdown Functionality',function(){
+>     it('Handling Static DropDown',function(){
+>        cy.visit('https://seleniumbase.io/demo_page')
+>        cy.get('#mySelect').select('Set to 100%').should('have.value','100%')
+>    })
+> 
+>    it('Handling Dynamic DropDown',function(){
+>        cy.visit('https://demos.telerik.com/aspnet-ajax/dropdownlist/examples/overview/defaultcs.aspx')
+>        >cy.get('#ctl00_ContentPlaceholder1_RadDropDownProducts').click()
+>        cy.get('.rddlItem').contains('Aniseed Syrup').click()
+>    })
+> 
+>    it('Handling Multiple DropDown',function(){
+>        cy.visit('https://demo.mobiscroll.com/select/multiple-select')
+>        cy.get('#multiple-select-input').click({force: true})
+>        cy.get('div[class="mbsc-scroller-wheel-item mbsc-ios mbsc-ltr mbsc-wheel-item-checkmark mbsc-wheel-item-multi"]').contains('Electronics & Computers').click()
+>        cy.get('div[class="mbsc-scroller-wheel-item mbsc-ios mbsc-ltr mbsc-wheel-item-checkmark mbsc-wheel-item-multi"]').contains('Health & Beauty').click()
+>    })
+>})
+>```js
+
+
 
