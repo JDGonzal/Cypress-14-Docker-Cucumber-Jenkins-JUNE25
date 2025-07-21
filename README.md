@@ -1661,3 +1661,74 @@ cypress/cache
 19. Ejecutamos en la `TERMINAL`: </br> `pnpm run-chrome-headed`
 20. Podemos regresar las carpeta que tiene **"08-temp"**, a sus sitios originales, borrar la carpeta **"08-temp"** y ejecutar en la `TERMINAL`: </br> `pnpm run-electron` </br> Y solo ejecuta un caso de prueba.
 
+
+## Section 9: Handling Basic UI Elements
+
+### 35. Radio Button
+
+1. Empezamos ingresando a este sitio [jQuery->Radio buttons](https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/).
+2. Creamos el archivo **`cypress/e2e/tc09035_RadioButton.spec.cy.js`**
+3. Epmpezamos con el `/// <reference`, luego el `describe`, con una función anónima tipo flecha y dentro el `it`, también con una función anónima:
+```js
+/// <reference types="cypress" />
+
+describe("Radio Button functionality", () => {
+  it("Handling different radio buttons", () => {});
+});
+
+```
+4. Agregamos el `cy.visit`, dentro del `it`, apuntando al sitio que vamos a probar de [jQuery->Radio buttons](https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/):
+```js
+    // Visit the page with radio buttons
+    cy.visit("https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/");
+```
+5. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _Radio Button_ debajo de `Basic markup`: </br> `<input type="radio" name="radio-choice-0" id="radio-choice-0a" xpath="1">`
+6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.clic()` al momento de hacer el `cy.get`:
+```js
+    /* Basic Radio Button */
+    // Verify the first button is not checked initially
+    cy.get("#radio-choice-0a").should("not.be.checked").click();
+    // Verify the second button is not checked
+    cy.get("#radio-choice-0b").should("not.be.checked").click();
+```
+7. En una `TERMINAL`, ejecuto el comando </br> `pnpm open` </br> abre el `Cypress`. </br> Entro al `E2E`. </br> Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br> Busco y ejecuto el archivo que estamos trabajando `tc09035_RadioButton.spec.cy.js`.
+
+>[!WARNING]  
+>Obtengo errores por que me dice:
+>```diff
+>-Timed out retrying after 4050ms: cy.check() failed because this element:
+>!<input type="radio" name="radio-choice-0" id="radio-choice-0a">
+>-is being covered by another element:
+>!<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-radio-off">One</label>
+>```
+>La solución es usar [`{force: true}`](https://docs.cypress.io/app/references/error-messages#cy-failed-because-the-element-cannot-be-interacted-with)
+
+8. En vez de hacer el `.click()`, hago el `.check()` y le agrego el `{force: true}`:
+```js
+    /* Basic Radio Button */
+    // Verify the first button is not checked, to check
+    cy.get("#radio-choice-0a").should("not.be.checked").check({force: true});
+    // Verify the second button is not checked, to check
+    cy.get("#radio-choice-0b").should("not.be.checked").check({force: true});
+    // Verify the second button is checked
+    cy.get("#radio-choice-0b").should("be.checked");
+    // Verify the first button is not checked
+    cy.get("#radio-choice-0a").should("not.be.checked");
+```
+* Este sería el resultado esperado: </br> ![Basic Radio Button](images/2025-07-18_180608.png "Basic Radio Button")
+9. Vamos a la parte de `Horizontal group` e inspeccionamos el elemento de nombre `Two`: </br> `<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="off" xpath="1">`
+10. También tiene in `id`, hacemos el ejercicio:
+```js
+    /*Horizontal group */
+    // Verify the second button is not checked, to check
+    cy.get("#radio-choice-h-2b").should("not.be.checked").check({force: true});
+    // Verify the third button is not checked, to check
+    cy.get("#radio-choice-h-2c").should("not.be.checked").check({force: true});
+    // Verify the third button is checked
+    cy.get("#radio-choice-h-2c").should("be.checked");
+    // Verify the first button is not checked
+    cy.get("#radio-choice-h-2a").should("not.be.checked");
+```
+* Ocultamos o comentamos el ejercicio de `/* Basic Radio Button */` y este sería el resultado esperado: </br> ![Horizontal group](images/2025-07-18_181711.png "Horizontal group")
+
+
