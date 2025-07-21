@@ -7,7 +7,7 @@ describe("Radio Button functionality", () => {
     
     /* Basic Radio Button */
     // Verify the first button is not checked, to check
-    /*cy.get("#radio-choice-0a").should("not.be.checked").check({force: true});
+    cy.get("#radio-choice-0a").should("not.be.checked").check({force: true});
     // Verify the second button is not checked, to check
     cy.get("#radio-choice-0b").should("not.be.checked").check({force: true});
     // Verify the second button is checked
