@@ -1668,14 +1668,13 @@ cypress/cache
 
 1. Empezamos ingresando a este sitio [jQuery->Radio buttons](https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/).
 2. Creamos el archivo **`cypress/e2e/tc09035_RadioButton.spec.cy.js`**
-3. Epmpezamos con el `/// <reference`, luego el `describe`, con una función anónima tipo flecha y dentro el `it`, también con una función anónima:
+3. Empezamos con el `/// <reference`, luego el `describe`, con una función anónima tipo flecha y dentro el `it`, también con una función anónima:
 ```js
 /// <reference types="cypress" />
 
 describe("Radio Button functionality", () => {
   it("Handling different radio buttons", () => {});
 });
-
 ```
 4. Agregamos el `cy.visit`, dentro del `it`, apuntando al sitio que vamos a probar de [jQuery->Radio buttons](https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/):
 ```js
@@ -1691,7 +1690,7 @@ describe("Radio Button functionality", () => {
     // Verify the second button is not checked
     cy.get("#radio-choice-0b").should("not.be.checked").click();
 ```
-7. En una `TERMINAL`, ejecuto el comando </br> `pnpm open` </br> abre el `Cypress`. </br> Entro al `E2E`. </br> Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br> Busco y ejecuto el archivo que estamos trabajando `tc09035_RadioButton.spec.cy.js`.
+7. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc09035_RadioButton.spec.cy.js`.
 
 >[!WARNING]  
 >Obtengo errores por que me dice:
@@ -1731,4 +1730,73 @@ describe("Radio Button functionality", () => {
 ```
 * Ocultamos o comentamos el ejercicio de `/* Basic Radio Button */` y este sería el resultado esperado: </br> ![Horizontal group](images/2025-07-18_181711.png "Horizontal group")
 11. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 36. Code - RadioButton
+
+>[!NOTE]
+>
+>**Code - RadioButton**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Radio Button Functionality',function(){ 
+>    it('Handling different radio button',function(){
+>
+>        //Basic Radio Button>
+>        cy.visit('https://demos.jquerymobile.com/1.4.5/checkboxradio-radio/')
+>        cy.get('#radio-choice-0a').should('not.be.checked').click({force: true})
+>        cy.get('#radio-choice-0b').should('not.be.checked').click({force: true})
+> 
+>        //Modern Radio button
+>        cy.get('#radio-choice-h-2b').should('not.be.checked').click({force: true})
+>        cy.get('#radio-choice-h-2c').should('not.be.checked').click({force: true})
+>    })
+>})
+>```
+
+### 37. Check boxes
+
+1. Empezamos ingresando a este sitio [jQuery->Checkbox](https://demos.jquerymobile.com/1.4.5/checkboxradio-checkbox/).
+2. Creamos el archivo **`cypress/e2e/tc09037_Checkbox.spec.cy.js`**
+3. Empezamos con el `/// <reference`, luego el `describe`, con una función anónima tipo flecha y dentro el `it`, también con una función anónima:
+```js
+/// <reference types="cypress" />
+
+describe("Checkbox functionality", () => {
+  it("Handling different check boxes", () => {});
+});
+```
+4. Agregamos el `cy.visit`, dentro del `it`, apuntando al sitio que vamos a probar de [jQuery->Checkbox](https://demos.jquerymobile.com/1.4.5/checkboxradio-checkbox/):
+```js
+    // Visit the page with checkbox
+    cy.visit("https://demos.jquerymobile.com/1.4.5/checkboxradio-checkbox/");
+```
+5. Entramos a la página, le damos click derecho e `Inspect`, apuntando al primer _Checkbox_ debajo de `Vertical group`: </br> `<input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">`
+6. Agregamos un `cy.get`, sabiendo que estos elementos tiene sus correctos `id`. </br> El instructor sugiere el uso del `.clic()` al momento de hacer el `cy.get`:
+```js
+    // Basic Checkbox
+    cy.get("#checkbox-v-2a").should("not.be.checked").check({force: true}).should("be.checked");
+    cy.get("#checkbox-v-2c").should("not.be.checked").check({force: true}).should("be.checked");
+```
+7. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc09037_Checkbox.spec.cy.js`.
+8. Este sería el resultado esperado: </br> ![Basic Checkbox](images/2025-07-21_085447.png "Basic Checkbox")
+9. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+### 38. Code - CheckBoxes
+
+>[!NOTE]
+>
+>**Code - CheckBoxes**
+>```js
+>/// <reference types="Cypress" />
+ >
+>describe('Checkbox Functionality',function(){
+>    it('Handling different Check boxes',function(){
+>     cy.visit('https://demos.jquerymobile.com/1.4.5/checkboxradio-checkbox/')
+>        cy.get('#checkbox-v-2a').should('not.be.checked').check({force: true}).should('be.checked')
+>        cy.get('#checkbox-v-2c').should('not.be.checked').check({force: true}).should('be.checked')
+>    })
+>})
+>```
 
