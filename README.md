@@ -1730,5 +1730,5 @@ describe("Radio Button functionality", () => {
     cy.get("#radio-choice-h-2a").should("not.be.checked");
 ```
 * Ocultamos o comentamos el ejercicio de `/* Basic Radio Button */` y este sería el resultado esperado: </br> ![Horizontal group](images/2025-07-18_181711.png "Horizontal group")
-
+11. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
