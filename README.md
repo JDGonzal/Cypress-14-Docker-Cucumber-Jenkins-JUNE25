@@ -1940,3 +1940,157 @@ it("Handling Dynamic Dropdown", () => {
 
 
 
+## Section 10: Handling Advanced UI Elements
+
+
+### 41. Handling all types of Alerts
+
+1. Empezamos buscando este sitio [JavaScript Alerts](https://the-internet.herokuapp.com/javascript_alerts).
+2. Doy clic al primer botón `[Click for JS Alert]` y nos aparece en pantall: </br> `I am a JS Alert`
+3. Cuando cierro el mensaje aparece un mensaje abajo de: </br> `You successfully clicked an alert`
+4. Presiono el segundo botón `[Click for JS Confirm]` y sale el mensaje de: </br> `I am a JS Confirm` </br>Puedo presionar uno de dos botones `[OK]` o `[Cancel]`.
+5. Dependiendo del botón presionado obtengo uno de dos mensajes: </br> `You clicked: Ok` </br> `You clicked: Cancel`
+6. Presiono el tercer botón `[Click for JS Prompt]`, y sale este mensaje: </br> `I am a JS prompt`, y un _input_ para agregar cualquier texto, luego dos botones.
+7. Dependiendo del botón presionado, sale: </br> `[OK]` -> `You entered:` y el texto digitado. </br> `[Cancel]` -> `You entered: null`
+8. Creamos el archivo **`cypress/e2e/tc10041_Alert.spec.cy.js`**.
+9. Empezamos digitando este código:
+```js
+/// <reference types="cypress" />
+
+describe("Handling Different Alerts", () => {
+  beforeEach(() => {
+    // Visit the page with alerts
+    cy.visit("https://the-internet.herokuapp.com/javascript_alerts");
+  });
+  it("Simple Alert", () => {});
+});
+```
+10. En el primer `it`, añadimos este código:
+```js
+    // Click on the button to trigger the simple alert
+    cy.get("button[onclick='jsAlert()']").click();
+    // Verify the alert text
+    cy.on("window:alert", (text) => {
+      expect(text).to.equal("I am a JS Alert");
+    });
+    // Accept the alert
+    cy.on("window:confirm", () => true);
+    // Verify the result text after accepting the alert
+    cy.get("#result").should("contain.text", "You successfully clicked an alert");
+
+```
+11. Vamos a probar: </br> » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc09037_Checkbox.spec.cy.js`.
+12. Este es el resultado esperado: </br> ![Simple Alert](images/2025-07-22_073555.png "Simple Alert")
+13. Creamos el segundo `it`, para el segundo botón:
+```js
+  it("Confirm Alert - OK Button", () => {
+    // Click on the button to trigger the confirm alert
+    cy.get("button[onclick='jsConfirm()']").click();
+    // Verify the alert text
+    cy.on("window:alert", (text) => {
+      expect(text).to.equal("I am a JS Confirm");
+    });
+    // Accept the confirm alert
+    cy.on("window:confirm", () => true);
+    // Verify the result text after accepting the confirm alert
+    cy.get("#result").should(
+      "contain.text",
+      "You clicked: Ok"
+    );
+  });
+```
+14. La prueba resulta satisfactoria.
+15. Creamos el tercer `it`, para el mismo segundo botón:
+```js
+  it("Confirm Alert - Cancel Button", () => {
+    // Click on the button to trigger the confirm alert
+    cy.get("button[onclick='jsConfirm()']").click();
+    // cy.contains("Click for JS Confirm").click(); // Instructor
+    // Verify the alert text
+    cy.on("window:alert", (text) => {
+      expect(text).to.equal("I am a JS Confirm");
+    });
+    // Cancel the confirm alert
+    cy.on("window:confirm", () => false);
+    // Verify the result text after canceling the confirm alert
+    cy.get("#result").should("contain.text", "You clicked: Cancel");
+  });
+```
+16. Cuarto y último `it`, para el tercer botón:
+```js
+  it("Prompt Alert", () => {
+    // Type a message in the prompt and accept it
+    cy.window().then((win) => {
+      // ! Este se debe poner antes de hacer click
+      cy.stub(win, "prompt").returns("Hello, Cypress!");
+      // Click on the button to trigger the prompt alert
+      cy.get("button[onclick='jsPrompt()']").click();
+      
+    });
+    // Verify the result text after accepting the prompt alert
+    cy.get("#result").should("contain.text", "You entered: Hello, Cypress!");
+  });
+```
+17. Y este es el resultado esperado: </br> ![.](images/2025-07-22_080055.png "")
+
+
+>[!TIP]
+>
+>Hay una sugerencia de ejecutar en una `TERMINAL`, la actualización de `Cypress` a la última versión.
+>1. Cerrar el _browse_ administrado por `Cypress` y el `Cypress`.
+>2. Ejecutar en una `TERMINAL` este comando: </br> `pnpm add cypress@14.5.2` </br> Este Proceso demora un buen rato.
+>3. Revise el archivo **`package.json`**, que aparezca la última versión.
+>4. De vez en cuando actualizar la `pnpm` con el comando: </br> `Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression`
+>5. Ejecutar de nuevo en la `TERMINAL` el comando: </br> `pnpm open` </br> Y nos advierte: </br>`It looks like this is your first time using Cypress: 14.5.2`
+>6. En la ventana De `Windows Security`, darle `[Allow]` </br> ![Windows Security -> cypress@14.5.2](images/2025-07-22_081529.jpg "Windows Security -> cypress@14.5.2")
+
+18. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+### 42. Code - Alerts
+
+>[!NOTE]
+>
+>**Code - Alerts**
+>```js
+>describe('Advanced UI Elements',function(){ 
+>    it('Simple alert',function(){
+>        cy.visit('https://the-internet.herokuapp.com/javascript_alerts')
+>        cy.contains('Click for JS Alert').click()
+>        cy.on('window:alert',(str)=>{
+>            expect(str).to.equal('I am a JS Alert')
+>        })
+>        cy.get('#result').should('contain','You successfully clicked an alert')
+>    })
+> 
+>    it('Confirmation alert - Ok button',function(){
+>        cy.visit('https://the-internet.herokuapp.com/javascript_alerts')
+>        cy.contains('Click for JS Confirm').click()
+>        cy.on('window:confirm',(str)=>{
+>            expect(str).to.equal('I am a JS Confirm')
+>        })
+>        cy.get('#result').should('contain','You clicked: Ok')
+>    })
+> 
+>    it('Confirmation alert - Cancel button',function(){
+>        cy.visit('https://the-internet.herokuapp.com/javascript_alerts')
+>        cy.contains('Click for JS Confirm').click()
+>        cy.on('window:confirm',(str)=>{
+>            expect(str).to.equal('I am a JS Confirm')
+>            return false
+>        })
+>        cy.get('#result').should('contain','You clicked: Cancel')
+>    })
+> 
+>    it('Prompt Alert',function(){
+>        cy.visit('https://the-internet.herokuapp.com/javascript_alerts')
+>        cy.window().then(function($win){
+>            cy.stub($win,'prompt').returns('Hello Alert')
+>            cy.contains('Click for JS Prompt').click()        
+>        })
+>        cy.get('#result').should('contain','You entered: Hello >Alert')
+>    })
+>})
+>```
+
+
+
