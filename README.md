@@ -1977,9 +1977,8 @@ describe("Handling Different Alerts", () => {
     cy.on("window:confirm", () => true);
     // Verify the result text after accepting the alert
     cy.get("#result").should("contain.text", "You successfully clicked an alert");
-
 ```
-11. Vamos a probar: </br> » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc09037_Checkbox.spec.cy.js`.
+11. Vamos a probar: </br> » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10041_Alert.spec.cy.js`.
 12. Este es el resultado esperado: </br> ![Simple Alert](images/2025-07-22_073555.png "Simple Alert")
 13. Creamos el segundo `it`, para el segundo botón:
 ```js
@@ -2093,4 +2092,151 @@ describe("Handling Different Alerts", () => {
 >```
 
 
+### 43. Handling Web Tables
+
+1. Empezamos ingresando al sitio [Data Tables](https://the-internet.herokuapp.com/tables)
+2. Vamos a inspeccionar la tabla del `Example 1`: </br>
+  <table id="table1" class="tablesorter">
+    <thead>
+      <tr>
+        <th class="header"><span>Last Name</span></th>
+        <th class="header"><span>First Name</span></th>
+        <th class="header"><span>Email</span></th>
+        <th class="header"><span>Due</span></th>
+        <th class="header"><span>Web Site</span></th>
+        <th class="header"><span>Action</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Smith</td>
+        <td>John</td>
+        <td>jsmith@gmail.com</td>
+        <td>$50.00</td>
+        <td>http://www.jsmith.com</td>
+        <td>
+          <a href="#edit">edit</a>
+          <a href="#delete">delete</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Bach</td>
+        <td>Frank</td>
+        <td>fbach@yahoo.com</td>
+        <td>$51.00</td>
+        <td>http://www.frank.com</td>
+        <td>
+          <a href="#edit">edit</a>
+          <a href="#delete">delete</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Doe</td>
+        <td>Jason</td>
+        <td>jdoe@hotmail.com</td>
+        <td>$100.00</td>
+        <td>http://www.jdoe.com</td>
+        <td>
+          <a href="#edit">edit</a>
+          <a href="#delete">delete</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Conway</td>
+        <td>Tim</td>
+        <td>tconway@earthlink.net</td>
+        <td>$50.00</td>
+        <td>http://www.timconway.com</td>
+        <td>
+          <a href="#edit">edit</a>
+          <a href="#delete">delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+3. Tenemos el `id="table1"`.
+4. Creamos el archivo **`cypress/e2e/tc10043_WebTable.spec.cy.js`**, con al menos este código:
+```js
+/// <reference types="cypress" />
+
+describe("Handling Web Tables", () => {
+  beforeEach(() => {
+    // Visit the page with tables
+    cy.visit("https://the-internet.herokuapp.com/tables");
+  });
+
+  it("Web Tables", () => {});
+});
+```
+5. Seguimos con verificar un valor en cualquier parte de la tabla, dentro del `it`:
+```js
+    // 1. Check value present anywhere in the table
+    cy.get("#table1").contains("td", "jdoe@hotmail.com").should("exist");
+    cy.get("#table1")
+      .contains("td", "http://www.jdoe.com")
+      .should("be.visible");
+```
+6. Luego verificar un valor en una celda específica:
+```js
+    // 2. Check value in a specific cell
+    cy.get("#table1>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3)")
+      .contains("td", "jsmith@gmail.com")
+      .should("exist"); // .should("be.visible");
+```
+7. Por último un dato basado en la condición:
+```js
+    // 3. Check value based on the condition
+    cy.get("#table1>tbody>tr>td:nth-child(2)").each(($e, index, $list) => {
+      const text = $e.text();
+      if (text.includes("Jason")) {
+        cy.get("#table1>tbody>tr>td:nth-child(4)")
+        .eq(index)
+        .then((due) => {
+          const dueAmmount = due.text();
+          expect(dueAmmount).to.equal("$100.00");
+        });
+      }
+    });
+```
+8. Vamos a probar: </br> » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10043_WebTable.spec.cy.js`.
+9. Este es el resultado esperado: </br> ![Simple Alert](images/2025-07-22_144027.png "Simple Alert")
+
+
+
+### 44. Code - WebTables
+
+>[!NOTE]
+>
+>**Code - WebTables**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Advanced UI Elements',function(){
+> 
+>    const row = 1
+>    const col = 3
+> 
+>    it('Web Tables',function(){
+>        cy.visit('https://the-internet.herokuapp.com/tables')
+> 
+>        // 1 - Check value present anywhere in the table
+>       cy.get('#table1').contains('td','http://www.jdoe.com').should('be.>visible')
+> 
+>        // 2 - Check value based on specific row and column
+>        cy.get(`#table1>tbody>tr:nth-child(${row})>td:nth-child(${col})`).contains('td','jsmith@gmail.com').should('be.visible')
+> 
+>        // 3 - Check value based on a condition
+>         cy.get('#table1>tbody>tr>td:nth-child(2)').each(($ele, index, $list)=> {
+>            const fname = $ele.text()
+>            if(fname.includes('Frank')){
+>                cy.get('#table1>tbody>tr>td:nth-child(4)').eq(index).then(function($due){
+>                    const dueAmount = $due.text()
+>                    expect(dueAmount).to.equal('$51.00')
+>                })
+>            }
+>        })
+>    })
+>})
+>```
 
