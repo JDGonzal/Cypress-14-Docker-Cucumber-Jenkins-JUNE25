@@ -14,4 +14,6 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
+// Importing cypress-xpath for XPath support
+import "cypress-xpath";
