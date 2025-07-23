@@ -2367,7 +2367,7 @@ describe("xPath functionality", () => {
   });
 });
 ```
-6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10045_Iframes.spec.cy.js`.
+6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10047_Xpath.spec.cy.js`.
 7. Este es el resultado esperado: </br> ![xPath functionality](images/2025-07-23_145524.png "xPath functionality")
 8. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
