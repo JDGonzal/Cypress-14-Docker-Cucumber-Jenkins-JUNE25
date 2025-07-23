@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-// import { describe, it } from "mocha";
-
 describe("xPath functionality", () => {
   it("Login Test using Conduit site by Xpath locators", async() => {
     await cy.visit("https://react-redux.realworld.io/");

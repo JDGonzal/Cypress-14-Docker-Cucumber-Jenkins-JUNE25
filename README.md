@@ -2342,8 +2342,6 @@ describe("xPath functionality", () => {
 ```js
 /// <reference types="cypress" />
 
-// import { describe, it } from "mocha";
-
 describe("xPath functionality", () => {
   it("Login Test using Conduit site by Xpath locators", async() => {
     await cy.visit("https://react-redux.realworld.io/");
@@ -2393,4 +2391,70 @@ describe("xPath functionality", () => {
 >})
 >```
 
+
+### 49. Handling Browser controls
+
+1. Regresamos a la página [conduit](https://react-redux.realworld.io/)
+2. Creamos el archivo **`cypress\e2e\tc10049_BrowserControl.spec.cy.js`** y copiamos el código básico:
+```js
+/// <reference types="cypress" />
+
+describe("Handling Browser Controls", () => {
+  it("Handling Browser Controls", async () => {
+    await cy.visit("https://react-redux.realworld.io/");
+  });
+});
+```
+3. Consigo el botón de `Sign In` y le doy click:
+```js
+    // Verify it contains `Sign in`
+    cy.contains("Sign in").should("be.visible").click();
+```
+4. Y empiezo a ir hacia delante y hacia atrás:
+```js
+    // Back to previous page
+    cy.go("back");
+    // Go forward to the next page
+    cy.go("forward");
+    // Go back with numbers
+    cy.go(-1);
+    // Go forward with numbers
+    cy.go(1);
+```
+5. Verifico que si esté en el sitio de `login` y el título:
+```js
+    // Verify the URL
+    cy.url().should("include", "login");
+    // Verify the title
+    cy.title().should("include", "Conduit");
+    // Reload the page
+    cy.reload();
+```
+6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10049_BrowserControl.spec.cy.js`.
+7. Este es e1 resultado esperado: </br> ![Handling Browser Controls](images/2025-07-23_151937.png "Handling Browser Controls")
+8. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 50. Code - BrowserControls
+
+>[!NOTE]
+>
+>**Code - BrowserControls**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Advanced UI Elements',function(){
+> 
+>    it('Browser Controls',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.go('back')
+>        cy.go('forward')
+>        cy.go(-1)
+>        cy.go(1)
+>        cy.get('input[type="email"]').type('cypress')
+>        cy.reload()
+>    })
+>})
+>```
 
