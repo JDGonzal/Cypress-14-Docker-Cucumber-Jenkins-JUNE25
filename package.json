@@ -25,5 +25,8 @@
   "homepage": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25#readme",
   "dependencies": {
     "cypress": "14.5.2"
+  },
+  "devDependencies": {
+    "cypress-xpath": "2.0.1"
   }
 }

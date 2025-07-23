@@ -2275,7 +2275,8 @@ describe("Handling Iframes", () => {
       cy.wrap($body).should("be.exist");
     });
 ```
-7. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+7. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10045_Iframes.spec.cy.js`.
+8. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
 
 
@@ -2298,4 +2299,98 @@ describe("Handling Iframes", () => {
 >    })
 >})
 >```
+
+
+### 47. Work around to use Xpath in Cypress
+
+1. Empezamos instalando una nueva dependencia a modo de _developer_, de este sitio [cypress-xpath](https://www.npmjs.com/package/cypress-xpath), con este comando en una `TERMINAL`: </br> `pnpm add -D -E cypress-xpath` </br> Aunque nos sale la advertencia: </br> `devDependencies:` </br>`+ cypress-xpath 2.0.1 deprecated`
+2. Abrimos el archivo **`cypress/support/e2e.js`**y agrego al final esta importación:
+```js
+// Importing cypress-xpath for XPath support
+import "cypress-xpath";
+```
+3. Creamos el archivo **`cypress/e2e/tc10047_Xpath.spec.cy.js`** le copiamos el contenido de este archivo **`cypress/e2e/Tc01_FirstScript.spec.cy.js`**, y le hacemos algunos ajustes:
+```js
+/// <reference types="cypress" />
+
+// import { describe, it } from "mocha";
+
+describe("xPath functionality", () => {
+  it("Login Test using Conduit site by Xpath locators", () => {
+    cy.visit("https://react-redux.realworld.io/");
+    // cy.get("#email").should("be.visible");
+    cy.get("a[href='#login']").click();
+    // Next page should have the login form
+    cy.url().should("include", "/login");
+
+    // Fill in the login form
+    cy.get("input[placeholder='Email']").type("cypressdemo@gmail.com", {
+      delay: 0,
+    });
+    cy.get("input[placeholder='Password']").type("cypressdemo", {
+      delay: 0,
+    });
+    // Submit the form
+    cy.get("button[type='submit']").click();
+    // Check for error message
+    cy.get("button[type='submit']").should("be.disabled");
+  });
+});
+```
+4. Entro al sitio [conduit](https://react-redux.realworld.io/), e inspecciono el botón de `Sign in`, para luego copiar de `SelectorsHub` el `Rel Xpath`: </br> ![SelectorsHub - Sign in](images/2025-07-23_143438.png "SelectorsHub - Sign in"), cambio los `get` por `xpath`.
+5. Repetimos el mismo proceso para `Email` y para `Password`, y este es el resultado:
+```js
+/// <reference types="cypress" />
+
+// import { describe, it } from "mocha";
+
+describe("xPath functionality", () => {
+  it("Login Test using Conduit site by Xpath locators", async() => {
+    await cy.visit("https://react-redux.realworld.io/");
+
+    await cy.xpath("//a[normalize-space()='Sign in']").click(); 
+    // Next page should have the login form
+    await cy.url().should("include", "/login");
+
+    // Fill in the email
+    await cy.xpath("//input[@placeholder='Email']").type("cypressdemo@gmail.com", {
+      delay: 0,
+    });
+    // Fill in the password
+    await cy.xpath("//input[@placeholder='Password']").type("cypressdemo", {
+      delay: 0,
+    });
+    // Submit the form
+    await cy.xpath("//button[normalize-space()='Sign in']").click();
+    // Check for error message
+    await cy.xpath("//button[normalize-space()='Sign in']").should("be.disabled");
+  });
+});
+```
+6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10045_Iframes.spec.cy.js`.
+7. Este es el resultado esperado: </br> ![xPath functionality](images/2025-07-23_145524.png "xPath functionality")
+8. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+
+### 48. Code - Xpath
+
+>[!NOTE]
+>
+>**Code - Xpath**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Xpath Functionality',function(){
+> 
+>    it('Login Test using Conduit by Xpath locators',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.xpath('//a[normalize-space()="Sign in"]').click()
+>        >cy.xpath('//input[@placeholder="Email"]').type('cypressdemo@gmail.com')
+>        >cy.xpath('//input[@placeholder="Password"]').type('cypressdemo')
+>        cy.xpath('//button[normalize-space()="Sign in"]').click()
+>    })
+>})
+>```
+
 

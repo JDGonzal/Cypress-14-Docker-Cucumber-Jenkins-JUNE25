@@ -11,6 +11,10 @@ importers:
       cypress:
         specifier: 14.5.2
         version: 14.5.2
+    devDependencies:
+      cypress-xpath:
+        specifier: 2.0.1
+        version: 2.0.1
 
 packages:
 
@@ -176,6 +180,10 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
+
+  cypress-xpath@2.0.1:
+    resolution: {integrity: sha512-qMagjvinBppNJdMAkucWESP9aP4rDTs7c96m0vwMuZTVx3NqP2E3z/hkoRf8Ea9soL8yTvUuuyF1cg/Sb1Yhbg==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   cypress@14.5.2:
     resolution: {integrity: sha512-O4E4CEBqDHLDrJD/dfStHPcM+8qFgVVZ89Li7xDU0yL/JxO/V0PEcfF2I8aGa7uA2MGNLkNUAnghPM83UcHOJw==}
@@ -838,6 +846,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  cypress-xpath@2.0.1: {}
 
   cypress@14.5.2:
     dependencies:
