@@ -2201,6 +2201,7 @@ describe("Handling Web Tables", () => {
 ```
 8. Vamos a probar: </br> » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc10043_WebTable.spec.cy.js`.
 9. Este es el resultado esperado: </br> ![Simple Alert](images/2025-07-22_144027.png "Simple Alert")
+10. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
 
 
@@ -2235,6 +2236,64 @@ describe("Handling Web Tables", () => {
 >                    expect(dueAmount).to.equal('$51.00')
 >                })
 >            }
+>        })
+>    })
+>})
+>```
+
+
+### 45. Handling Iframes
+
+1. Empezamos ingresando a este sitio [the-internet -> iframe](https://the-internet.herokuapp.com/iframe).
+2. Creamos el archivo **`cypress/e2e/tc10045_Iframes.spec.cy.js`** y ponemos un código básico:
+```js
+/// <reference types="cypress" />
+
+describe("Handling Iframes", () => {
+  beforeEach(() => {
+    // Visit the page with tables
+    cy.visit("https://the-internet.herokuapp.com/iframe");
+  });
+
+  it("Iframes", () => {});
+});
+```
+3. Tengo inicialmente un mensaje al frente, que debo cerrar para proceder: </br> ![Notificación](images/2025-07-23_104541.png "Notificación")
+4. Inspecciono el el botón de la `X`, para poderlo cerrar: </br> `<button type="button" tabindex="-1" class="tox-notification__dismiss tox-button tox-button--naked tox-button--icon"><div aria-label="Close" class="tox-icon"><svg width="24" height="24" focusable="false"><path d="M17.3 8.2L13.4 12l3.9 3.8a1 1 0 01-1.5 1.5L12 13.4l-3.8 3.9a1 1 0 01-1.5-1.5l3.9-3.8-3.9-3.8a1 1 0 011.5-1.5l3.8 3.9 3.8-3.9a1 1 0 011.5 1.5z" fill-rule="evenodd"></path></svg></div></button>` </br>Esta es la instrucción para cerrar dicho botón, dentro del `it`:
+```js
+    // Close the tox-notification, using button with class 'tox-notification__dismiss'
+    cy.get(".tox-notification__dismiss").click();
+```
+5. Luego inspecciono el espacio donde se podría editar, que tiene el texto `Your content goes here`: </br> `<iframe id="mce_0_ifr" frameborder="0" allowtransparency="true" title="Rich Text Area" class="tox-edit-area__iframe"></iframe>` </br> Y resulta que es un `iframe`.
+6. Parece que el sitio ya se encuetra restringido, y está de solo lectura para que solo verifiquemos la existencia del elemento:
+```js
+    // Verify the element exists in the iframe
+    cy.get("#mce_0_ifr").then(($iframe) => {
+      const $body = $iframe.contents().find("body");
+      console.log("element: ", $body);
+      // Verify it is empty
+      cy.wrap($body).should("be.exist");
+    });
+```
+7. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+
+### 46. Code - iFrames
+
+>[!NOTE]
+>
+>**Code - iFrames
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Advanced UI Elements',function(){
+> 
+>    it('Iframes',function(){
+>        cy.visit('https://the-internet.herokuapp.com/iframe')
+>        cy.get('#mce_0_ifr').within(function($iframe){
+>            const frame = $iframe.contents().find('#tinymce')
+>            cy.wrap(frame).clear().type('hello')
 >        })
 >    })
 >})
