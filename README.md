@@ -2671,4 +2671,144 @@ describe("Hooks Implementation", () => {
 >```
 
 
+### 55. How to use test data with Fixtures
+
+1. El instructor nos sugiere volver al sitio [conduit](https://react-redux.realworld.io/), pero sabemos que tiene muchos eerores, entonces vamos a probar en el [OrangeHRM](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
+2. Empezamos por copiar el archivo **`cypress/e2e/tc11053_HooksImplementation.spec.cy.js`** en el archivo **`cypress/e2e/tc11055_FixturesTest.spec.cy.js`**, hago cambios para solo probar un _Login_ correcto y otro errado:
+```js
+/// <reference types="cypress" />
+
+let isGood = true;
+
+describe("Hooks Implementation", () => {
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  });
+  beforeEach(() => {
+    // Visit the OrangeHRM login page before each test
+    cy.visit(
+      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    );
+  });
+  const login = (isGood) => {
+    // Login again before the next test
+    cy.get("input[placeholder='Username']").type("Admin", { delay: 0 });
+    if (isGood) {
+      cy.get("input[placeholder='Password']").type("admin123", { delay: 0 });
+    } else {
+      cy.get("input[placeholder='Password']").type("bad123", { delay: 0 });
+    }
+    cy.get("button[type='submit']").click();
+  };
+
+  it("Just Login correctly", () => {
+    isGood = true;
+    // Login before the test
+    login(isGood);
+    // Navigate to Admin tab and search for a user
+    cy.get(".oxd-sidepanel-body").contains("Admin").click();
+  });
+
+  it("Just Login wrong", () => {
+    isGood = false;
+    // Login with wrong credentials
+    login(isGood);
+    // Get the error message
+    cy.get(".oxd-text.oxd-text--p.oxd-alert-content-text")
+      .should("be.visible")
+      .and("contain.text", "Invalid credentials");
+  });
+
+  afterEach(() => {
+    if (isGood) {
+      // Log out after each test if isGood is true
+      cy.get(".oxd-userdropdown-name").click();
+      cy.xpath("//a[normalize-space()='Logout']").click();
+    }
+  });
+
+  after(() => {
+    cy.clearCookies();
+  });
+});
+```
+3. Creamos el siguiente archivo **`cypress/fixtures/OrangeRHM.json`**, con esta información:
+```json
+{
+  "userName":"Admin",
+  "password":"admin123",
+  "wrongPassword":"wrong123"
+}
+```
+4. Vamos a utilizarlo en el archivo **`tc11055_FixturesTest.spec.cy.js`**, en el `cy.bforeEach`:
+```js
+  beforeEach(() => {
+    // Fixture: Load the fixture before each test
+    // cy.fixture("orange-rhm").as("data"); // Not work
+    cy.fixture("orange-rhm").then((orange) => {
+      data = orange;
+    });
+    
+    // Visit the OrangeHRM login page before each test
+    cy.visit(
+      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    );
+  });
+```
+5. Corrijo los valores en el login usando la variable `data`:
+```js
+  const login = (isGood) => {
+    // Login again before the next test
+    cy.get("input[placeholder='Username']").type(data?.userName, {
+      delay: 0,
+    });
+    if (isGood) {
+      cy.get("input[placeholder='Password']").type(data?.password, { delay: 0 });
+    } else {
+      cy.get("input[placeholder='Password']").type(data?.wrongPassword, { delay: 0 });
+    }
+    cy.get("button[type='submit']").click();
+  };
+```
+6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc11055_FixturesTest.spec.cy.js`.
+7. Algo así sería el resultado esperado: </br> ![Fixtures Implementation](images/2025-07-24_180517.png "Fixtures Implementation")
+8. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 56. Code - Fixtures
+
+>[!NOTE]
+>
+>**Code - Fixtures**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Fixtures test',function(){
+> 
+>    beforeEach(function(){
+>        cy.fixture('ConduitData').as('data')
+>    })
+> 
+>    it('Conduit - Valid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(this.data.email)
+>        cy.get('input[type="password"]').type(this.data.password)
+>        cy.get('button[type="submit"]').click()
+>        cy.contains('Settings').click()
+>        cy.contains('Or click here to logout.').click()
+>    })
+> 
+>    it('Conduit - Invalid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(this.data.email)
+>        >cy.get('input[type="password"]').type(this.data.passwordWrong)
+>        cy.get('button[type="submit"]').click()
+>        cy.get('.error-messages').should('contain','email or >password is invalid')
+>    })
+>})
+>```
+
 
