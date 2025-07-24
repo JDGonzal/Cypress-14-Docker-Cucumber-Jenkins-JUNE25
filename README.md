@@ -2458,3 +2458,105 @@ describe("Handling Browser Controls", () => {
 >})
 >```
 
+
+
+## Section 11: Framework Designing - Part 1
+
+### 51. Hooks - Part 1
+
+1. Empezamos creando el archivo **`cypress/e2e/tc11051_HooksBasic.scpec.cy.js`** y poniendo estos comentarios y lo básico de `Cypress`:
+```js
+/// <reference types="cypress" />
+
+/*
+? Basic Hooks Test
+  * Before
+  * After
+  * BeforeEach
+  * AfterEach
+*/
+
+describe("Hooks Basics", () => {
+
+});
+```
+2. Vamos a colocar logs por cada uno de estos, y el `it`, también generando un log:
+```js
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  });
+
+  after(() => {
+    // This will run once after all tests
+    cy.log("Running after all tests");
+  });
+
+  beforeEach(() => {
+    // This will run before each test
+    cy.log("Running before each test");
+  });
+
+  afterEach(() => {
+    // This will run after each test
+    cy.log("Running after each test");
+  });
+
+  it("Test Case 1", () => {
+    cy.log("Executing Test Case 1");
+    expect(true).to.be.true;
+  });
+
+  it("Test Case 2", () => {
+    cy.log("Executing Test Case 2");
+    expect(true).to.be.true;
+  });
+```
+3. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc11051_HooksBasic.spec.cy.js`.
+4. Este sería el resultado esperado: </br> ![Hooks Basics](images/2025-07-24_105824.png "Hooks Basics")
+5. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 25. Code - Hooks - Part 1
+
+>[!NOTE]
+>
+>**Code - Hooks - Part 1**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Hooks Basics',function(){
+> 
+>    before(function(){
+>        cy.log('Before block')
+>    })
+> 
+>    beforeEach(function(){
+>        cy.log('Before Each block')
+>    })
+> 
+>    it('Search item',function(){
+>        cy.log('This is Search item block')
+>    })
+> 
+>    it('Order item',function(){
+>        cy.log('This is Order item block')
+>    })
+> 
+>    it('Check out item',function(){
+>        cy.log('This is Check out item block')
+>    })
+> 
+>    afterEach(function(){
+>        cy.log('After Each block')
+>    })
+> 
+>    after(function(){
+>        cy.log('After block')
+>    })
+> 
+>})
+>```
+
+
+
