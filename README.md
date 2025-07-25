@@ -2812,3 +2812,282 @@ describe("Hooks Implementation", () => {
 >```
 
 
+### 57. Excel - Reading Data
+
+1. Debemos revisar esta biblioteca [npm -> xlsx](https://www.npmjs.com/package/xlsx), e instalar en una `TERMINAL` con este comando: </br> `pnpm add xlsx -E` </br> El instructor sugiere utilizar el parámetro `-D`, para que solo sea una `devDependencies`, pero esta debe ser una dependencia normal.
+2. Creamos dentro de la carpeta **"cypress"**, la carpeta **"plugins"**.
+3. Creamos el archivo **`cypress/plugins/index.js`**.
+4. Creamos el archivo **`cypress/plugins/read-xlsx.js`**.
+5. En el archivo **`read-xlsx.js`**, importamos lo siguiente:
+```js
+// import fs from "fs"; // It not work
+// import xlsx from "xlsx"; // It not work
+const fs = require("fs"); // It has to be 'require' not 'import'
+const XLSX = require("xlsx"); // It has to be 'require' not 'import'
+```
+6. Dentro de **`read-xlsx.js`**, ponemos dos funciones, la primera es la propuesta por el instructor:
+```js
+/* Suggested by Instructor */
+const read = ({ file, sheet = "Sheet1" }) => {
+  const buf = fs.readFileSync(file);
+  const workbook = XLSX.read(buf, { type: "buffer" });
+  const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+  console.log("Rows:", rows);
+  return rows;
+};
+```
+7. Y la otra función es la propuesta por `Copilot` con algunas correcciones:
+```js
+/* Suggested by Copilot  with some corrections*/
+const readXlsxFile = ({file}) => {
+  // Check if the file exists
+  if (!fs.existsSync(file)) {
+    console.error(`File not found: ${file}`);
+    throw new Error(`File not found: ${file}`, file);
+  }
+  // Read the file
+  const workbook = XLSX.readFile(file);
+  // Get the first sheet name
+  const sheetName = workbook.SheetNames[0];
+  // Get the first sheet
+  const worksheet = workbook.Sheets[sheetName];
+  // Convert the sheet to JSON format
+  const data = XLSX.utils.sheet_to_json(worksheet/*, { header: 1 }*/);
+  console.log("Data from Excel:", data);
+  // Return the data
+  return data;
+};
+```
+>[!IMPORTANT]
+>
+>#### El modelo que utiliza el Instructor con `module` es muy arcaico, actualmente se utiliza el de `import`, pero infortunadamente es el único que funciona en este ejercicio.
+
+8. Creamos un archivo de nombre **`cypress\fixtures\orange-rhm.xlsx`** y lo abrimos con `Excel` o `LibreOffice`: </br> ![orange-rhm.xlsx](images/2025-07-25_111642.png "orange-rhm.xlsx")
+9. El archivo **`cypress\plugins\index.js`** empezamos importando el `cypress` y el archivo que recién construimos:
+```js
+/// <reference types="cypress" />
+
+const readXlsx = require("./read-xlsx"); // It has to be 'require' not 'import'
+// import  readXlsx from './read-xlsx'; // It not work
+```
+10. En el mismo **`index.js`**, exportamos como la `"task"`:
+```js
+// It has to be 'module.exports' not 'export default'
+// export default (on, config) => {
+//   on("task", {
+//     'readXlsx': readXlsx.readXlsxFile, // .read
+//   });
+// };
+module.exports = (on, config) => {
+  on("task", {
+    'readXlsx': readXlsx.readXlsxFile, // .read
+  });
+};
+```
+11. Abrimos el archivo **`cypress.config.js`** añadimos en `setupNodeEvents(on, config)`, lo siguiente:
+```js
+const { defineConfig } = require("cypress");
+// import { defineConfig } from "cypress"; // It not work
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+      return require('./cypress/plugins/index.js')(on,config)
+    },
+    video:true, // Enable video recording
+    videosFolder: "cypress/e2e/videos", // Specify the folder for videos
+  },
+});
+```
+12. Creamos el archivo **`cypress/e2e/tc11057_ReadExcel.espec.cy.js`** y copiamos denro el contenido de **`cypress/e2e/tc11055_FixturesTest.spec.cy.js`**.
+13. Hamos algunos cambios en el archivo **`tc11057_ReadExcel.espec.cy.js`**:
+```js
+/// <reference types="cypress" />
+
+let isGood = true;
+let data = {};
+
+describe("Excel Implementation", () => {
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  });
+
+  beforeEach(() => {
+    // If you want to refer to Sheet1 then you dont need to pass it deliberately
+    // If you want to pass other sheet names then use it like below
+    // data = cy.task('readXlsx',{file:'cypress/fixtures/ConduitExcelData.xlsx',sheet:'Sheet2'})
+    data = cy
+      .task("readXlsx", { file: "cypress/fixtures/orange-rhm.xlsx" })
+      .then((rows) => {
+        data = rows;
+      });
+    // Visit the OrangeHRM login page before each test
+    cy.visit(
+      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    );
+  });
+
+  const login = (isGood) => {
+    // Login again before the next test
+    cy.get("input[placeholder='Username']").type(data[0]?.username, {
+      delay: 0,
+    });
+    if (isGood) {
+      cy.get("input[placeholder='Password']").type(data[0]?.password, {
+        delay: 0,
+      });
+    } else {
+      cy.get("input[placeholder='Password']").type(data[1]?.password, {
+        delay: 0,
+      });
+    }
+    cy.get("button[type='submit']").click();
+  };
+
+  it("Just Login correctly", () => {
+    isGood = true;
+    // Login before the test
+    login(isGood);
+    // Navigate to Admin tab and search for a user
+    cy.get(".oxd-sidepanel-body").contains("Admin").click();
+  });
+
+  it("Just Login wrong", () => {
+    isGood = false;
+    // Login with wrong credentials
+    login(isGood);
+    // Get the error message
+    cy.get(".oxd-text.oxd-text--p.oxd-alert-content-text")
+      .should("be.visible")
+      .and("contain.text", "Invalid credentials");
+  });
+
+  afterEach(() => {
+    if (isGood) {
+      // Log out after each test if isGood is true
+      cy.get(".oxd-userdropdown-name").click();
+      cy.xpath("//a[normalize-space()='Logout']").click();
+    }
+  });
+
+  after(() => {
+    cy.clearCookies();
+  });
+});
+```
+
+>[!WARNING]
+>
+> Si utilizo el `{ header : 1 }` en el archivo **`read-xlsx.js`**, al momento de la función `sheet_to_json`, me arroja este resultado:
+>```json
+>Data from Excel: [
+>  [ 'username', 'password' ],
+>  [ 'Admin', 'admin123' ],
+>  [ 'Admin', 'wrong123' ]
+>]
+>```
+> Pero si no lo pongo genera un mejor resultado :
+> ```json
+>Data from Excel: [
+>  { username: 'Admin', password: 'admin123' },
+>  { username: 'Admin', password: 'wrong123' }
+> ```
+14. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc11057_ReadExcel.spec.cy.js`.
+15. Algo así sería el resultado esperado: </br> ![Excel Implementation](images/2025-07-25_152931.png "Excel Implementation")
+16. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+>[!TIP]
+>
+>De nuevo hay solicitud de actualización de `Cypress`, con este comando en una `TERMINAL`: </br> `pnpm add cypress@14.5.3`
+
+
+### 58. Code - Excel reading data
+
+>[!NOTE]
+>
+>**Code - Excel reading data**
+>
+>**`cypress.config.js`**
+>```js
+>module.exports = defineConfig({
+>  e2e: {
+>    setupNodeEvents(on, config) {
+>      // implement node event listeners here
+>      return require('./cypress/plugins/index.js')(on,config)
+>    },
+>  },
+>});
+>```
+>
+>**`cypress/plugins/index.js`**
+>```js
+>/// <reference types="cypress" />
+> 
+>const readXlsx = require('./read-xlsx')
+> 
+>module.exports = (on, config) => {
+>on('task', {
+>    'readXlsx': readXlsx.read
+>  }) 
+>}
+>```
+>
+>**`cypress/plugins/read-xlsx.js`**
+>```js
+>const fs = require('fs');
+>const XLSX = require('xlsx');
+>const read = ({file, sheet='Sheet1'}) => {
+>const buf = fs.readFileSync(file);
+>const workbook = XLSX.read(buf, { type: 'buffer' });
+>const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+>return rows
+>}
+> 
+>module.exports = {
+>read,
+>}
+>```
+>
+>**`ExcelTest.spec.js`**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Excel test',function(){
+> 
+>    var data;
+> 
+>    beforeEach(function(){
+>        // If you want to refer to Sheet1 then you dont need to pass it deliberately
+>        // If you want to pass other sheet names then use it like below
+>        // data = cy.task('readXlsx',{file:'cypress/fixtures/ConduitExcelData.xlsx',sheet:'Sheet2'})
+>        data = cy.task('readXlsx',{file:'cypress/fixtures/ConduitExcelData.xlsx'})
+>        .then((rows)=>{
+>            data = rows
+>        })
+>    })
+> 
+>    it('Conduit - Valid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(data[0].username)
+>        cy.get('input[type="password"]').type(data[0].password)
+>        cy.get('button[type="submit"]').click()
+>        cy.contains('Settings').click()
+>        cy.contains('Or click here to logout.').click()
+>    })
+> 
+>    it('Conduit - Invalid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(data[1].username)
+>        cy.get('input[type="password"]').type(data[1].password)
+>        cy.get('button[type="submit"]').click()
+>        cy.get('.error-messages').should('contain','email or password is invalid')
+>    })
+>})
+>```
+
+
+
