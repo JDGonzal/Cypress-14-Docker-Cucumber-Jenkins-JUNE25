@@ -2814,7 +2814,7 @@ describe("Hooks Implementation", () => {
 
 ### 57. Excel - Reading Data
 
-1. Debemos revisar esta biblioteca [npm -> xlsx](https://www.npmjs.com/package/xlsx), e instalar en una `TERMINAL` con este comando: </br> `pnpm add xlsx -E` </br> El instructor sugiere utilizar el parámetro `-D`, para que solo sea una `devDependencies`, pero esta debe ser una dependencia normal.
+1. Debemos revisar esta biblioteca [npm -> xlsx](https://www.npmjs.com/package/xlsx), e instalar en una `TERMINAL` con este comando: </br> `pnpm add xlsx -D -E` </br> El instructor sugiere utilizar el parámetro `-D`, para que solo sea una `devDependencies`.
 2. Creamos dentro de la carpeta **"cypress"**, la carpeta **"plugins"**.
 3. Creamos el archivo **`cypress/plugins/index.js`**.
 4. Creamos el archivo **`cypress/plugins/read-xlsx.js`**.
@@ -2825,7 +2825,7 @@ describe("Hooks Implementation", () => {
 const fs = require("fs"); // It has to be 'require' not 'import'
 const XLSX = require("xlsx"); // It has to be 'require' not 'import'
 ```
-6. Dentro de **`read-xlsx.js`**, ponemos dos funciones, la primera es la propuesta por el instructor:
+1. Dentro de **`read-xlsx.js`**, ponemos dos funciones, la primera es la propuesta por el instructor:
 ```js
 /* Suggested by Instructor */
 const read = ({ file, sheet = "Sheet1" }) => {
@@ -2836,7 +2836,7 @@ const read = ({ file, sheet = "Sheet1" }) => {
   return rows;
 };
 ```
-7. Y la otra función es la propuesta por `Copilot` con algunas correcciones:
+1. Y la otra función es la propuesta por `Copilot` con algunas correcciones:
 ```js
 /* Suggested by Copilot  with some corrections*/
 const readXlsxFile = ({file}) => {
@@ -2862,8 +2862,8 @@ const readXlsxFile = ({file}) => {
 >
 >#### El modelo que utiliza el Instructor con `module` es muy arcaico, actualmente se utiliza el de `import`, pero infortunadamente es el único que funciona en este ejercicio.
 
-8. Creamos un archivo de nombre **`cypress\fixtures\orange-rhm.xlsx`** y lo abrimos con `Excel` o `LibreOffice`: </br> ![orange-rhm.xlsx](images/2025-07-25_111642.png "orange-rhm.xlsx")
-9. El archivo **`cypress\plugins\index.js`** empezamos importando el `cypress` y el archivo que recién construimos:
+1. Creamos un archivo de nombre **`cypress\fixtures\orange-rhm.xlsx`** y lo abrimos con `Excel` o `LibreOffice`: </br> ![orange-rhm.xlsx](images/2025-07-25_111642.png "orange-rhm.xlsx")
+2. El archivo **`cypress\plugins\index.js`** empezamos importando el `cypress` y el archivo que recién construimos:
 ```js
 /// <reference types="cypress" />
 
@@ -2900,7 +2900,7 @@ module.exports = defineConfig({
   },
 });
 ```
-12. Creamos el archivo **`cypress/e2e/tc11057_ReadExcel.espec.cy.js`** y copiamos denro el contenido de **`cypress/e2e/tc11055_FixturesTest.spec.cy.js`**.
+12. Creamos el archivo **`cypress/e2e/tc11057_ReadExcel.spec.cy.js`** y copiamos denro el contenido de **`cypress/e2e/tc11055_FixturesTest.spec.cy.js`**.
 13. Hamos algunos cambios en el archivo **`tc11057_ReadExcel.espec.cy.js`**:
 ```js
 /// <reference types="cypress" />
@@ -3083,6 +3083,104 @@ describe("Excel Implementation", () => {
 >        cy.contains('Sign in').click()
 >        cy.get('input[type="email"]').type(data[1].username)
 >        cy.get('input[type="password"]').type(data[1].password)
+>        cy.get('button[type="submit"]').click()
+>        cy.get('.error-messages').should('contain','email or password is invalid')
+>    })
+>})
+>```
+
+
+### 59. Csv - Reading Data
+
+1. Debemos revisar esta biblioteca [npm -> neat-csv](https://www.npmjs.com/package/neat-csv), e instalar en una `TERMINAL` con este comando: </br> `pnpm add neat-csv -D -E` </br> El instructor sugiere utilizar el parámetro `-D`, para que solo sea una `devDependencies`.
+>[!WARNING]
+>Actualmente el descarga la versión `7.0.0`, pero esta genera un error justo al momento de ser `importada`, se sugiere ejecutar este comando para obtener una versión que le funciona al Instructor: </br> `pnpm add neat-csv@5.2.0 -D -E`
+
+2. Creamos el archivo **`cypress/fixtures/orange-rhm.csv`**, simplemente con este texto:
+```csv
+username,	password
+Admin,	admin123
+Admin,	wrong123
+```
+1. Creamos el archivo **`cypress/e2e/tc11059_ReadCsv.spec.cy.js`** y copiamos el contenido del archivo **`cypress/e2e/tc11057_ReadExcel.spec.cy.js`**.
+2. Directamente en el archivo **`tc11059_ReadCsv.spec.cy.js`**, empezamos la importación de la biblioteca `neat-csv`: </br> `import neatCSV from 'neat-csv';`
+3. Luego el `beforeEach`, le hacemos los cambios para manejar esta biblioteca en un `cy.fixture()`:
+```js
+  beforeEach(() => {
+    // Read the CSV file using neatCsv using a fixture
+    cy.fixture("orange-rhm.csv")
+      .then(neatCSV)
+      .then((data) => {
+        table = data;
+        console.log("CSV Data:", table);
+      });
+    ...
+    );
+  });
+```
+6. Cambiamos el el nombre en la función `login()`, en vez de `data` por `table`:
+```js
+  const login = (isGood) => {
+    // Login again before the next test
+    cy.get("input[placeholder='Username']").type(table[0]?.username, {
+      delay: 0,
+    });
+    if (isGood) {
+      cy.get("input[placeholder='Password']").type(table[0]?.password, {
+        delay: 0,
+      });
+    } else {
+      cy.get("input[placeholder='Password']").type(table[1]?.password, {
+        delay: 0,
+      });
+    }
+    cy.get("button[type='submit']").click();
+  };
+```
+7. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc11059_ReadCsv.spec.cy.js`.
+8. Algo así sería el resultado esperado: </br> ![CSV Implementation](images/2025-07-25_194449.png "CSV Implementation")
+9. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+### 60. Code - CSV reading data
+
+>[!NOTE]
+>
+>**Code - CSV reading data**
+>
+>**`CsvTest.spec.js`**
+>```js
+>/// <reference types="Cypress" />
+> 
+>const neatCsv = require('neat-csv')
+> 
+>describe('Csv test',function(){
+> 
+>    var table;
+> 
+>    beforeEach(function(){
+>        cy.fixture('ConduitCsv.csv')
+>        .then(neatCsv)
+>        .then(data=>{
+>            table = data
+>        })
+>    })
+> 
+>    it('Conduit - Valid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(table[0].username)
+>        cy.get('input[type="password"]').type(table[0].password)
+>        cy.get('button[type="submit"]').click()
+>        cy.contains('Settings').click()
+>        cy.contains('Or click here to logout.').click()
+>    })
+> 
+>    it('Conduit - Invalid Credentials',function(){
+>        cy.visit('https://react-redux.realworld.io/')
+>        cy.contains('Sign in').click()
+>        cy.get('input[type="email"]').type(table[1].username)
+>        cy.get('input[type="password"]').type(table[1].password)
 >        cy.get('button[type="submit"]').click()
 >        cy.get('.error-messages').should('contain','email or password is invalid')
 >    })
