@@ -2825,7 +2825,7 @@ describe("Hooks Implementation", () => {
 const fs = require("fs"); // It has to be 'require' not 'import'
 const XLSX = require("xlsx"); // It has to be 'require' not 'import'
 ```
-1. Dentro de **`read-xlsx.js`**, ponemos dos funciones, la primera es la propuesta por el instructor:
+6. Dentro de **`read-xlsx.js`**, ponemos dos funciones, la primera es la propuesta por el instructor:
 ```js
 /* Suggested by Instructor */
 const read = ({ file, sheet = "Sheet1" }) => {
@@ -2836,7 +2836,7 @@ const read = ({ file, sheet = "Sheet1" }) => {
   return rows;
 };
 ```
-1. Y la otra función es la propuesta por `Copilot` con algunas correcciones:
+7. Y la otra función es la propuesta por `Copilot` con algunas correcciones:
 ```js
 /* Suggested by Copilot  with some corrections*/
 const readXlsxFile = ({file}) => {
@@ -2862,8 +2862,8 @@ const readXlsxFile = ({file}) => {
 >
 >#### El modelo que utiliza el Instructor con `module` es muy arcaico, actualmente se utiliza el de `import`, pero infortunadamente es el único que funciona en este ejercicio.
 
-1. Creamos un archivo de nombre **`cypress\fixtures\orange-rhm.xlsx`** y lo abrimos con `Excel` o `LibreOffice`: </br> ![orange-rhm.xlsx](images/2025-07-25_111642.png "orange-rhm.xlsx")
-2. El archivo **`cypress\plugins\index.js`** empezamos importando el `cypress` y el archivo que recién construimos:
+8. Creamos un archivo de nombre **`cypress\fixtures\orange-rhm.xlsx`** y lo abrimos con `Excel` o `LibreOffice`: </br> ![orange-rhm.xlsx](images/2025-07-25_111642.png "orange-rhm.xlsx")
+9. El archivo **`cypress\plugins\index.js`** empezamos importando el `cypress` y el archivo que recién construimos:
 ```js
 /// <reference types="cypress" />
 
@@ -3094,7 +3094,10 @@ describe("Excel Implementation", () => {
 
 1. Debemos revisar esta biblioteca [npm -> neat-csv](https://www.npmjs.com/package/neat-csv), e instalar en una `TERMINAL` con este comando: </br> `pnpm add neat-csv -D -E` </br> El instructor sugiere utilizar el parámetro `-D`, para que solo sea una `devDependencies`.
 >[!WARNING]
->Actualmente el descarga la versión `7.0.0`, pero esta genera un error justo al momento de ser `importada`, se sugiere ejecutar este comando para obtener una versión que le funciona al Instructor: </br> `pnpm add neat-csv@5.2.0 -D -E`
+>
+>### Error de la versión 7.0.0 de `neat-csv`
+>
+>Actualmente el descarga la versión `7.0.0`, pero esta genera un error: [Error: Can't resolve 'node:buffer'  #744](https://github.com/cypress-io/cypress-example-recipes/issues/744), justo al momento de ser `importada`, se sugiere ejecutar este comando para obtener una versión que le funciona al Instructor: </br> `pnpm add neat-csv@5.2.0 -D -E` </br>
 
 2. Creamos el archivo **`cypress/fixtures/orange-rhm.csv`**, simplemente con este texto:
 ```csv
@@ -3102,9 +3105,9 @@ username,	password
 Admin,	admin123
 Admin,	wrong123
 ```
-1. Creamos el archivo **`cypress/e2e/tc11059_ReadCsv.spec.cy.js`** y copiamos el contenido del archivo **`cypress/e2e/tc11057_ReadExcel.spec.cy.js`**.
-2. Directamente en el archivo **`tc11059_ReadCsv.spec.cy.js`**, empezamos la importación de la biblioteca `neat-csv`: </br> `import neatCSV from 'neat-csv';`
-3. Luego el `beforeEach`, le hacemos los cambios para manejar esta biblioteca en un `cy.fixture()`:
+3. Creamos el archivo **`cypress/e2e/tc11059_ReadCsv.spec.cy.js`** y copiamos el contenido del archivo **`cypress/e2e/tc11057_ReadExcel.spec.cy.js`**.
+4. Directamente en el archivo **`tc11059_ReadCsv.spec.cy.js`**, empezamos la importación de la biblioteca `neat-csv`: </br> `import neatCSV from 'neat-csv';`
+5. Luego el `beforeEach`, le hacemos los cambios para manejar esta biblioteca en un `cy.fixture()`:
 ```js
   beforeEach(() => {
     // Read the CSV file using neatCsv using a fixture
@@ -3187,5 +3190,131 @@ Admin,	wrong123
 >})
 >```
 
+
+
+## Section 12: Framework Designing - Part 2
+
+### 61. How to create Custom commands
+
+1. Creamos el archivo **`cypress/e2e/tc12061_CustomCommand.spec.cy.js`**.
+2. Copiamos el contenido del archivo **`cypress/e2e/tc11055_FixturesTest.spec.cy.js`**.
+3. Por ahora el único cambio es el `describe`:
+```js
+describe("Custom Command Implementation", () => {
+  ...
+});
+```
+4. Abrimos el archivo **`cypress/support/commands.js`**.
+5. Quitamos los comentarios a esta línea: </br> `Cypress.Commands.add('login', (email, password) => { ... })`
+6. Cambiamos el texto de soolo `login` a `orangehrmlogin` y en el código entre llaves agregamos esto:
+```js
+Cypress.Commands.add("orangehrmlogin", (userName, password) => {
+  // Visit the OrangeHRM login page before each test
+  cy.visit(
+    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+  );
+  
+  cy.get("input[placeholder='Username']").type(userName, {
+    delay: 0,
+  });
+  cy.get("input[placeholder='Password']").type(password, {
+    delay: 0,
+  });
+
+  cy.get("button[type='submit']").click();
+});
+```
+7. Así quedaría el archivo **`tc12061_CustomCommand.spec.cy.js`**:
+```js
+/// <reference types="cypress" />
+
+describe("Custom Command Implementation", () => {
+  let data = {};
+  let itCanLogout = true;
+
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  });
+
+  beforeEach(() => {
+    // Fixture: Load the fixture before each test
+    // cy.fixture("orange-rhm").as("data"); // Not work
+    cy.fixture("orange-rhm").then((orange) => {
+      data = orange;
+    });
+
+    // It does't work with the command
+    // cy.visit(
+    //   "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    // );
+  });
+
+  it("Just Login correctly", () => {
+    itCanLogout = true;
+    // Login before the test
+    cy.orangehrmlogin(data?.userName, data?.password);
+    // Navigate to Admin tab and search for a user
+    cy.get(".oxd-sidepanel-body").contains("Admin").click();
+  });
+
+  it("Just Login wrong", () => {
+    itCanLogout = false;
+    // Login with wrong credentials
+    cy.orangehrmlogin(data?.userName, data?.wrongPassword);
+    // Get the error message
+    cy.get(".oxd-text.oxd-text--p.oxd-alert-content-text")
+      .should("be.visible")
+      .and("contain.text", "Invalid credentials");
+  });
+
+  afterEach(async () => {
+    if (!itCanLogout) {
+      cy.log("Skipping logout due to failed login");
+      return; // Skip logout if login was unsuccessful
+    } else {
+      // Log out after each test if isGood is true
+      cy.get(".oxd-userdropdown-name").should("be.visible").click();
+      cy.xpath("//a[normalize-space()='Logout']").should("be.visible").click();
+    }
+  });
+
+  after(() => {
+    cy.clearCookies();
+  });
+});
+```
+8. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc12061_CustomCommand.spec.cy.js`.
+9. Algo así sería el resultado esperado: </br> ![CCustom Command](images/2025-07-29_121504.png "Custom Command")
+10. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+
+### 62. Code - CustomCommands
+
+>[!NOTE]
+>
+>**Code - CustomCommands**
+>```js
+>/// <reference types="Cypress" />
+> 
+>describe('Fixtures test',function(){
+> 
+>    beforeEach(function(){
+>        cy.fixture('ConduitData').as('data')
+>    })
+> 
+>    it('Conduit - Valid Credentials',function(){
+>        cy.conduitLogin(this.data.email,this.data.password)
+>        cy.contains('Settings').click()
+>        cy.contains('Or click here to logout.').click()
+>    })
+> 
+>    it('Conduit - Invalid Credentials',function(){
+>        cy.conduitLogin(this.data.email,this.data.passwordWrong)
+>        cy.get('.error-messages').should('contain','email or password is invalid')
+>    })
+>})
+>```
 
 
