@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "open": "cypress open",
     "run-electron": "cypress run --spec 'cypress/e2e/*.cy.js'",
+    "run-electron63": "cypress run --spec 'cypress/e2e/tc12063_CustomCommand.spec.cy.js'",
     "run-electron-headed": "cypress run --headed --browser electron --spec 'cypress/e2e/*.cy.js'",
     "run-chrome-headed": "cypress run --headed --browser chrome --spec 'cypress/e2e/*.cy.js'",
     "smoke-test": "cypress run --spec 'cypress/e2e/smokeTests/*.cy.js'",

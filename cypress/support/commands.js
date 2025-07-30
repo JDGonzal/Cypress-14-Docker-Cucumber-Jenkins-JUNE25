@@ -15,7 +15,9 @@ Cypress.Commands.add("orangehrmlogin", (userName, password) => {
   cy.visit(
     "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
   );
-  
+  // cy.visit(Cypress.config("baseUrl"));
+  // cy.visit("/"); // this is wrong, it will not work as expected
+  cy.log("Logging in with username:", userName, "and password:", password);
   cy.get("input[placeholder='Username']").type(userName, {
     delay: 0,
   });
