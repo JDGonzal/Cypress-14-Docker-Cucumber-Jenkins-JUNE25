@@ -3413,3 +3413,231 @@ module.exports = defineConfig({
 >También una función para introducir la dirección de correo electrónico basada en el texto que enviamos.
 >Esto se denomina patrón de diseño del modelo de objetos de página (_Page Object Model_ - `POM`).
 
+
+
+### 65. Implementing Page Object Model with current framework
+
+1. Empezamos creando este directorio: **"cypress/e2e/pages"**.
+2. Creamos el archivo **`cypress/e2e/pages/landingPage.js`**.
+3. Empezamos definiendo una `class` de nombre `LandingPage` (_Primera siempre en mayúscula_) y exportándola al final como `default`:
+```js
+class LandingPage {}
+
+export default LandingPage;
+```
+4. Dentro de la `class`, ponemos la función `getSignin()` y la invoacamos en otra función de nombre `cliclSignButton()`:
+```js
+class LandingPage {
+  getLoginText() {
+    return "Login"; // locator for the Login text
+  }
+
+  shouldLoginText() {
+    cy.contains(this.getLoginText()).should("be.visible")
+  }
+}
+```
+5. Creamos el archivo **`cypress/e2e/pages/loginPage.js`**.
+6. También definimos una `class` de nombre `loginPage` (_Primera siempre en mayúscula_) y también la exportamos al final como `default`:
+```js
+class LoginPage {}
+
+export default new LoginPage();
+```
+7. Dentro de la `class`, obtenemos los elementos o _locators_:
+```js
+class LoginPage {
+  // Getters for locators
+  getUsernameField() {
+    return "input[placeholder='Username']"
+  }
+  getPasswordField() {
+    return "input[placeholder='Password']"
+  }
+  getLoginButton() {
+    return "button[type='submit']"
+  }
+  getErrorMessage() {
+    return ".oxd-text.oxd-text--p.oxd-alert-content-text";
+  }
+}
+```
+8. Agregamos para estos tres primeros _locators_ al proceso para usarlos:
+```js
+  // Methods to use the locators
+  enterUsername(userName) {
+    cy.get(this.getUsernameField()).type(userName, {
+      delay: 0,
+    });
+  }
+  enterPassword(password) {
+    cy.get(this.getPasswordField()).type(password, {
+      delay: 0,
+    });
+  }
+  clickLoginButton() {
+    cy.get(this.getLoginButton()).click();
+  }
+```
+9. Creamos una función que unifica los tres elementos y otro para verificar el mensaje de error:
+```js
+  // Method to perform login
+  login(userName, password) {
+    this.enterUsername(userName);
+    this.enterPassword(password);
+    this.clickLoginButton();
+  }
+  // Method to verify error message
+  verifyErrorMessage(expectedMessage) {
+    cy.get(this.getErrorMessage())
+      .should("be.visible")
+      .and("contain.text", expectedMessage);   
+  }
+```
+10. Creamos el archivo **`cypress/e2e/pages/homePage.js`**, ponemos la `class`, exportamos por `default` y definimos estos elementos o _locators_ para buscar y validamos que al menos estén visibles:
+```js
+class HomePage {
+  // Getters for locators
+  getAdminTab() {
+    return "Admin";
+  }
+  getPIMTab() {
+    return "PIM";
+  }
+  getLeaveTab() {
+    return "Leave";
+  }
+  getDashboardTab() {
+    return "Dashboard";
+  }
+
+  // Methods to use the locators
+  shouldSeeAdminTab() {
+    cy.get.contains(this.getAdminTab()).should("be.visible");
+  }
+  shouldSeePIMTab() {
+    cy.get.contains(this.getPIMTab()).should("be.visible");
+  }
+  shouldSeeLeaveTab() {
+    cy.get.contains(this.getLeaveTab()).should("be.visible");
+  }
+  shouldSeeDashboardTab() {
+    cy.get.contains(this.getDashboardTab()).should("be.visible");
+  }
+}
+
+export default HomePage;
+```
+11. Creamos un método que inifica el proceso:
+```js
+  // Method to navigate to Admin tab
+  navigateToAdmin() {
+    this.shouldSeeAdminTab;
+    this.shouldSeePIMTab();
+    this.shouldSeeLeaveTab();
+    this.shouldSeeDashboardTab();
+  }
+```
+12. Creamos el archivo **`cypress/e2e/pages/settingsPage.js`**, ponemos la `class`, exportamos por `default` y definimos estos elementos o _locators_ para buscar y validamos que al menos estén visibles:
+```js
+class SettingsPage {
+  // Getters for locators
+  getLogoutSelector() {
+    return ".oxd-userdropdown-name";
+  }
+  getLogoutLink() {
+    return "//a[normalize-space()='Logout']";
+  }
+
+  // Methods to use the locators
+  clickLogoutSelector() {
+    cy.get(this.getLogoutSelector()).should("be.visible").click();
+  }
+  clickLogoutLink() {
+    cy.xpath(this.getLogoutLink()).should("be.visible").click();
+  }
+}
+
+export default new SettingsPage();
+```
+13. Creamos el archivo **`cypress/e2e/tc13065_POM_Implementation.spec.cy.js`**.
+14. Empezamos con la referencia `/// <reference types="cypress"/>`.
+15. Importamos las cuatro páginas inialmente definidas:
+```js
+import LandingPage from "./pages/landingPage";
+import LoginPage from "./pages/loginPage";
+import HomePage from "./pages/homePage";
+import SettingsPage from "./pages/settingsPage";
+```
+16. Añado el `describe` y los elementos parecidos al del archivo **`tc12063_CustomCommand.spec.cy.js`**:
+```js
+/// <reference types="cypress" />
+
+// import AdminPage from "../pageObjects/adminPage"; // Sugested import
+import LandingPage from "./pages/landingPage";
+import LoginPage from "./pages/loginPage";
+import HomePage from "./pages/homePage";
+import SettingsPage from "./pages/settingsPage";
+
+describe("POM Implementation", () => {
+  let data = {};
+  let itCanLogout = true;
+
+  const landingPage = new LandingPage();
+  const homePage = new HomePage();
+  const settingsPage = new SettingsPage();
+  const loginPage = new LoginPage();
+
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  
+  });
+
+  beforeEach(() => {
+    cy.log("Running Before each test")
+    // Load the fixture before all test
+    cy.fixture("orange-rhm").then((orange) => {
+      data = orange;
+    });
+    
+  });
+
+  it("Login and navigate to Admin tab", () => {
+    itCanLogout = true;
+    // Login using POM
+    landingPage.visitLoginPage();
+    loginPage.login(data?.userName, data?.password);
+    // Navigate to Admin tab using POM
+    homePage.navigateToAdmin();
+  });
+
+  it("Login with wrong credentials", () => {
+    itCanLogout = false;
+    // Login with wrong credentials using POM
+    landingPage.visitLoginPage()
+    loginPage.login(data?.userName, data?.wrongPassword);
+    // Verify error message using POM
+    loginPage.verifyErrorMessage("Invalid credentials");
+  });
+
+  afterEach(async () => {
+    if (await !itCanLogout) {
+      cy.log("Skipping logout due to failed login");
+      return; // Skip logout if login was unsuccessful
+    } else {
+      // Log out using POM
+      await settingsPage.clickLogoutSelector();
+      await settingsPage.clickLogoutLink();
+    }
+  });
+
+  after(() => {
+    cy.clearCookies();
+  });
+});
+```
+17. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc13065_POM_Implementation.spec.cy.js`.
+18. Algo así sería el resultado esperado: </br> ![POM Implementation](images/2025-08-01_170713.png "POM Implementation")
+19. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
