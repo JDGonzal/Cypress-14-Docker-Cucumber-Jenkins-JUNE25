@@ -3364,3 +3364,52 @@ module.exports = defineConfig({
 18. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
 
+
+## Section 13: Framework Designing - Part 3
+
+### 64. Page Object Model Importance
+
+>[!NOTE]
+>
+>En este vídeo veremos qué es el patrón de diseño de modelo de objetos de página.
+>Antes de entender el patrón de diseño del modelo de objetos de página, vamos a entender el escenario de pruebas en
+>tiempo real.
+>
+>Por ejemplo, digamos que hay un escenario de prueba uno donde tenemos que ir a la página de destino.
+>Tenemos que hacer clic en el botón de inicio de sesión, introducir las credenciales y, a continuación, nos dirigirá a la página
+>de inicio.
+>Allí.
+>Digamos que tenemos que crear un post, y tenemos que ver si el post ha sido creado con éxito.
+>Este es el escenario uno.
+>
+>Y el escenario dos también sigue el mismo patrón.
+>Tenemos que ir a la página de aterrizaje.
+>Tenemos que hacer clic en el botón de inicio de sesión.
+>Introduzca las credenciales.
+>Desde ahí tenemos que ir a la página de inicio.
+>Esta vez tenemos que hacer clic en el icono de alimentación global.
+>A partir de ahí tenemos que cerrar la sesión así.
+>
+>Supongamos que tenemos varios escenarios en nuestro bloque de pruebas.
+>Digamos que mañana el localizador del botón de registro ha sido cambiado por el desarrollador.
+>Si es así, tendremos que actualizar todos los casos de prueba que utilicen este localizador de botones de inicio de sesión.
+>
+>![Test Scenario 1, Test Scenario 2](images/2025-08-01_140445.png "Test Scenario 1, Test Scenario 2")
+>
+>Digamos que si hay 100 casos de prueba que utilizan este inicio de sesión, entonces todos esos 100 casos de prueba necesitan ser
+>actualizados debido a un pequeño cambio de localizador hecho por el desarrollador.
+>Para evitar estas confusiones, lo mejor es utilizar el modelo de objetos de página (_Page Object Model_ - `POM`).
+>
+>**Page Object Model** no es más que un patrón de diseño, donde podemos crear múltiples páginas para en la interfaz de usuario, y cotejar
+>todos los localizadores en esa página web bajo un archivo de página.
+>Digamos que si tenemos una página de aterrizaje en esa página de aterrizaje, tendremos el botón de registro y el botón de registro.
+>Así que crearemos los localizadores del botón de registro y del botón de inscripción en la página de destino.
+>
+>Del mismo modo, podríamos tener una página de inicio de sesión donde tendremos los localizadores para introducir el cuadro de texto del correo electrónico, introducir
+>el cuadro de texto de la contraseña y hacer clic en el botón Iniciar sesión.
+>Del mismo modo, podemos tener múltiples clases de página como queramos.
+>Junto con estos localizadores, también podemos escribir las funciones en esta clase de página para hacer ciertas acciones.
+>Por ejemplo, en la página de inicio de sesión podemos escribir un localizador para el campo de correo electrónico.
+>También una función para introducir la dirección de correo electrónico basada en el texto que enviamos.
+>Esto se denomina patrón de diseño del modelo de objetos de página (_Page Object Model_ - `POM`).
+
