@@ -3651,7 +3651,7 @@ describe("POM Implementation", () => {
 >Tener una página base en el modelo de objetos de página es una práctica beneficiosa que ofrece varias ventajas a nuestro
 >marco de automatización de pruebas.
 >
->![Ventajas de tener una `BasePage` en el `POM`](images/2025-08-02_162751.png "Ventajas de tener una `BasePage` en el `POM`")
+>![Ventajas de tener una `BasePage` en el `POM`. Parte 1](images/2025-08-02_162751.png "Ventajas de tener una `BasePage` en el `POM`. Parte 1")
 >
 >Estas son algunas de las razones clave de tener esta página base en nuestro modelo de objetos de página.
 >
@@ -3681,6 +3681,7 @@ describe("POM Implementation", () => {
 >está probando, en lugar de estar abarrotado de código repetitivo para la interacción con elementos web.
 >Esto mejora la claridad y legibilidad de sus casos de prueba.
 >
+>![Ventajas de tener una `BasePage` en el `POM`. Parte 2](images/2025-08-02_163607.png "Ventajas de tener una `BasePage` en el `POM`. Parte 2")
 >
 >* Las siguientes ventajas son la escalabilidad.
 >A medida que crece el conjunto de pruebas, se crean más objetos de página.
@@ -3706,5 +3707,316 @@ describe("POM Implementation", () => {
 >En resumen, una página base en el modelo Page Object es esencial para promover la reutilización del código, simplificar
 >el mantenimiento, garantizar la coherencia, etc. es un componente fundamental de un marco de automatización de pruebas
 >bien organizado y eficaz.
+
+
+### 67. Base Page Implementation
+
+>[!TIP]
+>
+>En `Cypress`, los nombres de archivo para clases dentro de la carpeta **"pages"** (o cualquier carpeta que organice tus páginas de la interfaz de usuario) deben seguir una convención que facilite la identificación y el mantenimiento del código. Un ejemplo común es utilizar un nombre que refleje el propósito de la página seguido de la extensión **`.page.ts`** (si usas `TypeScript`) o **`.page.js`** (si usas `JavaScript`).
+>
+>Ejemplo:
+>
+>Si tienes una página de inicio de sesión, un nombre de archivo adecuado podría ser: **`login.page.ts`** (si usas `TypeScript`), **`login.page.js`** (si usas `JavaScript`).
+>
+>#### Recomendaciones:
+>
+>**Minúsculas y guiones:**
+>Utiliza minúsculas para todas las letras y separa las palabras con guiones para una mejor legibilidad.</br>
+>**`.page`**:</br>
+>Incluye la extensión `.page` para indicar claramente que se trata de una clase que representa una página en tu aplicación.</br>
+>**`.ts`** o **`.js`**:</br>
+>Asegúrate de usar la extensión correcta según el lenguaje de programación que estés utilizando.
+>
+>**Organización:**
+>Mantén una estructura de carpetas consistente para tus archivos de página, por ejemplo, dentro de una carpeta **"pages"** en tu directorio **"cypress/support"** o en mi caso **"cypress/e2e"**.
+>
+>Ejemplo completo:
+>Si tienes una página de inicio de sesión y usas `JavaScript`, podrías tener la siguiente estructura:
+>```bash
+>cypress/
+>└── e2e/
+>    └── pages/
+>        └── login.page.js
+>```
+>Y dentro de **`login.page.js`**, tendrías la clase `LoginPage` que modela la página de inicio de sesión:
+>```js
+>class LoginPage {
+>  // ... métodos y propiedades de la página de inicio de sesión >...
+>}
+>
+>export default LoginPage;
+>```
+
+1. Empezamos creando el archivo **`cypress/e2e/pages/base.page.js`** y similar que los otros en esta carpeta, epezamos creando la `class` (_mismo nombre del archivo, sin el punto, y la primera en mayúsculas_), seguido de la exportación por `default`:
+```js
+class BasePage {}
+
+export default BasePage;
+```
+2. Agregamos al tope la _referencia_ a `Cypress`: </br> `/// <reference types="cypress" />`
+
+>[!NOTE]
+>
+>**¿Qué es la página base?**
+>
+>Como hemos visto en el vídeo anterior, dentro de la página base, vamos a tener todos los métodos comunes que se
+>utilizarán a través de múltiples páginas.
+>
+>Así, por ejemplo, algunos de los métodos comunes son digamos navegar a que, básicamente, navegar a cualquiera que sea
+>la URL que estamos alimentando en hacer clic fuera de un elemento, llenar el cuadro de texto, obtener el texto
+>del elemento, a la espera de que el elemento sea visible así.
+>
+>Podemos crear cualquier número de métodos comunes en función de nuestras necesidades.
+
+3. Ponemos un método común como sería el ir a la _URL_ que se quiere navegar:
+```js
+  // Common method to navigate
+  navigateTo(url) {
+    cy.visit(url);
+  }
+```
+4. Un método común para hacer clic en un elemento:
+```js
+  // Common method for element clicking
+  clickElement(locator, getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        cy.contains(locator).click();
+        break;
+      case "x":
+        cy.xpath(locator).click();
+        break;
+      default:
+        cy.get(locator).click();
+        break;
+    }
+  }
+```
+5. Un método común para ingresar un texto:
+```js
+  // Common method for entering text
+  fillText(locator, value = "", getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        cy.contains(locator).type(value, { delay: 0 });
+        break;
+      case "x":
+        cy.xpath(locator).type(value, { delay: 0 });
+        break;
+      default:
+        cy.get(locator).type(value, { delay: 0 });
+        break;
+    }
+  }
+```
+6. Un método común para obtener un texto de un elemento:
+```js
+  // Common method to retrieve text from an element
+  getElementText(locator, getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        return cy.contains(locator).getElementText("text");
+        break;
+      case "x":
+        return cy.xpath(locator).getElementText("text");
+        break;
+      default:
+        return cy.get(locator).getElementText("text");
+        break;
+    }
+  }
+```
+7. Un método común para esperar la visibilidad de un elemento:
+```js
+  // Common method to wait for an element to be visible
+  waitForElementVisible(locator, getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        cy.contains(locator).should("be.visible");
+        break;
+      case "x":
+        cy.xpath(locator).should("be.visible");
+        break;
+      default:
+        cy.get(locator).should("be.visible");
+        break;
+    }
+  }
+```
+8. Un método común para afirmar (_assert_) si un elemento es visible:
+```js
+  // Common method to assert if an element to be visible
+  isElementVisible(locator, getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        return cy.contains(locator).should("be.visible");
+        break;
+      case "x":
+        return cy.xpath(locator).should("be.visible");
+        break;
+      default:
+        return cy.get(locator).should("be.visible");
+        break;
+    }
+  }
+```
+9. Un método común para afirmar (_assert_) si un elemento es visible y hay un texto esperado:
+```js
+  // Common method to assert if an element to be visible and expected text
+  isElementVisibleAndExpected(locator, expectedText, getTheDOM = "g") {
+    switch (getTheDOM) {
+      case "c":
+        return cy
+          .contains(locator)
+          .should("be.visible")
+          .and("contain.text", expectedText);
+        break;
+      case "x":
+        return cy
+          .xpath(locator)
+          .should("be.visible")
+          .and("contain.text", expectedText);
+        break;
+      default:
+        return cy
+          .get(locator)
+          .should("be.visible")
+          .and("contain.text", expectedText);
+        break;
+    }
+  }
+```
+10. Vamos a integrar este nuevo **`base.page.js`**, con el resto de archivos de la carpeta **"pages"**, empezando con el **`home.page.js`**, importando `./base.page` y en la `class` haciendo un `extend` de `BasePage`:
+```js
+import BasePage from "./base.page";
+
+class HomePage extends BasePage {
+  // Getters for locators
+  getAdminTab() {
+    return "Admin";
+  }
+
+  // Methods to use the locators
+  shouldSeeAdminTab() {
+    console.log("See ", this.getAdminTab());
+    // cy.contains(this.getAdminTab).should("be.visible");
+    this.isElementVisible(this.getAdminTab, "c");
+  }
+
+  // Method to navigate to Admin tab
+  navigateToAdmin() {
+    this.shouldSeeAdminTab;
+  }
+}
+
+export default HomePage;
+```
+11. Seguimos con **`landing.page.js`**, importando `./base.page` y añadiendo el `extend` a `BasePage`:
+```js
+import BasePage from "./base.page";
+
+class LandingPage extends BasePage {
+  // Getters for locators
+  getLoginText() {
+    return ".oxd-text.oxd-text--h5.orangehrm-login-title"; // locator for the Login text
+  }
+  getURL() {
+    return "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"; // URL for the login page
+  }
+
+  // Methods to use the locators
+  shouldLoginText() {
+    // cy.get(this.getLoginText()).should("be.visible");
+    this.isElementVisible(this.getLoginText());
+  }
+  visitLoginPage() {
+    // cy.visit(this.getURL());
+    this.navigateTo(this.getURL());
+    this.shouldLoginText();
+  }
+}
+
+export default LandingPage;
+```
+12. Seguimos con **`login.page.js`**, importando `./base.page` y añadiendo el `extend` a `BasePage`:
+```js
+import BasePage from "./base.page";
+
+class LoginPage extends BasePage {
+  // Getters for locators
+  getUsernameField() {
+    return "input[placeholder='Username']";
+  }
+  getPasswordField() {
+    return "input[placeholder='Password']";
+  }
+  getLoginButton() {
+    return "button[type='submit']";
+  }
+  getErrorMessage() {
+    return ".oxd-text.oxd-text--p.oxd-alert-content-text";
+  }
+
+  // Methods to use the locators
+  enterUsername(userName) {
+    // cy.get(this.getUsernameField()).type(userName, { delay: 0 });
+    this.fillText(this.getUsernameField(), userName);
+  }
+  enterPassword(password) {
+    // cy.get(this.getPasswordField()).type(password, { delay: 0 });
+    this.fillText(this.getPasswordField(), password);
+  }
+  clickLoginButton() {
+    // cy.get(this.getLoginButton()).click();
+    this.clickElement(this.getLoginButton());
+  }
+
+  // Method to perform login
+  login(userName, password) {
+    console.log("Logging in with:", userName, password);
+    this.enterUsername(userName);
+    this.enterPassword(password);
+    this.clickLoginButton();
+  }
+  // Method to verify error message
+  verifyErrorMessage(expectedMessage) {
+    // cy.get(this.getErrorMessage()).should("be.visible").and("contain.text", expectedMessage);
+    this.isElementVisibleAndExpected(this.getErrorMessage(), expectedMessage);
+  }
+}
+
+export default LoginPage;
+```
+13. Finalizamos con **`settings.page.js`**, importando `./base.page` y añadiendo el `extend` a `BasePage`:
+```js
+import BasePage from "./base.page";
+
+class SettingsPage extends BasePage {
+  // Getters for locators
+  getLogoutSelector() {
+    return ".oxd-userdropdown-name";
+  }
+  getLogoutLink() {
+    return "//a[normalize-space()='Logout']";
+  }
+
+  // Methods to use the locators
+  clickLogoutSelector() {
+    // cy.get(this.getLogoutSelector()).click();
+    this.clickElement(this.getLogoutSelector());
+  }
+  clickLogoutLink() {
+    // cy.xpath(this.getLogoutLink()).click();
+    this.clickElement(this.getLogoutLink(), "x");
+  }
+}
+
+export default SettingsPage;
+```
+14. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc13065_POM_Implementation.spec.cy.js`.
+15. Algo así sería el resultado esperado: </br> ![POM Implementation](images/2025-08-01_170713.png "POM Implementation")
+16. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
 
 

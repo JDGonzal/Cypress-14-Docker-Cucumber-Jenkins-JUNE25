@@ -1,4 +1,6 @@
-class LoginPage {
+import BasePage from "./base.page";
+
+class LoginPage extends BasePage {
   // Getters for locators
   getUsernameField() {
     return "input[placeholder='Username']";
@@ -15,17 +17,16 @@ class LoginPage {
 
   // Methods to use the locators
   enterUsername(userName) {
-    cy.get(this.getUsernameField()).type(userName, {
-      delay: 0,
-    });
+    // cy.get(this.getUsernameField()).type(userName, { delay: 0 });
+    this.fillText(this.getUsernameField(), userName);
   }
   enterPassword(password) {
-    cy.get(this.getPasswordField()).type(password, {
-      delay: 0,
-    });
+    // cy.get(this.getPasswordField()).type(password, { delay: 0 });
+    this.fillText(this.getPasswordField(), password);
   }
   clickLoginButton() {
-    cy.get(this.getLoginButton()).click();
+    // cy.get(this.getLoginButton()).click();
+    this.clickElement(this.getLoginButton());
   }
 
   // Method to perform login
@@ -37,9 +38,8 @@ class LoginPage {
   }
   // Method to verify error message
   verifyErrorMessage(expectedMessage) {
-    cy.get(this.getErrorMessage())
-      .should("be.visible")
-      .and("contain.text", expectedMessage);
+    // cy.get(this.getErrorMessage()).should("be.visible").and("contain.text", expectedMessage);
+    this.isElementVisibleAndExpected(this.getErrorMessage(), expectedMessage);
   }
 }
 
