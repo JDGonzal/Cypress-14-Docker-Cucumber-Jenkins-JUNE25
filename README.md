@@ -3641,3 +3641,70 @@ describe("POM Implementation", () => {
 18. Algo así sería el resultado esperado: </br> ![POM Implementation](images/2025-08-01_170713.png "POM Implementation")
 19. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
 
+
+
+
+### 66. Base Page Introduction
+
+>[!NOTE]
+>
+>Tener una página base en el modelo de objetos de página es una práctica beneficiosa que ofrece varias ventajas a nuestro
+>marco de automatización de pruebas.
+>
+>![Ventajas de tener una `BasePage` en el `POM`](images/2025-08-02_162751.png "Ventajas de tener una `BasePage` en el `POM`")
+>
+>Estas son algunas de las razones clave de tener esta página base en nuestro modelo de objetos de página.
+>
+>* Así que la primera ventaja de tener la página base es la reutilización del código.
+>Una página base permite definir e implementar métodos y comportamientos comunes compartidos por varios objetos de
+>página.
+>Esto favorece la reutilización del código, reduciendo la redundancia y haciendo más eficiente el mantenimiento.
+>
+>* La siguiente ventaja es el mantenimiento.
+>Cuando su aplicación cambia o se actualiza, normalmente necesita actualizar su código de automatización de pruebas en consecuencia.
+>Con una página base, puede realizar cambios en un solo lugar, que es en la página base en lugar de en varias clases de objetos de
+>página, lo que simplifica el mantenimiento y reduce las posibilidades de que se pierdan actualizaciones.
+>
+>* La tercera ventaja es la coherencia.
+>Una página base impone una estructura y un comportamiento coherentes para sus objetos de página.
+>Garantiza que los métodos comunes tengan una convención de nomenclatura y una implementación coherentes, lo que facilita el trabajo
+>conjunto del equipo de automatización y la comprensión de la base de código.
+>
+>* La cuarta es la encapsulación.
+>El patrón Perm pretende encapsular la interacción con los elementos web y la acción asociada dentro de
+>objetos de página.
+>Una página base ayuda a encapsular acciones o interacciones comunes, como navegar a una URL, realizar operaciones de
+>inicio y cierre de sesión de forma limpia y organizada.
+>
+>* La quinta es la claridad de los casos de prueba.
+>Al utilizar una página base para los métodos comunes, su caso de prueba se centra más en la funcionalidad específica que se
+>está probando, en lugar de estar abarrotado de código repetitivo para la interacción con elementos web.
+>Esto mejora la claridad y legibilidad de sus casos de prueba.
+>
+>
+>* Las siguientes ventajas son la escalabilidad.
+>A medida que crece el conjunto de pruebas, se crean más objetos de página.
+>Una página base simplifica el proceso de añadir nuevos objetos de página.
+>Puede extender la página base para crear nuevos objetos de página, heredando rápidamente todos los métodos comunes
+>y reduciendo el esfuerzo de desarrollo.
+>
+>* La siguiente es probar las mejores prácticas.
+>La separación de las preocupaciones es un principio fundamental del desarrollo de software.
+>Al centralizar los métodos comunes en una página base, se adhiere a este principio, haciendo que su código de automatización
+>de pruebas sea más mantenible, legible y robusto.
+>
+>* El octavo es el diseño modular.
+>Una página base promueve un diseño modular y organizado para su marco de automatización de pruebas.
+>Separa las preocupaciones de la funcionalidad común de la funcionalidad específica de cada objeto de página,
+>lo que facilita la gestión y ampliación de su base de código de automatización.
+>
+>* Y la última ventaja es la colaboración eficaz en un entorno de equipo.
+>Varios ingenieros de automatización pueden trabajar en distintas partes de la aplicación.
+>Una página base con métodos comunes proporciona una base compartida.
+>Los miembros del equipo pueden colaborar y garantizar la coherencia y la eficacia en el desarrollo de la automatización de pruebas.
+>
+>En resumen, una página base en el modelo Page Object es esencial para promover la reutilización del código, simplificar
+>el mantenimiento, garantizar la coherencia, etc. es un componente fundamental de un marco de automatización de pruebas
+>bien organizado y eficaz.
+
+
