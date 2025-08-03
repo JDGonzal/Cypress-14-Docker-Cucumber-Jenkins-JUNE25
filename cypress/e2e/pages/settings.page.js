@@ -20,4 +20,5 @@ class SettingsPage extends BasePage {
   }
 }
 
-export default SettingsPage;
+const settingsPage = new SettingsPage();
+export default settingsPage;

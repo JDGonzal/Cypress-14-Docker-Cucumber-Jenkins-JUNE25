@@ -19,4 +19,5 @@ class HomePage extends BasePage {
   }
 }
 
-export default HomePage;
+const homePage = new HomePage();
+export default homePage;

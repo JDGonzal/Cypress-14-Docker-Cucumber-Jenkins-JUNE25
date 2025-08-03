@@ -4020,3 +4020,48 @@ export default SettingsPage;
 
 
 
+### 68. Object Creation in Page Class
+
+>[!NOTE]
+>
+>En este vídeo, veremos cómo crear fácilmente los objetos de página para cada una de las clases de página que utilizamos en nuestra
+>prueba.
+>
+>En nuestros vídeos anteriores, ya hemos visto cómo integrar la página Modelo de objetos.
+>Si usted ve esta prueba, se puede ver.
+>Primero importamos todas las clases de página que necesitamos y dentro del bloque describe creamos los
+>objetos para esas clases.
+>
+>Así que si creamos sólo los objetos, entonces podemos obtener todos los métodos dentro de cada clase de página.
+>Por ejemplo, aquí hemos creado un objeto llamado como página de aterrizaje.
+>Así que en el momento en que introduzca landing page dot, mostrará todos los métodos y los localizadores que están disponibles como
+>parte de esta landing page.
+>
+>Pero imagina en tu prueba, digamos si tienes que usar diez clases de páginas.
+>Así que en ese caso, lo que tienes que hacer es añadir diez sentencias import para importar todas esas clases de
+>página.
+>Y luego tienes que escribir diez objetos donde tienes que crear objetos para cada clase.
+>Es una gran molestia.
+>
+>Así que ahora vamos a ver cómo resolver fácilmente este problema con sólo importarlos y no creando ningún objeto para
+>ello.
+>Para ello, lo que tenemos que hacer es ir a las clases de cada página.
+>Y aquí se puede ver que tenemos la declaración de clase aquí.
+
+1. Empezando en el archivo **`home.page.js`**, antes del `export`, hacemos este cambio:
+```js
+const homePage = new HomePage();
+export default homePage;
+```
+2. Y en el archivo **`tc13065_POM_Implementation.spec.cy.js`**, cambiamos el `import` y ya no requerimos esta línea: </br> `const homePage = new HomePage();`:
+```js
+import homePage from "./pages/home.page";
+```
+3. Repetimos este proceso para:
+    * **`landing.page.js`**
+    * **`home.page.js`**
+    * **`settings.page.js`**
+4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc13065_POM_Implementation.spec.cy.js`.
+5. Algo así sería el resultado esperado: </br> ![POM Implementation](images/2025-08-01_170713.png "POM Implementation")
+6. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
