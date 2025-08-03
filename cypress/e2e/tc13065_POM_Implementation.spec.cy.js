@@ -1,19 +1,19 @@
 /// <reference types="cypress" />
 
 // import AdminPage from "../pageObjects/adminPage"; // Sugested import
-import LandingPage from "./pages/landing.page";
-import LoginPage from "./pages/login.page";
-import HomePage from "./pages/home.page";
-import SettingsPage from "./pages/settings.page";
+import landingPage from "./pages/landing.page";
+import loginPage from "./pages/login.page";
+import homePage from "./pages/home.page";
+import settingsPage from "./pages/settings.page";
 
 describe("POM Implementation", () => {
   let data = {};
   let itCanLogout = true;
 
-  const landingPage = new LandingPage();
-  const homePage = new HomePage();
-  const settingsPage = new SettingsPage();
-  const loginPage = new LoginPage();
+  // const landingPage = new LandingPage();
+  // const homePage = new HomePage();
+  // const settingsPage = new SettingsPage();
+  // const loginPage = new LoginPage();
 
   before(() => {
     // This will run once before all tests
