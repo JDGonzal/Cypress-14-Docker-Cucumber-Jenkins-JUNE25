@@ -1,4 +1,5 @@
 import BasePage from "./base.page";
+import loginPage from "./login.page";
 
 class LandingPage extends BasePage {
   // Getters for locators
@@ -11,13 +12,16 @@ class LandingPage extends BasePage {
 
   // Methods to use the locators
   shouldLoginText() {
-    // cy.get(this.getLoginText()).should("be.visible");
     this.isElementVisible(this.getLoginText());
   }
   visitLoginPage() {
-    // cy.visit(this.getURL());
     this.navigateTo(this.getURL());
     this.shouldLoginText();
+    return loginPage;
+  }
+
+  _landing(){
+    return loginPage;
   }
 }
 

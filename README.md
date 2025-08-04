@@ -4053,7 +4053,7 @@ export default SettingsPage;
 const homePage = new HomePage();
 export default homePage;
 ```
-2. Y en el archivo **`tc13065_POM_Implementation.spec.cy.js`**, cambiamos el `import` y ya no requerimos esta línea: </br> `const homePage = new HomePage();`:
+2. Y en el archivo **`tc13065_POM_Implementation.spec.cy.js`**, cambiamos el `import` y ya no requerimos esta línea: </br> ~~`const homePage = new HomePage();`~~:
 ```js
 import homePage from "./pages/home.page";
 ```
@@ -4064,4 +4064,159 @@ import homePage from "./pages/home.page";
 4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc13065_POM_Implementation.spec.cy.js`.
 5. Algo así sería el resultado esperado: </br> ![POM Implementation](images/2025-08-01_170713.png "POM Implementation")
 6. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
+
+### 69. Method Chaining
+
+>[!NOTE]
+>
+>En este vídeo veremos cómo implementar el encadenamiento de métodos.
+>Primero entenderemos qué es el encadenamiento de métodos.
+>Como su nombre indica, es una técnica para cambiar los métodos presentes en los archivos de página.
+>La ventaja de este encadenamiento de métodos es que no necesitamos importar manualmente todos los archivos de página que estamos incluyendo
+>en nuestra prueba.
+>
+>En su lugar, podemos importar sólo una clase de página y la lista de todas las conexiones entre cada clase de página se llevará
+>a cabo debido a este método.
+>Encadenamiento.
+>Otra ventaja de esto es que podemos probar intrínsecamente la navegación entre páginas.
+>
+
+1. Abrimos archivo **`landing.page.js`** y empezamos importando `"./login.page"` y en el método `visitLoginPage()`, hacemos un `return loginPage;`.
+2. En el archivo **`login.page.js`** en el método `enterUsername()` hacemos un `return this;`.
+3. Hacemos lo mismo para el método `enterPassword()`.
+4. Agregamos la importación de `"./home.page"`.
+5. En el método `clickLoginButton()`, agregamos un `return homePage;`.
+6. En el archivo **`home.page.js`**, para el método `shouldSeeAdminTab()`, agregamos un `return this;`.
+7. E importamos `"./settings.page"`.
+8. Y en el método `navigateToAdmin()`, agregamos esto `return settingsPage;`.
+9. En el archivo **`settings.page.js`**, agregamos un import a `"./landing.page"`.
+10. En el método `clickLogoutLink()`, agregamos esto `return landingPage;`.
+11. Movemos del archivo **`login.page.js`** a **`home.page.js`** los métodos: </br> `verifyErrorMessage()` </br> `getErrorMessage()`
+12. Cambiamos el método `navigateToAdmin()` para hacer un condicional:
+```js
+  navigateToAdmin(expectedMessage) {
+    if (expectedMessage) {
+      this.verifyErrorMessage(expectedMessage);
+    } else {
+      this.shouldSeeAdminTab;
+    }
+    return settingsPage;
+  }
+```
+13. Copiamos el archivo **`tc13065_POM_Implementation.spec.cy.js`** en **`tc13069_POM_withMethodChaining.spec.cy.js`**
+14. Borramos todos los `import`, excepto el de `landingPage`, y todo se encadena a `landingPage`:
+```js
+/// <reference types="cypress" />
+
+import landingPage from "./pages/landing.page";
+
+describe("POM Implementation", () => {
+  let data = {};
+  let itCanLogout = true;
+
+  before(() => {
+    // This will run once before all tests
+    cy.log("Running before all tests");
+  });
+
+  beforeEach(() => {
+    cy.log("Running Before each test");
+    // Load the fixture before all test
+    cy.fixture("orange-rhm").then((orange) => {
+      data = orange;
+    });
+  });
+
+  it("Login and navigate to Admin tab", () => {
+    itCanLogout = true;
+    // Login using POM
+    landingPage
+      .visitLoginPage()
+      .login(data?.userName, data?.password)
+      // Navigate to Admin tab using POM
+      .navigateToAdmin();
+  });
+
+  it("Login with wrong credentials", () => {
+    itCanLogout = false;
+    // Login with wrong credentials using POM
+    landingPage
+      .visitLoginPage()
+      .login(data?.userName, data?.wrongPassword)
+      // Verify error message using POM
+      .navigateToAdmin("Invalid credentials");
+  });
+
+  afterEach(async () => {...});
+
+  after(() => {...});
+});
+```
+15. Esta es la ruta con la que quedó de encadenamiento entre las clases, desde **`landing.page.js`**:
+>```bash
+>landing.page.js
+>└── login.page.js
+>    └── home.page.js
+>        └── settings.page.js
+>```
+16. Se crea el método `logout()` en el archivo **`settings.page.js`** para llamar los otros métodos en cadena y reotrne `landingPage` y los otros métodos se les pone un `return this`:
+```js
+class SettingsPage extends BasePage {
+  // Getters for locators
+  getLogoutSelector() {...}
+  getLogoutLink() {...}
+
+  // Methods to use the locators
+  clickLogoutSelector() {
+    this.clickElement(this.getLogoutSelector());
+    return this;
+  }
+  clickLogoutLink() {
+    this.clickElement(this.getLogoutLink(), "x");
+    return this;
+  }
+
+  logout() {
+    this.clickLogoutSelector().clickLogoutLink();
+    return landingPage;
+  }
+}
+```
+17. Creo en **`home.page.js`** una función que retorne `settingsPage`:
+```js
+  _home(){
+    return settingsPage;
+  }
+```
+18. Creo en **`login.page.js`** una función que retorne `homePage`:
+```js
+  _login(){
+    return homePage;
+  }
+```
+19. Creo en **`landing.page.js`** una función que retorne `loginPage`:
+```js
+  _landing(){
+    return loginPage;
+  }
+```
+20. Anora en el `afterEach()` de **`tc13069_POM_withMethodChaining.spec.cy.js`**, llamo toda esta cadena, hasta llegar al `logout()`:
+```js
+  afterEach(async () => {
+    if (await !itCanLogout) {
+      cy.log("Skipping logout due to failed login");
+      return; // Skip logout if login was unsuccessful
+    } else {
+      // Log out using POM
+      await landingPage._landing()._login()._home().logout();
+    }
+  });
+```
+21. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc13069_POM_withMethodChaining.spec.cy.js`.
+22. Algo así sería el resultado esperado: </br> ![POM with Method Chaining](images/2025-08-03_190452.png "POM with Method Chaining")
+23. Cierro el _browser_ controlado por `Cypress` y el aplicativo de `Cypress`.
+
+
 

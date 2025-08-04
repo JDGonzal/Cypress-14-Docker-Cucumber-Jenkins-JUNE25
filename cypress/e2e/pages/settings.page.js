@@ -1,4 +1,5 @@
 import BasePage from "./base.page";
+import landingPage from "./landing.page";
 
 class SettingsPage extends BasePage {
   // Getters for locators
@@ -11,12 +12,17 @@ class SettingsPage extends BasePage {
 
   // Methods to use the locators
   clickLogoutSelector() {
-    // cy.get(this.getLogoutSelector()).click();
     this.clickElement(this.getLogoutSelector());
+    return this;
   }
   clickLogoutLink() {
-    // cy.xpath(this.getLogoutLink()).click();
     this.clickElement(this.getLogoutLink(), "x");
+    return this;
+  }
+
+  logout() {
+    this.clickLogoutSelector().clickLogoutLink();
+    return landingPage;
   }
 }
 
