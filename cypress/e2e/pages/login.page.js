@@ -1,4 +1,5 @@
 import BasePage from "./base.page";
+import homePage from "./home.page";
 
 class LoginPage extends BasePage {
   // Getters for locators
@@ -11,36 +12,32 @@ class LoginPage extends BasePage {
   getLoginButton() {
     return "button[type='submit']";
   }
-  getErrorMessage() {
-    return ".oxd-text.oxd-text--p.oxd-alert-content-text";
-  }
 
   // Methods to use the locators
   enterUsername(userName) {
-    // cy.get(this.getUsernameField()).type(userName, { delay: 0 });
     this.fillText(this.getUsernameField(), userName);
+    return this;
   }
   enterPassword(password) {
-    // cy.get(this.getPasswordField()).type(password, { delay: 0 });
     this.fillText(this.getPasswordField(), password);
+    return this;
   }
   clickLoginButton() {
-    // cy.get(this.getLoginButton()).click();
     this.clickElement(this.getLoginButton());
+    return this;
   }
-
-  // Method to perform login
   login(userName, password) {
     console.log("Logging in with:", userName, password);
     this.enterUsername(userName);
     this.enterPassword(password);
     this.clickLoginButton();
+    return homePage;
   }
-  // Method to verify error message
-  verifyErrorMessage(expectedMessage) {
-    // cy.get(this.getErrorMessage()).should("be.visible").and("contain.text", expectedMessage);
-    this.isElementVisibleAndExpected(this.getErrorMessage(), expectedMessage);
+
+  _login(){
+    return homePage;
   }
+
 }
 
 const loginPage = new LoginPage();
