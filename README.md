@@ -4220,3 +4220,94 @@ class SettingsPage extends BasePage {
 
 
 
+### 70. Dashboard featured in Cypress and its Limitations
+
+>[!NOTE]
+>En este vídeo veremos la función del salpicadero en `Cypress`.
+>
+>* Dashboard es el servicio basado en la nube que ofrece `Cypress`.
+>Gracias a este servicio, podemos ejecutar, mantener, registrar y corregir pruebas fallidas en CI con más facilidad que
+>nunca.
+>* El `Cypress Dashboard Service` es un complemento opcional basado en web para el ejecutor de pruebas local, que hemos
+>visto hasta ahora.
+>* Proporciona información puntual, sencilla y potente sobre todas las pruebas realizadas de un vistazo.
+>* Con la paralelización y el equilibrio de carga automáticos, puede optimizar su CI y ejecutar las pruebas mucho
+>más rápido.
+>
+>Veamos ahora las principales ventajas que ofrece este cuadro de mandos.
+>Ventajas muy importantes.
+>
+> * **Paralelización:**
+>Utiliza todas las máquinas disponibles para lograr un mejor rendimiento, lo que significa que el sistema de tablero automatizado
+>entenderá cuántas pruebas hay y cuántos sistemas están disponibles en él, y dividirá todas las pruebas
+>de forma paralela y ejecutará todo al mismo tiempo.
+>Debido a que la ejecución de la prueba, que será diez veces más potente y rápido.
+>
+> * La siguiente ventaja es **La agrupación:**
+>Cree grupos de especificaciones para realizar un seguimiento del entorno de pruebas o aplicaciones monorepo separadas.
+>
+> * La siguiente es la **perspicacia:**
+>Esta es una de las principales ventajas de utilizar el cuadro de mandos, ya que ofrece una visión detallada del rendimiento
+>de cada una de las pruebas y especificaciones, no de si se han superado o no.</br>
+>Por ejemplo, cuando ejecutamos con un corredor de prueba, sólo nos mostrará si se pasa o falla.
+>Pero cuando estamos ejecutando la prueba en el tablero de instrumentos, que le dará una visión detallada,
+>como la cantidad de segundos que tomó para cada paso y en qué paso se ha retrasado de esa manera.
+>La razón para agrupar es que ahorrará un tiempo más cuando se está ejecutando con la paralelización.
+>
+>![Ventajas Importantes](images/2025-08-11_155451.png "Ventajas Importantes")
+>
+> * La siguiente ventaja es la configuración para **grabar la prueba:**
+>Así que aquí podemos configurar un proyecto muy fácilmente.
+>Si quieres trabajar con un cuadro de mando, sólo tienes que seguir un mínimo de dos o tres pasos para configurarlo.
+>
+> * Una vez que hayamos terminado, se sincronizará automáticamente con el CI que estamos solicitando.
+>`Cypress` puede ejecutarse en cualquier CI famoso como Jenkins, Travis CI, Circle CI e incluso con un Docker.
+>Una vez que hemos enganchado este tablero de instrumentos, entonces podemos ejecutar con cualquier CI como deseamos.</br> ![Record Test and Run in CI](images/2025-08-11_155846.png "Record Test and Run in CI")
+>
+> * La siguiente es que podemos **optimizar fácilmente la prueba**, por ejemplo, en este.
+>Imagen si ves que esta ejecutando todas las pruebas en varias misiones como la misión del 1 al 6.
+>Y aquí se muestra cuántas pruebas se han realizado en cada misión.
+>Viendo esto, podemos optimizar fácilmente la prueba basándonos en el equilibrio de carga que ofrece el `Cypress`. </br> ![Optimizar pruebas](images/2025-08-11_161723.png "Optimizar pruebas")
+>
+> * La siguiente es maximizar la eficiencia con la **paralelización**.
+>Igual que en la diapositiva anterior.
+>Esta es una ilustración de cómo el ciprés decidirá cuántas pruebas hay basándose en ella.
+>Asignará un número de máquinas para ejecutarlo en paralelo.
+>Si ves en la imagen de abajo, dice que con la paralelización, toda la prueba se ha completado en cinco
+>minutos.
+>Si la paralelización no estaba, tardará 12. 5 minutos para correr.
+>Así que está ahorrando casi la mitad del tiempo cuando funciona en paralelo. </br> ![Maximizar eficienca con paralelización](images/2025-08-11_162118.png "Maximizar eficienca con paralelización")
+>
+> * La siguiente es el **equilibrio de carga automático**.
+>Esta es una de las características clave que ofrece el tablero de Chipre, que es que automáticamente balanceará la carga basándose
+>en el número de pruebas que tiene, junto con el número de misión que tiene.</br> ![Equilibrio de carga automático](images/2025-08-11_162445.png "Equilibrio de carga automático")
+>
+> * El siguiente es que tiene un fácil acceso con una **integración de GitHub**.
+>Por ejemplo, una vez que su proyecto está integrado con GitHub, cada vez que estamos creando cualquier PR
+>automáticamente se activará una prueba a través de Jenkins o el CI que ha configurado, y el PR será aprobado
+>o rechazado en función del resultado de la prueba de Jenkins.
+> * Así que aquí se puede ver después de la PR, se puede ver la construcción ha fallado, y le dará la razón de por qué la construcción
+>ha fallado.
+>Si hace clic en los detalles, tener esto será de gran ayuda para las personas que están revisando nuestro
+>código.</br> ![Fallas en el PR](images/2025-08-11_162907.png "Fallas en el PR")
+>
+> * Y así será el resultado de la prueba.
+> En caso de que se haya conectado con el flujo de trabajo de Jenkins, dirá claramente para qué commit se ejecutan
+>las pruebas y cuánto tiempo tardan en ejecutarse, y con qué sistema operativo y qué navegador y todos esos detalles. </br> ![Flujo completo a Jenkins](images/2025-08-11_162922.png "Flujo completo a Jenkins")
+>
+> * Pero teniendo todas estas características todavía, tenemos una limitación con este tablero de instrumentos, que
+>no es un libre de costo de uso. </br>
+>Si usted puede ver que a partir de la fecha actual, Chipre está ofreciendo la libre sólo para los 50 usuarios, donde podemos ejecutar
+>sólo los resultados de las pruebas de 500 máximo por mes.</br>
+>![Limitaciones de precios](images/2025-08-11_163330.png "Limitaciones de precios")
+>
+> * Digamos que si usted es un equipo de cinco miembros, podemos utilizar esto, pero como máximo podemos correr con este tablero
+>para 500 pruebas publicadas.
+>La prueba no se ejecutará en caso de que quiera utilizarla para su organización o algo así.
+>Hay múltiples paquetes más que tienen como la empresa de negocios de equipo como este.</br>
+>Pero dado que ha sido un servicio de pago, pero el tablero de instrumentos tiene muy buenas características, lo que hemos
+>discutido hasta ahora.
+>Este es el panel de `Cypress` y las funciones que ofrece.
+
+
+
