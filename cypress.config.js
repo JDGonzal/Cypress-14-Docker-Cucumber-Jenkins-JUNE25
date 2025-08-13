@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 // import { defineConfig } from "cypress"; // It not work
 
 module.exports = defineConfig({
+  projectId: 'ci89hj',
   e2e: {
     screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {

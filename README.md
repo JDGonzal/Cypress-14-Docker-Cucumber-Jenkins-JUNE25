@@ -4311,3 +4311,118 @@ class SettingsPage extends BasePage {
 
 
 
+### 71. Dashboard setup
+
+1. Tenemos tres archivos en la carpeta **"cypress/e2e/13071_Dashboard"**
+2. El primero es **`tc13071a.spec.cy.js`**, una prueba normal de inicio de sesión, que funcionará sin problemas:
+```js
+/// <reference types="cypress" />
+
+describe("Login Functionality", () => {
+  it("Login Test using Conduit", () => {
+    cy.visit("https://react-redux.realworld.io/");
+    cy.get("a[href='#login']").click();
+    cy.get("input[placeholder='Email']").type("cypressdemo@gmail.com", {
+      delay: 0,
+    });
+    cy.get("input[placeholder='Password']").type("cypressdemo", { delay: 0 });
+    cy.get("button[type='submit']").click();
+    cy.get("button[type='submit']").should("be.disabled");
+    cy.xpath("//a[normalize-space()='Home']").click();
+  });
+});
+```
+3. El segundo es **`tc13071b.spec.cy.js`**, con la misma prueba, pero cambiando el primer localizador en vez de:</br>`cy.get("a[href='#login']").click();`</bt>Cambia a ponerlo en plural: </br> `cy.get("a[href='#logins']").click();`
+4. Y el tercero es **`tc13071c.spec.cy.js`**, similar al primero, pero agregando al `it` un `.skip`.
+5. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>
+6. Vamos al botón de <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="shrink-0 h-[24px] m-[12px] w-[24px] children:transition children:duration-300 icon-dark-indigo-300 icon-light-indigo-700"><path d="M3 15h4v4H3v-4Z" fill="currentColor" class="icon-light"></path><path d="M21 8a1 1 0 1 0 0-2v2ZM11 6a1 1 0 1 0 0 2V6Zm10 12a1 1 0 1 0 0-2v2Zm-10-2a1 1 0 1 0 0 2v-2ZM2.293 8.293a1 1 0 0 0 1.414 1.414L2.293 8.293Zm5.414-2.586a1 1 0 0 0-1.414-1.414l1.414 1.414Zm-4-1.414a1 1 0 0 0-1.414 1.414l1.414-1.414Zm2.586 5.414a1 1 0 0 0 1.414-1.414L6.293 9.707ZM3 15v-1a1 1 0 0 0-1 1h1Zm4 0h1a1 1 0 0 0-1-1v1Zm0 4v1a1 1 0 0 0 1-1H7Zm-4 0H2a1 1 0 0 0 1 1v-1ZM21 6H11v2h10V6Zm0 10H11v2h10v-2ZM3.707 9.707l2-2-1.414-1.414-2 2 1.414 1.414Zm2-2 2-2-1.414-1.414-2 2 1.414 1.414Zm-3.414-2 2 2 1.414-1.414-2-2-1.414 1.414Zm2 2 2 2 1.414-1.414-2-2-1.414 1.414ZM3 16h4v-2H3v2Zm3-1v4h2v-4H6Zm1 3H3v2h4v-2Zm-3 1v-4H2v4h2Z" fill="currentColor" class="icon-dark"></path></svg>`Runs` </br> ![Connect to Cypress Cloud](images/2025-08-12_103405.png "Connect to Cypress Cloud") </br> Y le damos clic al botón azul de `[Connect to Cypress Cloud]`.
+7. Damos `[Log in]` a Cypress y le damos de preferencia al primer botón de: </br> <img alt="Github" src="https://cloud.cypress.io/img/provider-github.svg" style="background:#fff;"> `[Log in with Github]` </br> ![Github -> Authorize Cypress Cloud](images/2025-08-12_104828.png "Github -> Authorize Cypress Cloud")
+8. Luego nos pide "`Are you trying to create a new account?`": </br> ![Create a New Account](images/2025-08-12_105029.png "Create a New Account") </br> En mi caso lo doy a `Create a New Account`.
+9. Completo los campos requeridos y doy clic en el botón azul de `[Continue]` </br> ![.](images/2025-08-12_105204.png "") </br> Se demora un rato.
+
+>[!WARNING]
+>Tengo un mensaje de error </br> `INTERNAL_SERVER_ERROR, Location: [{"line":12,"column":7}], Path: me,membershipInvitations,totalCount` </br> Toca intentar en otro momento.
+
+10. Cierro el browser administrado por el `Cypress` y el `Cypress`, doy el comando: </br> `pnpm open` </br> Luego intento hacer _Log in_, e igual se queda con el mismo error: </br> ![Log in to Cypress](images/2025-08-12_112137.png "Log in to Cypress") </br> Este es otro error: </br> `Refused to load the script 'https://www.google-analytics.com/analytics.js' because it violates the following Content Security Policy directive: "script-src-elem 'self' 'unsafe-inline'`
+
+
+
+>[!IMPORTANT]
+>
+>#### Insistí con otra forma de hacer _Login_ y este si funcionó.
+>
+>Tengo un tiempo de prueba de 14 días.
+
+
+
+11. Hice el cambio de hacer el login con otro: </br><img alt="Google" src="https://cloud.cypress.io/img/provider-google.svg" style="background:#fff;"> `[Log in with Google]` y obtuve esta otra pantalla:<br> ![Let's create an organization](images/2025-08-12_171532.png "Let's create an organization")</br> LE deje el nombre `Default`.
+
+
+
+12. Me sale otra pantalla con una consulta `Where are you in your Cypress journey?`: </br>![Where are you in your Cypress journey?](images/2025-08-12_171622.png "Where are you in your Cypress journey?")</br> Le respondo con la segunda:</br> `Writing my project's firts Cypress tests`.
+
+
+
+13. Luego me pregunta para `Invite your team`:</br> ![Invite your team](images/2025-08-12_171640.png "Invite your team")</br>Solo le doy al de `Skip for now`.
+
+
+
+14. Tengo una ventana de Bienvenida, y me doy cuenta que tengo 14 días de prueba: </br> ![Welcome to Cypress Cloud!](images/2025-08-12_171656.png "Welcome to Cypress Cloud!")
+
+
+
+15. Y obtengo la última pantalla de `Trial process`: </br> ![Trial process](images/2025-08-12_171736.png "Trial process")
+
+
+
+16. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>
+17. De nuevo voy a  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="shrink-0 h-[24px] m-[12px] w-[24px] children:transition children:duration-300 icon-dark-indigo-300 icon-light-indigo-700"><path d="M3 15h4v4H3v-4Z" fill="currentColor" class="icon-light"></path><path d="M21 8a1 1 0 1 0 0-2v2ZM11 6a1 1 0 1 0 0 2V6Zm10 12a1 1 0 1 0 0-2v2Zm-10-2a1 1 0 1 0 0 2v-2ZM2.293 8.293a1 1 0 0 0 1.414 1.414L2.293 8.293Zm5.414-2.586a1 1 0 0 0-1.414-1.414l1.414 1.414Zm-4-1.414a1 1 0 0 0-1.414 1.414l1.414-1.414Zm2.586 5.414a1 1 0 0 0 1.414-1.414L6.293 9.707ZM3 15v-1a1 1 0 0 0-1 1h1Zm4 0h1a1 1 0 0 0-1-1v1Zm0 4v1a1 1 0 0 0 1-1H7Zm-4 0H2a1 1 0 0 0 1 1v-1ZM21 6H11v2h10V6Zm0 10H11v2h10v-2ZM3.707 9.707l2-2-1.414-1.414-2 2 1.414 1.414Zm2-2 2-2-1.414-1.414-2 2 1.414 1.414Zm-3.414-2 2 2 1.414-1.414-2-2-1.414 1.414Zm2 2 2 2 1.414-1.414-2-2-1.414 1.414ZM3 16h4v-2H3v2Zm3-1v4h2v-4H6Zm1 3H3v2h4v-2Zm-3 1v-4H2v4h2Z" fill="currentColor" class="icon-dark"></path></svg>`Runs`.
+18. Le doy click al botón azúl de `[`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-dark-white icon-light-transparent" style="min-width: 16px; min-height: 16px;"><path d="M10 3C9.44771 3 9 3.44772 9 4C9 4.55228 9.44771 5 10 5V3ZM10 11C9.44771 11 9 11.4477 9 12C9 12.5523 9.44771 13 10 13V11ZM6 5C6.55228 5 7 4.55228 7 4C7 3.44772 6.55228 3 6 3V5ZM6 13C6.55228 13 7 12.5523 7 12C7 11.4477 6.55228 11 6 11V13ZM5 7C4.44772 7 4 7.44772 4 8C4 8.55228 4.44772 9 5 9V7ZM11 9C11.5523 9 12 8.55228 12 8C12 7.44772 11.5523 7 11 7V9ZM10 5H11V3H10V5ZM11 11H10V13H11V11ZM5 5H6V3H5V5ZM6 11H5V13H6V11ZM5 9H11V7H5V9ZM2 8C2 6.34315 3.34315 5 5 5V3C2.23858 3 0 5.23858 0 8H2ZM0 8C0 10.7614 2.23858 13 5 13V11C3.34315 11 2 9.65685 2 8H0ZM14 8C14 9.65685 12.6569 11 11 11V13C13.7614 13 16 10.7614 16 8H14ZM16 8C16 5.23858 13.7614 3 11 3V5C12.6569 5 14 6.34315 14 8H16Z" fill="currentColor" class="icon-dark"></path></svg> `Connect a Cypress Cloud project]`.
+19. Ahora si tengo una ventana que me muestra `Organization` y `Project name`<sup>*️⃣</sup>: </br> ![.](images/2025-08-12_180110.png "")</br>El Instructor sugiere dejaro el `Private`, pero yo prefiero hacerlo 👁️‍🗨️ `Public`.
+20. Doy clic en el botón `➕ Create project` </br> Se demora mucho y me regresa a la pantalla anterior.
+
+>[!WARNING]
+>
+> 1. Como no obtengo respuesta cierro el browser administrado por el `Cypress` y también el `Cypress`.
+> 2. Ejecuto la actualización de `Cypress` con este comando: </br> `pnpm add -D cypress@14.5.4`
+> 3. Regreso a la `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>
+
+21. Vuelvo al botón de <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="shrink-0 h-[24px] m-[12px] w-[24px] children:transition children:duration-300 icon-dark-indigo-300 icon-light-indigo-700"><path d="M3 15h4v4H3v-4Z" fill="currentColor" class="icon-light"></path><path d="M21 8a1 1 0 1 0 0-2v2ZM11 6a1 1 0 1 0 0 2V6Zm10 12a1 1 0 1 0 0-2v2Zm-10-2a1 1 0 1 0 0 2v-2ZM2.293 8.293a1 1 0 0 0 1.414 1.414L2.293 8.293Zm5.414-2.586a1 1 0 0 0-1.414-1.414l1.414 1.414Zm-4-1.414a1 1 0 0 0-1.414 1.414l1.414-1.414Zm2.586 5.414a1 1 0 0 0 1.414-1.414L6.293 9.707ZM3 15v-1a1 1 0 0 0-1 1h1Zm4 0h1a1 1 0 0 0-1-1v1Zm0 4v1a1 1 0 0 0 1-1H7Zm-4 0H2a1 1 0 0 0 1 1v-1ZM21 6H11v2h10V6Zm0 10H11v2h10v-2ZM3.707 9.707l2-2-1.414-1.414-2 2 1.414 1.414Zm2-2 2-2-1.414-1.414-2 2 1.414 1.414Zm-3.414-2 2 2 1.414-1.414-2-2-1.414 1.414Zm2 2 2 2 1.414-1.414-2-2-1.414 1.414ZM3 16h4v-2H3v2Zm3-1v4h2v-4H6Zm1 3H3v2h4v-2Zm-3 1v-4H2v4h2Z" fill="currentColor" class="icon-dark"></path></svg>`Runs`.
+22. Me aparece una nueva ventana con un comando incluído: </br> ![Copy the command below to record your first run](images/2025-08-12_182738.png "Copy the command below to record your first run")
+23. Abrir el archivo **`cypress.config.js`** y revisar que al principio de la configuración `JSON`, aparece un nuevo campo de nombre `projectId`.
+24. Abrimos el archivo **`package.json`** y creamos un nuevo `script` de nombre `"test-dashboard"` y le pegamos el dato del paso 22:
+```json
+  "scripts": {
+    ...
+    "test-dashboard":"npx cypress run --record --key 20579074-xoxoxoxoxoxod72c0fa"
+  },
+```
+25. Si ejecuto el comando </br>`pnpm test-dashboard`</br> se ejecutará todo lo que hay en esta carpeta **"cypress\e2e"**, entonces voy a renombrar la carpeta **"e2e"** por **"13071-e2e"** y muevo la **"cypress\13071-e2e\13071_Dashboard"**, al nivel de **"13071-e2e"** y la renombro a **"e2e"**.
+26. Ahora si ejecuto el comando:</br>`pnpm test-dashboard` </br> el se demora un rato en procesar y este es el resultado:
+```bash
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Electron 130 (headless)                                                        │
+  │ Node Version:   v22.18.0 (C:\nvm4w\nodejs\node.exe)                                            │
+  │ Specs:          3 found (tc13071a.spec.cy.js, tc13071b.spec.cy.js, tc13071c.spec.cy.js)        │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  │ Params:         Tag: false, Group: false, Parallel: false                                      │
+  │ Run URL:        https://cloud.cypress.io/projects/ci89hj/runs/1                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+```diff
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  tc13071a.spec.cy.js                      00:04        1        1        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ×  tc13071b.spec.cy.js                      00:03        1        -        1        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  tc13071c.spec.cy.js                       65ms        1        -        -        1        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 3 failed (33%)                      00:07        3        1        1        1        -
+  Recorded Run: https://cloud.cypress.io/projects/ci89hj/runs/1
+```
+27. Este es el resultado de la página consultada: </br> ![Cypress Cloud Trial](images/2025-08-13_153516.gif "Cypress Cloud Trial")
+
+
+

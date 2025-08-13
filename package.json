@@ -11,7 +11,8 @@
     "run-electron-headed": "cypress run --headed --browser electron --spec 'cypress/e2e/*.cy.js'",
     "run-chrome-headed": "cypress run --headed --browser chrome --spec 'cypress/e2e/*.cy.js'",
     "smoke-test": "cypress run --spec 'cypress/e2e/smokeTests/*.cy.js'",
-    "regression-test": "cypress run --spec 'cypress/e2e/regressionTests/*.cy.js'"
+    "regression-test": "cypress run --spec 'cypress/e2e/regressionTests/*.cy.js'",
+    "test-dashboard":"npx cypress run --record --key 20579074-fe31-4f73-9257-7d0a7d72c0fa"
   },
   "repository": {
     "type": "git",
@@ -24,10 +25,8 @@
     "url": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25/issues"
   },
   "homepage": "https://github.com/JDGonzal/Cypress-14-Docker-Cucumber-Jenkins-JUNE25#readme",
-  "dependencies": {
-    "cypress": "14.5.3"
-  },
   "devDependencies": {
+    "cypress": "14.5.4",
     "cypress-xpath": "2.0.1",
     "neat-csv": "5.2.0",
     "xlsx": "0.18.5"

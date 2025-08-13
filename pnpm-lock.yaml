@@ -7,11 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
-      cypress:
-        specifier: 14.5.3
-        version: 14.5.3
     devDependencies:
+      cypress:
+        specifier: 14.5.4
+        version: 14.5.4
       cypress-xpath:
         specifier: 2.0.1
         version: 2.0.1
@@ -213,8 +212,8 @@ packages:
     resolution: {integrity: sha512-qMagjvinBppNJdMAkucWESP9aP4rDTs7c96m0vwMuZTVx3NqP2E3z/hkoRf8Ea9soL8yTvUuuyF1cg/Sb1Yhbg==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
-  cypress@14.5.3:
-    resolution: {integrity: sha512-syLwKjDeMg77FRRx68bytLdlqHXDT4yBVh0/PPkcgesChYDjUZbwxLqMXuryYKzAyJsPsQHUDW1YU74/IYEUIA==}
+  cypress@14.5.4:
+    resolution: {integrity: sha512-0Dhm4qc9VatOcI1GiFGVt8osgpPdqJLHzRwcAB5MSD/CAAts3oybvPUPawHyvJZUd8osADqZe/xzMsZ8sDTjXw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
@@ -938,7 +937,7 @@ snapshots:
 
   cypress-xpath@2.0.1: {}
 
-  cypress@14.5.3:
+  cypress@14.5.4:
     dependencies:
       '@cypress/request': 3.0.9
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
