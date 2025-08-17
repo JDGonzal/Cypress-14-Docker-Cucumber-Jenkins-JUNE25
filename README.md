@@ -4425,4 +4425,66 @@ describe("Login Functionality", () => {
 27. Este es el resultado de la página consultada: </br> ![Cypress Cloud Trial](images/2025-08-13_153516.gif "Cypress Cloud Trial")
 
 
+## Section 15: Framework Designing - Part 5
+
+### 72. Advantages of using Mochawesome Report
+
+>[!NOTE]
+>
+>
+>En este video entenderemos que es `Mocha Awesome Report Generator`.
+>
+> * `Mocha`, que es más generador de informes personalizados es la contraparte de Mock Awesome, que es un reportero personalizado
+>para su uso con el marco de pruebas de JavaScript como `Mocha`.
+>
+> * `Mocha` toma la salida Json del ASM de `Mocha` y genera un informe CSS HTML completo que ayuda a visualizar sus
+>suites de prueba.
+>
+> * `Mocha Awesome Reporter` proviene puramente de `Mocha`, que es un framework de `JavaScript` y no está relacionado con Cyprus.
+>
+> * La razón principal para cambiar a `Mocha` SIM report en lugar de la función de cuadro de mandos ofrecida por `Cypress` es que
+>`Mocha` es totalmente gratuito, mientras que la función de cuadro de mandos ofrecida por `Cypress` es de pago.
+>
+>![Mocha Awesome Report Generator](images/2025-08-17_183818.png "Mocha Awesome Report Generator")
+>
+>Ahora vamos a ver cuáles son las características que ofrece este generador de informes impresionante burla?
+>
+> * La primera, como he dicho antes, **es gratuita.**
+>Es muy fácil conectar este informe con nuestro marco existente y obtener un informe impresionante similar
+>al que ofrece el cuadro de mandos de `Cypress`.
+>
+> * El siguiente es **Tiene un diseño sencillo, limpio y moderno.**
+>El informe tendrá un aspecto bastante sencillo, con un diseño limpio pero con todos los detalles relacionados con la ejecución
+>de la prueba.
+>
+> * La siguiente es la **compatibilidad con el anidamiento de pruebas y conjuntos.**
+>En el informe de Mock Awesome se detallan todas las pruebas ejecutadas, así como el nivel
+>de la suite.
+>
+> * El siguiente es que también **muestra el antes y después de ganchos en nuestro informe general de la prueba**, que estamos recibiendo fuera
+>de la prueba de corredor.
+>No muestra los resultados de la prueba del gancho antes y después, mientras que el generador de informes Mocha Awesome
+>también dará detalles sobre la ejecución de los ganchos antes y después.
+>
+> * El siguiente es **el seguimiento de las pruebas fallidas.**
+>Así, cada vez que la prueba falle, el seguimiento de pila proporcionado por Cyprus se capturará automáticamente en mocha.
+>Impresionante.
+>
+> * La siguiente es que tiene un **filtro EQ para mostrar sólo el texto que quieras.**
+>Por ejemplo, supongamos que estamos ejecutando diez pruebas, de las cuales seis pasan y cuatro
+>fallan.
+>Supongamos que sólo quiero saber qué pruebas han fallado.
+>Así que hay una opción en los filtros para elegir que tenemos que ver sólo la prueba fallida.
+>Entonces el informe `Mocha` mostrará sólo la prueba fallida.
+>
+> * El siguiente es.
+>**El informe es muy receptivo y apto para móviles**, por lo que puede visualizarse incluso en el navegador
+>del móvil.
+>
+> * **Y por último, también es compatible con la visualización sin conexión.**
+>Así que estas son las abundantes características que ofrece este generador de informes impresionante `Mocha`.
+>
+>![Características](images/2025-08-17_184442.png "Características")
+>
+
 
