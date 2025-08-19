@@ -4488,3 +4488,129 @@ describe("Login Functionality", () => {
 >
 
 
+### 73. Setup Mochawesome Report
+
+1. Empezamos con instalaciones para `"devDependencies"`:
+```bash
+pnpm add -D mocha -E
+pnpm add -D cypress-multi-reporters -E
+pnpm add -D mochawesome -E
+pnpm add -D mochawesome-merge -E
+pnpm add -D mochawesome-report-generator -E
+```
+
+>[!WARNING]
+>
+>Sale una mensaje de advertencia: </br> `deprecated cypress-xpath@2.0.1:` </br>Se sugiere ejecutar una desinstalación: </br> `pnpm uninstall cypress-xpath` </br> Pero no, lo dejamos tal cual. </br> Eso ya se había advertido en [47. Work around to use Xpath in Cypress](#47-work-around-to-use-xpath-in-cypress)
+
+2. Abrimos el archivo **`cypress.config.js`**, y debajo de la _key_ de `pojectId`, agregamos a `reporter`:
+```json
+module.exports = defineConfig({
+  ...
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    reporterEnabled: "mochawesome",
+    mochawesomeReporterOptions: {
+      reportDir: "cypress/reports/mocha",
+      quiet: true,
+      overwrite: false,
+      html: false,
+      json: true,
+    },
+  },
+  ...
+});
+```
+3. Abrimos el archivo **`package.json`**, para añadir un nuevo `"scripts"`:
+```json
+  "scripts": {
+    "open": "cypress open",
+    ...
+    "scripts": "cypress run",
+    "clean:reports" : "rm -R -f cypress/reports && mkdir -p cypress/reports && mkdir -p cypress/reports/mochareports",
+    "pretest": "pnpm clean:reports",
+    "report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "report:generate": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "report:post": "pnpm report:merge && pnpm report:generate",
+    "test": "pnpm scripts || pnpm report:post"
+  },
+```
+5. Dado que el proceso de borrar y crear directorio no está funcionando (`"clean:reports"`), cree un archivo en la raíz de nombre **`create-dirs.js`**, con este código, para que valide los directorio o carpetas, si es necesario los borre y luego los vuelva a crear, no importa el sistema operativo que se ejecute:
+```js
+const fs = require("fs").promises;
+const path = require("path");
+
+async function checkDirectoryExistence(directoryPath) {
+  try {
+    await fs.access(directoryPath);
+    console.log(`Directory '${directoryPath}' exists.`);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      console.log(`Directory '${directoryPath}' does not exist.`);
+    } else {
+      console.error(`Error checking directory '${directoryPath}':`, error);
+    }
+    return false;
+  }
+}
+
+async function deleteDirectory(directoryPath) {
+  try {
+    await fs.rm(directoryPath, { recursive: true, force: true });
+    console.log(
+      `Directory '${directoryPath}' and its contents deleted successfully.`
+    );
+  } catch (error) {
+    console.error(`Error deleting directory '${directoryPath}':`, error);
+  }
+}
+
+async function createDirectory(directoryPath) {
+  try {
+    await fs.mkdir(directoryPath, { recursive: true }); // Create directory, recursive: true creates parent directories if they don't exist
+    console.log(`Directory '${directoryPath}' created successfully.`);
+  } catch (err) {
+    if (err.code === "EEXIST") {
+      // Handle case where directory already exists
+      console.log(`Directory '${directoryPath}' already exists.`);
+    } else {
+      console.error(`Error creating directory '${directoryPath}':`, err);
+    }
+  }
+}
+
+let dirPath = path.join(__dirname, "cypress", "reports"); // Adjust path as needed
+
+// Check if 'dirPath' exists
+checkDirectoryExistence(dirPath).then((exists) => {
+  if (exists) {
+    deleteDirectory(dirPath)
+      .then(() => createDirectory(dirPath))
+      .then(() => createDirectory(dirPath+ "/mochareports")) // Create 'mochareports' subdirectory
+      .catch((err) => console.error(`Error during directory operations:`, err));
+  } else {
+    // Create the directory if it doesn't exist
+    createDirectory(dirPath)
+    
+      .catch((err) => console.error(`Error during directory creation:`, err));
+  }
+});
+```
+6. Ahora si cambio los `"scripts"` del archivo **`package.json`**:
+```json
+  "scripts": {
+    ...
+    "scripts": "cypress run",
+    "pretest": "node create-dirs.js",
+    "report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "report:generate": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "report:post": "pnpm report:merge && pnpm report:generate",
+    "test": "pnpm scripts || pnpm report:post"
+  },
+```
+7. Para probar ejecutamos en una `TERMINAL` el comando: </br> `pnpm test` </br> Y el resultado obtenido es este archivo **`cypress/reports/mochareports/report.html`** </br> Cuando lo abro en un browser, se vería algo parecido a esto: </br> ![Mochawesome by Adam Gruber • v6.2.0](images/2025-08-19_115334.png "Mochawesome by Adam Gruber • v6.2.0")
+8. En el menú del extremo izquierdo, puedo activar filtros y otras funciones: </br> ![Mochawesome -> Menu](images/2025-08-19_120057.png "Mochawesome -> Menu")
+
+
+
