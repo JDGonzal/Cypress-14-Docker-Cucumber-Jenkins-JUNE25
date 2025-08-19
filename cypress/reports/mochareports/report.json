@@ -12,13 +12,13 @@
     "hasOther": false,
     "skipped": 0,
     "hasSkipped": false,
-    "start": "2025-08-19T16:43:33.398Z",
-    "end": "2025-08-19T16:43:50.523Z",
-    "duration": 17125
+    "start": "2025-08-19T17:23:41.597Z",
+    "end": "2025-08-19T17:24:00.323Z",
+    "duration": 18726
   },
   "results": [
     {
-      "uuid": "453ae674-a459-422a-976d-ce3515ef4311",
+      "uuid": "c8f95ec9-a2cb-4fa5-a55d-637fc2338017",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071b.spec.cy.js",
       "file": "cypress\\e2e\\tc13071b.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "cc8a6bf6-7f6c-48ba-b461-2ba6a2cc50b3",
+          "uuid": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -38,21 +38,21 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 1270,
+              "duration": 2165,
               "state": "failed",
               "speed": null,
               "pass": false,
               "fail": true,
               "pending": false,
-              "context": null,
+              "context": "\"assets/tc13071b.spec.cy.js/Login Functionality -- Login Test using Conduit (failed).png\"",
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#logins']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {
                 "message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot read properties of undefined (reading 'body')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application",
                 "estack": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot read properties of undefined (reading 'body')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application\n    at <unknown> (https://react-redux.realworld.io/main.js:28244:44)",
                 "diff": null
               },
-              "uuid": "fd439faa-e05e-4e4e-8522-db1ade3a8051",
-              "parentUUID": "cc8a6bf6-7f6c-48ba-b461-2ba6a2cc50b3",
+              "uuid": "abd7d507-7a1e-44a2-aa09-f44bb608d1f9",
+              "parentUUID": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
               "isHook": false,
               "skipped": false
             }
@@ -60,11 +60,11 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "fd439faa-e05e-4e4e-8522-db1ade3a8051"
+            "abd7d507-7a1e-44a2-aa09-f44bb608d1f9"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 1270,
+          "duration": 2165,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -80,7 +80,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "97ddc9c6-e5d7-41eb-94bc-ac9a4171190d",
+      "uuid": "2c8bcd17-6073-42fd-ad73-6ebd170e2c74",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071c.spec.cy.js",
       "file": "cypress\\e2e\\tc13071c.spec.cy.js",
@@ -89,7 +89,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "071cff2a-a617-41e5-9437-66c52d3fd02f",
+          "uuid": "4e006ae2-4398-49dc-b102-8dad61d197cc",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -109,8 +109,8 @@
               "context": null,
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#login']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {},
-              "uuid": "2b214ed5-b294-4fda-9c7c-5cf083847df1",
-              "parentUUID": "071cff2a-a617-41e5-9437-66c52d3fd02f",
+              "uuid": "52b38b65-b585-45a5-967a-e8f59d382f08",
+              "parentUUID": "4e006ae2-4398-49dc-b102-8dad61d197cc",
               "isHook": false,
               "skipped": false
             }
@@ -119,7 +119,7 @@
           "passes": [],
           "failures": [],
           "pending": [
-            "2b214ed5-b294-4fda-9c7c-5cf083847df1"
+            "52b38b65-b585-45a5-967a-e8f59d382f08"
           ],
           "skipped": [],
           "duration": 0,
@@ -138,7 +138,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "c11b352a-7828-40c1-a670-55cc5e3045b5",
+      "uuid": "ba6dea38-e09b-49f0-ae9b-d6aad0b75413",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071a.spec.cy.js",
       "file": "cypress\\e2e\\tc13071a.spec.cy.js",
@@ -147,7 +147,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "89dd888c-4eca-471b-93f2-42a3c1dffa81",
+          "uuid": "ebfa1ac5-c89b-46a8-aa5a-2e86cfed373b",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -158,7 +158,7 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 2212,
+              "duration": 2574,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -167,20 +167,20 @@
               "context": null,
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#login']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {},
-              "uuid": "30ddc259-cb3b-4960-9939-42031c3ec468",
-              "parentUUID": "89dd888c-4eca-471b-93f2-42a3c1dffa81",
+              "uuid": "ee509af7-8d9c-4aa0-b3d8-d2a441c3cdd3",
+              "parentUUID": "ebfa1ac5-c89b-46a8-aa5a-2e86cfed373b",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "30ddc259-cb3b-4960-9939-42031c3ec468"
+            "ee509af7-8d9c-4aa0-b3d8-d2a441c3cdd3"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 2212,
+          "duration": 2574,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

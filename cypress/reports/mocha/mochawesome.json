@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-19T16:43:33.398Z",
-    "end": "2025-08-19T16:43:37.976Z",
-    "duration": 4578,
+    "start": "2025-08-19T17:23:41.597Z",
+    "end": "2025-08-19T17:23:46.310Z",
+    "duration": 4713,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "c11b352a-7828-40c1-a670-55cc5e3045b5",
+      "uuid": "ba6dea38-e09b-49f0-ae9b-d6aad0b75413",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071a.spec.cy.js",
       "file": "cypress\\e2e\\tc13071a.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "89dd888c-4eca-471b-93f2-42a3c1dffa81",
+          "uuid": "ebfa1ac5-c89b-46a8-aa5a-2e86cfed373b",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 2212,
+              "duration": 2574,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#login']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {},
-              "uuid": "30ddc259-cb3b-4960-9939-42031c3ec468",
-              "parentUUID": "89dd888c-4eca-471b-93f2-42a3c1dffa81",
+              "uuid": "ee509af7-8d9c-4aa0-b3d8-d2a441c3cdd3",
+              "parentUUID": "ebfa1ac5-c89b-46a8-aa5a-2e86cfed373b",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "30ddc259-cb3b-4960-9939-42031c3ec468"
+            "ee509af7-8d9c-4aa0-b3d8-d2a441c3cdd3"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 2212,
+          "duration": 2574,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
