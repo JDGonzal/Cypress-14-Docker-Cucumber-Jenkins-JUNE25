@@ -4610,7 +4610,39 @@ checkDirectoryExistence(dirPath).then((exists) => {
   },
 ```
 7. Para probar ejecutamos en una `TERMINAL` el comando: </br> `pnpm test` </br> Y el resultado obtenido es este archivo **`cypress/reports/mochareports/report.html`** </br> Cuando lo abro en un browser, se vería algo parecido a esto: </br> ![Mochawesome by Adam Gruber • v6.2.0](images/2025-08-19_115334.png "Mochawesome by Adam Gruber • v6.2.0")
+
+
+
 8. En el menú del extremo izquierdo, puedo activar filtros y otras funciones: </br> ![Mochawesome -> Menu](images/2025-08-19_120057.png "Mochawesome -> Menu")
+
+
+
+
+
+### 74. Add Failed test screenshot in Mochawesome report
+
+1. Abrimos el archivo **`cypress.config.js`** y antes de `projectId:`, agregamos la _key_ `screenshotsFolder`:
+```js
+  screenshotsFolder: "cypress/reports/mochareports/assets",
+```
+2. Abrimos el archivo **`cypress/support/e2e.js`** y agregamos una importación: </br> `import addContext from "mochawesome/addContext";`
+3. Abajo llamamos a `Cypress.on` con el parámetro `'test:after:run'` y una función:
+```js
+Cypress.on("test:after:run", (test, runnable) => {
+});
+```
+4. Empezamos a llenar la función tipo flecha dentro de este:
+```js
+Cypress.on("test:after:run", (test, runnable) => {
+  if (test.state === "failed") {
+    const screenshotFileName = `${runnable.parent.title} -- ${test.title} (failed).png`;
+    const screenshotFilePath = `assets/${Cypress.spec.name}/${screenshotFileName}`;
+    addContext({ test }, screenshotFilePath);
+  }
+});
+```
+1. Para probar en una `TERMINAL` ejecutamos: </br> `pnpm test` </br> Obtenemos el achivo **`cypress/reports/mochareports/report.html`** </br> Lo abrimos en el browser, expandimos el que tiene error y allí aparece el _screenshot_ o pantallazo: </br> ![Additional Test Context](images/2025-08-19_122716.png "Additional Test Context")
+
 
 
 

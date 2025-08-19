@@ -5,9 +5,9 @@
     "passes": 0,
     "pending": 0,
     "failures": 1,
-    "start": "2025-08-19T16:43:45.497Z",
-    "end": "2025-08-19T16:43:48.001Z",
-    "duration": 2504,
+    "start": "2025-08-19T17:23:54.229Z",
+    "end": "2025-08-19T17:23:57.685Z",
+    "duration": 3456,
     "testsRegistered": 1,
     "passPercent": 0,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "453ae674-a459-422a-976d-ce3515ef4311",
+      "uuid": "c8f95ec9-a2cb-4fa5-a55d-637fc2338017",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071b.spec.cy.js",
       "file": "cypress\\e2e\\tc13071b.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "cc8a6bf6-7f6c-48ba-b461-2ba6a2cc50b3",
+          "uuid": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -38,21 +38,21 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 1270,
+              "duration": 2165,
               "state": "failed",
               "speed": null,
               "pass": false,
               "fail": true,
               "pending": false,
-              "context": null,
+              "context": "\"assets/tc13071b.spec.cy.js/Login Functionality -- Login Test using Conduit (failed).png\"",
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#logins']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {
                 "message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot read properties of undefined (reading 'body')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application",
                 "estack": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot read properties of undefined (reading 'body')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application\n    at <unknown> (https://react-redux.realworld.io/main.js:28244:44)",
                 "diff": null
               },
-              "uuid": "fd439faa-e05e-4e4e-8522-db1ade3a8051",
-              "parentUUID": "cc8a6bf6-7f6c-48ba-b461-2ba6a2cc50b3",
+              "uuid": "abd7d507-7a1e-44a2-aa09-f44bb608d1f9",
+              "parentUUID": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
               "isHook": false,
               "skipped": false
             }
@@ -60,11 +60,11 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "fd439faa-e05e-4e4e-8522-db1ade3a8051"
+            "abd7d507-7a1e-44a2-aa09-f44bb608d1f9"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 1270,
+          "duration": 2165,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

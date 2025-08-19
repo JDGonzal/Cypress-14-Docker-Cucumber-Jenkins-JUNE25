@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 // import { defineConfig } from "cypress"; // It not work
 
 module.exports = defineConfig({
+  screenshotsFolder: "cypress/reports/mochareports/assets",
   projectId: "ci89hj",
   reporter: "cypress-multi-reporters",
   reporterOptions: {
