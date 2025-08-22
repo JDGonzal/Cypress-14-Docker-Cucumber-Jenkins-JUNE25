@@ -4641,8 +4641,91 @@ Cypress.on("test:after:run", (test, runnable) => {
   }
 });
 ```
-1. Para probar en una `TERMINAL` ejecutamos: </br> `pnpm test` </br> Obtenemos el achivo **`cypress/reports/mochareports/report.html`** </br> Lo abrimos en el browser, expandimos el que tiene error y allí aparece el _screenshot_ o pantallazo: </br> ![Additional Test Context](images/2025-08-19_122716.png "Additional Test Context")
+5. Para probar en una `TERMINAL` ejecutamos: </br> `pnpm test` </br> Obtenemos el achivo **`cypress/reports/mochareports/report.html`** </br> Lo abrimos en el browser, expandimos el que tiene error y allí aparece el _screenshot_ o pantallazo: </br> ![Additional Test Context](images/2025-08-19_122716.png "Additional Test Context")
 
+
+
+
+## Section 16: API Testing
+
+
+### 75. What is API testing ?
+
+
+>[!NOTE]
+>
+>En primer lugar, conozcamos qué es la API.
+>
+>**API.**
+> * Es una forma completa de interfaz de programación de aplicaciones que permite la comunicación y el intercambio de datos entre
+>dos sistemas de software distintos.
+> * Un sistema informático.
+>La implementación de una API contiene funciones o subrutinas que pueden ser ejecutadas por otro sistema de software.
+> * En pocas palabras, la API es la columna vertebral de la interfaz de usuario web.
+>Cada vez que realicemos cualquier acción en el sitio web, se enviará una llamada API al servidor.
+> * Sin API, no podemos realizar ninguna acción en la interfaz de usuario.
+>
+>![¿Qué es una API?](images/2025-08-22_153114.png "¿Qué es una API?")
+>
+>A continuación veremos qué es una prueba API.
+>
+>En cualquier interfaz de usuario habrá tres capas.
+>
+>![API Testing 1](images/2025-08-22_153612.png "API Testing 1")
+>
+> 1. Una es la capa de presentación, la segunda es la capa de negocio y la última es la capa de base de datos.
+>La capa de presentación es la interfaz de usuario web, que estamos viendo en nuestro monitor.
+>
+> 2. Y habrá una capa de negocio donde se realizará la interfaz de usuario de la aplicación, que es la prueba de
+>la API.
+>
+> 3. Y la última es la capa de base de datos, que suele ser un servidor en el que se guardarán todos
+>los valores que recuperarán las API.
+>
+> * Las pruebas de API son un tipo de prueba de software que valida la interfaz de programación de aplicaciones,
+>es decir, las API.
+>
+> * El objetivo de las pruebas de API es comprobar la funcionalidad, fiabilidad, rendimiento y seguridad de las
+>interfaces de programación.
+>
+>
+>![API Testing 2](images/2025-08-22_154422.png "API Testing 2")
+> * En las pruebas de la API en lugar de utilizar la entrada de usuario estándar, que es clave.
+>Puertos y salidas.
+>Utiliza software para enviar llamadas a la API, obtener resultados y anotar la respuesta del sistema.
+>
+> * Las pruebas de API son muy diferentes de las pruebas de GUI y no se centran en el aspecto de una aplicación.
+>Se centra principalmente en la capa de lógica empresarial de la arquitectura de software.
+>
+> * Para probar una API, necesitará dos cosas:
+>Una es que necesitamos utilizar la herramienta de pruebas para manejar la API, y escribir tu propio código para probar la API.
+>
+>Existen varias herramientas realizadas en el mercado para realizar las pruebas de API, como
+>
+>![Herramientas para API Testing](images/2025-08-22_155525.png "Herramientas para API Testing")
+>
+>postman Katalon, Rest Assured, Apache Jmeter, Karate y Soap UI.
+>
+>Pero con Cypress podemos hacer directamente las pruebas de la API sin involucrar a ninguna de estas herramientas de terceros.
+
+
+### 76. Rest API Introduction
+
+>[!NOTE]
+>
+>Tiene una API Rest es una API que se ajusta a los principios de diseño de la Rest, que también se llama como estilo arquitectónico
+>de transferencia de estado representacional.
+>
+>Por este motivo, las API Rest se denominan a veces API RESTful.
+>En términos sencillos, las API Rest no son más que la API implementada con el diseño Rest.
+>Ahora vamos a entender lo que es métodos Http.
+>
+>Las APIs Rest permiten desarrollar todo tipo de aplicaciones web, disponiendo de todas las operaciones Crud posibles.
+>Por operaciones Crud se entiende crear, recuperar, actualizar y eliminar.
+>Las directrices Rest sugieren utilizar un método Http específico en un tipo concreto de llamada realizada al servidor a través
+>de.
+>Técnicamente, es posible incumplir esta directriz.
+>
 
 
 
