@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("API testing", () => {
+describe("API GET testing", () => {
   // With Copilot
   it("GET request", () => {
     cy.request("https://jsonplaceholder.typicode.com/posts/1").then(
@@ -15,7 +15,7 @@ describe("API testing", () => {
   });
 
   //With Instructor
-  it("GET API Testing", () => {
+  it("GET API in ReqRes Testing", () => {
     cy.request({
       method: "GET",
       url: "https://reqres.in/api/users?page=2",
