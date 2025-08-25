@@ -4728,4 +4728,64 @@ Cypress.on("test:after:run", (test, runnable) => {
 >
 
 
+### 77. GET Method
+
+1. Entramos a esta página [<img alt="" src="https://reqres.in/img/logo.png" width="73px" height="37px" />](https://reqres.in/)
+2. Buscamos aproximadamente de la mitad hacia abajo una lista de `Request` y `Response`: </br> ![`Request` y `Response`](images/2025-08-22_161053.png "`Request` y `Response`")
+
+
+
+3. Creamos el archivo **`cypress/e2e/tc16077GETTesting.cy.js`** y empiezo con lo básico:
+```js
+/// <reference types="cypress" />
+
+describe("API testing", () => {
+
+});
+```
+4. Añadimos el primer `it`:
+```js
+  // With Copilot
+  it("GET request", () => {
+    cy.request("https://jsonplaceholder.typicode.com/posts/1").then(
+      (response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.have.property("id", 1);
+        expect(response.body).to.have.property("userId", 1);
+        expect(response.body).to.have.property("title");
+        expect(response.body).to.have.property("body");
+      }
+    );
+  });
+```
+5. El segundo `it` es basado en la página [`ReqRes.in`](https://reqres.in/), buscando al clic derecho sobre el primer `Request`, con `Copy link adress`, y obtenemos este link <https://reqres.in/api/users?page=2>:
+```js
+  //With Instructor
+  it("GET API Testing", () => {
+    cy.request("GET", "https://reqres.in/api/users?page=2").then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.data[1]?.first_name).equal("Lindsay");
+      expect(response.body.data?.support.text).contains("Tired of writing endless")
+    });
+  });
+```
+6. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16077GETTesting.cy.js`.
+7. Al ejecutarlo obtengo un error en el segundo `it`, el error `401` (_Unauthorized_).</br> Buscando encontré esta respuesta [Error 401: Clave API faltante no autorizada en las API de ReqRes](https://www.youtube.com/watch?v=iYL4MF7nHZ4), se corrige el segundo `it` de esta manera:
+```js
+  it("GET API Testing", () => {
+    cy.request({
+      method: "GET",
+      url: "https://reqres.in/api/users?page=2",
+      headers: { "x-api-key": "reqres-free-v1" },
+    }).then((response) => {
+      expect(response.status).equal(200);
+      expect(response.body.data[1]?.first_name).equal("Lindsay");
+      expect(response.body?.support.text).contains("Tired of writing endless");
+    });
+  });
+```
+8. Ahora si al ejecutarse ahora si obtengo la respuesta satisfatoria: </br> ![tc16077GETTesting.cy.js](images/2025-08-25_102913.png "tc16077GETTesting.cy.js")
+9. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
 
