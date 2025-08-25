@@ -4789,3 +4789,53 @@ describe("API testing", () => {
 
 
 
+### 78. POST Method
+
+1. Vamos a usar de la página [`ReqRes.in`](https://reqres.in/), con método `POST` el que tiene `CREATE` y le copiamos el _Link Adress_ y esto es lo que obtenemos <https://reqres.in/api/users>.
+2. Copiamos el archivo **`cypress/e2e/tc16077GETTesting.cy.js`** en **`tc16078POSTTesting.cy.js`**, y hacemos el cambio en el primer `it`:
+```js
+  // With Copilot
+  it("POST request", () => {
+    cy.request({
+      method: "POST",
+      url: "https://reqres.in/api/users",
+      headers: { "x-api-key": "reqres-free-v1" },
+      body: {
+        name: "morpheus",
+        job: "leader",
+      },
+    }).then((response) => {
+      expect(response.status).equal(201);
+      expect(response.body?.name).equal("morpheus");
+      expect(response.body?.job).equal("leader");
+      expect(response.body).to.have.property("id");
+      expect(response.body).to.have.property("createdAt");
+    });
+  });
+```
+3. El segundo `it`, sería:
+```js
+  //With Instructor
+  it("POST API in ReqRes Testing", () => {
+    const user = {
+      name: "JPiza",
+      job: "Tester",
+    };
+    cy.request({
+      method: "POST",
+      url: "https://reqres.in/api/users",
+      headers: { "x-api-key": "reqres-free-v1" },
+      body: user,
+    }).then((response) => {
+      expect(response.status).equal(201);
+      expect(response.body?.name).equal(user.name);
+      expect(response.body?.job).equal(user.job);
+    });
+  });
+```
+4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16078POSTTesting.cy.js`.
+5. Este sería el resultado satisfactorio: </br> ![tc16078POSTTesting.cy.js](images/2025-08-25_120503.png "tc16078POSTTesting.cy.js")
+6. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
+
