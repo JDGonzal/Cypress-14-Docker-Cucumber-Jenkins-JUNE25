@@ -4813,7 +4813,7 @@ describe("API testing", () => {
     });
   });
 ```
-1. El segundo `it`, sería:
+3. El segundo `it`, sería:
 ```js
   //With Instructor
   it("POST API in ReqRes Testing", () => {
@@ -4833,8 +4833,9 @@ describe("API testing", () => {
     });
   });
 ```
-1. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16078POSTTesting.cy.js`.
-2. Este sería el resultado satisfactorio: </br> ![tc16078POSTTesting.cy.js](images/2025-08-25_120503.png "tc16078POSTTesting.cy.js")
+4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16078POSTTesting.cy.js`.
+5. Este sería el resultado satisfactorio: </br> ![tc16078POSTTesting.cy.js](images/2025-08-25_120503.png "tc16078POSTTesting.cy.js")
+6. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
 
 
 
