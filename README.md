@@ -4839,3 +4839,50 @@ describe("API testing", () => {
 
 
 
+### 79. PUT Method
+
+1. Vamos a usar de la página [`ReqRes.in`](https://reqres.in/), con método `PUT` el que tiene `UPDATE` y le copiamos el _Link Adress_ y esto es lo que obtenemos <https://reqres.in/api/users/2>.
+2. Copiamos el archivo **`cypress/e2e/tc16077GETTesting.cy.js`** en **`tc16079PUTTesting.cy.js`**, y hacemos el cambio en el primer `it`:
+```js
+  it("PUT request", () => {
+    cy.request({
+      method: "PUT",
+      url: "https://reqres.in/api/users/2",
+      headers: { "x-api-key": "reqres-free-v1" },
+      body: {
+        name: "morpheus",
+        job: "zion resident",
+      },
+    }).then((response) => {
+      expect(response.status).equal(200);
+      expect(response.body?.name).equal("morpheus");
+      expect(response.body?.job).equal("zion resident");
+      expect(response.body).to.have.property("updatedAt");
+    });
+  });
+```
+3. El segundo `it` sería:
+```js
+  //With Instructor
+  it("POST PUT in ReqRes Testing", () => {
+    const user = {
+      name: "JPiza",
+      job: "Developer",
+    };
+    cy.request({
+      method: "PUT",
+      url: "https://reqres.in/api/users/2",
+      headers: { "x-api-key": "reqres-free-v1" },
+      body: user,
+    }).then((response) => {
+      expect(response.status).equal(200);
+      expect(response.body?.name).equal(user.name);
+      expect(response.body?.job).equal(user.job);
+    });
+  });
+```
+4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16079PUTTesting.cy.js`.
+5. Este sería el resultado satisfactorio: </br> ![tc16079PUTTesting.cy.js](images/2025-08-25_145608.png "tc16079PUTTesting.cy.js")
+6. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
