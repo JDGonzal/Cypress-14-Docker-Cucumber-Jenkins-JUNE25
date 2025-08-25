@@ -20,7 +20,7 @@ describe("API PUT testing", () => {
   });
 
   //With Instructor
-  it("POST PUT in ReqRes Testing", () => {
+  it("PUT API in ReqRes Testing", () => {
     const user = {
       name: "JPiza",
       job: "Developer",

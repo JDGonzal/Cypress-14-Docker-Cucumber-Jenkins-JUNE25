@@ -4886,3 +4886,38 @@ describe("API testing", () => {
 6. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
 
 
+
+
+### 80. DELETE Method
+
+1. Vamos a usar de la página [`ReqRes.in`](https://reqres.in/), con método `DELETE` el que tiene `DELETE` y le copiamos el _Link Adress_ y esto es lo que obtenemos <https://reqres.in/api/users/2>.
+2. Copiamos el archivo **`cypress/e2e/tc16077GETTesting.cy.js`** en **`tc16080DELETETesting.cy.js`**, y hacemos el cambio en el primer `it`:
+```js
+  it("DELETE request", () => {
+    cy.request({
+      method: "DELETE",
+      url: "https://reqres.in/api/users/2",
+      headers: { "x-api-key": "reqres-free-v1" },
+    }).then((response) => {
+      expect(response.status).equal(204);
+    });
+  });
+```
+3. El segundo `it` sería:
+```js
+  it("DELETE API in ReqRes Testing", () => {
+    cy.request({
+      method: "DELETE",
+      url: "https://reqres.in/api/users/2",
+      headers: { "x-api-key": "reqres-free-v1" },
+    }).then((response) => {
+      expect(response.status).equal(204);
+    });
+  });
+```
+4. » En una `TERMINAL`, ejecuto el comando: </br> `pnpm open` </br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `tc16080DELETETesting.cy.js`.
+5. Este sería el resultado satisfactorio: </br> ![tc16080DELETETesting.cy.js](images/2025-08-25_155131.png "tc16080DELETETesting.cy.js")
+6. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
+
