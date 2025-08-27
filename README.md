@@ -83,7 +83,7 @@
 >
 >**La siguiente característica es spice stubs y relojes erificar y controlar el comportamiento de las funciones, las respuestas del servidor, o temporizadores.**
 >
->Por ejemplo, digamos que estás probando una aplicación que lanza un error. Si abrimos con las fechas pasadas, a continuación, utilizando `Cypress`, podemos burlarse de los temporizadores como el punto fechas pasadas y comprobar las respuestas web.
+>Por ejemplo, digamos que estás probando una aplicación que lanza un error. Si abrimos con las fechas pasadas, a continuación, utilizando `Cypress`, podemos Simular de los temporizadores como el punto fechas pasadas y comprobar las respuestas web.
 >
 >**La siguiente característica es la coherencia de los resultados.**
 >
@@ -4447,7 +4447,7 @@ describe("Login Functionality", () => {
 >
 >![Mocha Awesome Report Generator](images/2025-08-17_183818.png "Mocha Awesome Report Generator")
 >
->Ahora vamos a ver cuáles son las características que ofrece este generador de informes impresionante burla?
+>Ahora vamos a ver cuáles son las características que ofrece este generador de informes impresionante Simulación?
 >
 > * La primera, como he dicho antes, **es gratuita.**
 >Es muy fácil conectar este informe con nuestro marco existente y obtener un informe impresionante similar
@@ -4971,3 +4971,89 @@ describe('API testing',function(){
 ```
 
 
+## Section 17: Mocks and Stubs
+
+
+### 82. Advantages of using Mocks
+
+>[!NOTE]
+>
+>**¿Qué son Simulacros o _Mocks_?**
+>
+>![¿Qué son Simulacros o _Mocks_?](images/2025-08-27_150028.png "¿Qué son Simulacros o _Mocks_?")
+>
+> * En primer lugar, entendamos qué son los simulacros.
+>Las marcas son un tipo de nivel de prueba que permiten verificar que se ha realizado una llamada sin depender de la respuesta
+>del servidor.
+>
+> * En inglés sencillo, Simular es hacer una réplica o imitación de algo.
+>
+> * Mocking se utiliza principalmente en las pruebas unitarias, pero también se puede utilizar en la herramienta de pruebas de extremo a extremo.
+>En las pruebas de extremo a extremo.
+> * La mayoría de los mocks se utilizarán para la respuesta de la API.
+>Veamos ahora cuál es la importancia de utilizar mocks en testing.
+>
+> * Cuando utilizamos mocks, el resultado de la prueba será siempre preciso ya que no necesitamos depender de una API
+>real.
+>En lugar de Simular de la respuesta de la API como queremos.
+>
+>**Veamos un Ejemplo**.
+>
+>![Mock API](images/2025-08-27_150525.png "Mock API")
+>
+> * Digamos que hay un front-end, que es una interfaz de usuario web, y hay un back-end que es el servidor.
+>
+> * Así que cada vez que hacemos cualquier acción en el front-end, la llamada a la API será golpeado al servidor back-end
+>y nos dará una respuesta.
+>
+> * Digamos que hay algún problema con el servidor back-end y nos está dando un error de respuesta de la API.
+>Ahora.
+>
+> * Debido a esto, la prueba en el front-end fallará porque estamos recibiendo una mala respuesta del servidor debido
+>a lo cual no podemos realizar ninguna prueba de automatización del front-end.
+>
+> * Imagina un escenario de cómo los mocks manejarán esto.
+>
+> * Del mismo modo, estamos teniendo una interfaz de usuario web front-end y tenemos un servidor back-end.
+>
+> * En el medio tendremos algo llamado como mocks.
+>Así que lo que este mocks va a hacer es esto nos dará una API mock.
+>Exactamente lo mismo que dará el servidor final.
+>
+> * Así que básicamente vamos a crear y guardar estos mocks en un repositorio exactamente igual a cómo el servidor de back-end
+>dará una respuesta basada en una situación.
+>
+>Así que la ventaja de utilizar los mocks por aquí es lo que sucede con el servidor back-end.
+>Digamos que el servidor back-end tiene algunos problemas y está dando alguna mala respuesta pase lo que pase.
+>
+>Aún así, nuestra prueba de automatización del front end se ejecutará 100% segura porque estamos usando los mocks, lo que significa
+>que siempre los mocks darán la misma respuesta que esperamos del servidor.
+>
+>**Uso del SIMULACRO o _MOCKING_**
+>
+>![Uso del SIMULACRO o _MOCKING_](images/2025-08-27_151115.png "Uso del SIMULACRO o _MOCKING_")
+>
+> * El uso del simulacro  de su ejecución de la prueba será más rápido.
+>Debido a que no estamos confiando en el servidor, estamos llamando directamente a los mocks y estamos alimentando los datos de
+>prueba de los resultados de la prueba de la misma.
+>
+> * Y siempre es fiable porque no hay posibilidades de que los mocks se caigan, pero sí de que se
+>caiga el servidor.
+>Por lo tanto, si se utilizan simulacros, las pruebas serán siempre fiables.
+>
+> * Podemos probar incluso un escenario de caso de borde, por ejemplo, en ciertos casos, si queremos, la respuesta
+>del servidor debe ser de cierta manera, podemos simularlo y podemos probar la prueba.
+>
+> * El siguiente es.
+>No hay que preocuparse si el servidor backend no funciona.
+>Como he dicho antes, aunque el servidor backend se caiga, no tenemos que preocuparnos porque Mark nunca
+>se caerá.
+>
+>**Servidore de Simulacro o _Mock_ de Terceros**
+>
+>![Servidore de Simulacro o _Mock_ de Terceros](images/2025-08-27_151452.png "Servidore de Simulacro o _Mock_ de Terceros")
+>
+>Hay muchos servidores MOC de terceros disponibles en el mercado, como mountebank, VIA MOC y MOC SERVER.
+>
+>Pero en nuestro próximo video, vamos a ver cómo utilizar la inversa Cypress mocking para Simular de nuestras pruebas y hacer que
+>se ejecute correctamente.
