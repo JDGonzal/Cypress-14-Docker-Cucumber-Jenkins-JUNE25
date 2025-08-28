@@ -5057,3 +5057,124 @@ describe('API testing',function(){
 >
 >Pero en nuestro próximo video, vamos a ver cómo utilizar la inversa Cypress mocking para Simular de nuestras pruebas y hacer que
 >se ejecute correctamente.
+
+
+### 83. Using mocks in real time example
+
+>[!IMPORTANT]
+>
+>El instructor apunta a la página [`conduit`](https://react-redux.realworld.io/), pero como sabemos luego de dar el email = `cypressdemo@gmail.com` y la contraseña = `cypressdemo`, el sitio presenta un error y nada de lo que allí se sugiere, aparece.
+>
+>Entonces vamos a probar en este otro sitio [`OrangeHRM`](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login), con los datos de _Username_ = "Admin"  y _Password_ = "admin123"
+
+1. En el Sitio de [`OrangeHRM`](https://qbank.accelq.com/), luego de dar el _Username_ y el _Password_, dando la tecla [`F12`] o seleccionando `Inspect` en el browser, tenemos varias consultas en la opción `Network` </br> ![Network](images/2025-08-28_075856.png "Network").
+
+2. De `locations` con esta _URL_ <https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/locations> </br> método `GET` </br> Guardamos la `Response` en el archivo **`cypress\fixtures\mock-locations.json`**</br> Teniendo en cuenta el `Status` = `200` </br> Agregamos un sitio mas y alteramos la cantidad, quedanso así:
+```json
+{
+  "data": [
+    {
+      "location": {
+        "id": 5,
+        "name": "Texas R&D"
+      },
+      "count": 5
+    },
+    {
+      "location": {
+        "id": 2,
+        "name": "New York Sales Office"
+      },
+      "count": 2
+    },
+    {
+      "location": {
+        "id": 3,
+        "name": "Medellin"
+      },
+      "count": 3
+    }
+  ],
+  "meta": {
+    "otherEmployeeCount": 0,
+    "unassignedEmployeeCount": 114,
+    "totalLocationCount": 3
+  },
+  "rels": []
+}
+```
+3. Creamos el archivo **`cypress\e2e\tc17083MockOrangeHRM.spec.cy.js`** y el pongo los datos básico iniciales:
+```js
+/// <reference types="cypress" />
+
+describe("Mock OrangeHRM Testing", () => {
+  beforeEach(async () => {
+    // Visit the OrangeHRM login page before each test
+    cy.visit(
+      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    );
+    // Login again before the next test
+    cy.get("input[placeholder='Username']").type("Admin", { delay: 0 });
+    cy.get("input[placeholder='Password']").type("admin123", { delay: 0 });
+    cy.get("button[type='submit']").click();
+  });
+
+  it("loaction Mock", () => {});
+
+  afterEach(() => {
+    // Log out after each test
+    cy.get(".oxd-userdropdown-name").click();
+    cy.xpath("//a[normalize-space()='Logout']").click();
+  });
+});
+```
+4. Modifico el `it` con este código:
+```js
+  it("locations Mock", () => {
+    // const url = "api/v2/dashboard/employees/locations";
+    const url =
+      "https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/locations";
+    cy.log(url);
+    // Intercept instead a request, for a _Mock_ values
+    cy.intercept(
+      {
+        method: "GET",
+        url: url,
+      },
+      { fixture: "mock-locations.json" }
+    );
+    cy.wait(2500);
+    cy.contains("Employee Distribution by Location").should("be.visible");
+    // El siguiente proceso lo debo hacer porque existen muchos elementos con la misma clase 
+    cy.get(".orangehrm-dashboard-widget-body").then(($elements) => {
+      // $elements is a jQuery object containing all elements with the class 'my-class'
+      // You can treat it like an array and iterate over it or access elements by index.
+
+      // Example: Log the text of each element
+      $elements.each((index, element) => {
+        cy.log(`Element ${index + 1}: ${Cypress.$(element).text()}`);
+      });
+
+      // Example: Assert the number of elements
+      expect($elements).to.have.length(6);
+
+      // Necesito el quinto elemento que es el de `locations`
+      cy.wrap($elements.eq(5))
+        .should("contain", "Texas R&D")
+        .and("contain", "New York Sales Office")
+        .and("contain", "Medellin");
+    });
+  });
+```
+7. Acabamos de alterar el dato leído del _API_, por otro Simulado desde un archivo `JSON`, dejando este resultado en el proceso: </br> ![.](images/2025-08-28_102311.png "")
+8. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+9. Ejecuto el reporte de nuevo con el comando: </br> `pnpm test` </br> Y obtengo este resultado en el archivo _HTML_: </br> ![report.html -> Mock OrangeHRM Testing](images/2025-08-28_103512.png "report.html -> Mock OrangeHRM Testing")
+
+
+
+
+>[!TIP]
+>
+>Actualizé el `Cypress`, usando este comando en una `TERMINAL`: </br> `pnpm add -D cypress@15.0.0`
+
+
