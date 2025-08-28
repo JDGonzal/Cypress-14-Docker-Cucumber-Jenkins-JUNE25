@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "location": {
+        "id": 5,
+        "name": "Texas R&D"
+      },
+      "count": 5
+    },
+    {
+      "location": {
+        "id": 2,
+        "name": "New York Sales Office"
+      },
+      "count": 2
+    },
+    {
+      "location": {
+        "id": 3,
+        "name": "Medellin"
+      },
+      "count": 3
+    }
+  ],
+  "meta": {
+    "otherEmployeeCount": 0,
+    "unassignedEmployeeCount": 114,
+    "totalLocationCount": 3
+  },
+  "rels": []
+}

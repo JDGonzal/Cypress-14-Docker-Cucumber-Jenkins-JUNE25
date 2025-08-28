@@ -5,9 +5,9 @@
     "passes": 0,
     "pending": 0,
     "failures": 1,
-    "start": "2025-08-19T17:23:54.229Z",
-    "end": "2025-08-19T17:23:57.685Z",
-    "duration": 3456,
+    "start": "2025-08-28T15:33:29.634Z",
+    "end": "2025-08-28T15:33:32.378Z",
+    "duration": 2744,
     "testsRegistered": 1,
     "passPercent": 0,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "c8f95ec9-a2cb-4fa5-a55d-637fc2338017",
+      "uuid": "40bc014e-6454-41c3-9451-45449e169583",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071b.spec.cy.js",
       "file": "cypress\\e2e\\tc13071b.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
+          "uuid": "2b9d35d1-cd6f-4c54-bb71-28afad23edc3",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 2165,
+              "duration": 1673,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -51,8 +51,8 @@
                 "estack": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot read properties of undefined (reading 'body')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application\n    at <unknown> (https://react-redux.realworld.io/main.js:28244:44)",
                 "diff": null
               },
-              "uuid": "abd7d507-7a1e-44a2-aa09-f44bb608d1f9",
-              "parentUUID": "4ed3b548-796d-42fa-8cfc-ca5d15514848",
+              "uuid": "5917dcf4-36d4-4be4-b4b4-dc2e9659114d",
+              "parentUUID": "2b9d35d1-cd6f-4c54-bb71-28afad23edc3",
               "isHook": false,
               "skipped": false
             }
@@ -60,11 +60,11 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "abd7d507-7a1e-44a2-aa09-f44bb608d1f9"
+            "5917dcf4-36d4-4be4-b4b4-dc2e9659114d"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 2165,
+          "duration": 1673,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

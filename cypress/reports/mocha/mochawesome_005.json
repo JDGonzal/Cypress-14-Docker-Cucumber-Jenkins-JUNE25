@@ -1,0 +1,126 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-28T15:33:45.898Z",
+    "end": "2025-08-28T15:33:46.382Z",
+    "duration": 484,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a227969d-592b-4b35-9d0b-14c478a85b47",
+      "title": "",
+      "fullFile": "cypress\\e2e\\tc16079PUTTesting.cy.js",
+      "file": "cypress\\e2e\\tc16079PUTTesting.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+          "title": "API PUT testing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "PUT request",
+              "fullTitle": "API PUT testing PUT request",
+              "timedOut": null,
+              "duration": 286,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"PUT\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: {\n    name: \"morpheus\",\n    job: \"zion resident\"\n  }\n}).then(response => {\n  var _response$body, _response$body2;\n  expect(response.status).equal(200);\n  expect((_response$body = response.body) === null || _response$body === void 0 ? void 0 : _response$body.name).equal(\"morpheus\");\n  expect((_response$body2 = response.body) === null || _response$body2 === void 0 ? void 0 : _response$body2.job).equal(\"zion resident\");\n  expect(response.body).to.have.property(\"updatedAt\");\n});",
+              "err": {},
+              "uuid": "2fe36772-96b2-4613-8434-0a2a6b9e08b8",
+              "parentUUID": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "PUT API in ReqRes Testing",
+              "fullTitle": "API PUT testing PUT API in ReqRes Testing",
+              "timedOut": null,
+              "duration": 171,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const user = {\n  name: \"JPiza\",\n  job: \"Developer\"\n};\ncy.request({\n  method: \"PUT\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: user\n}).then(response => {\n  var _response$body3, _response$body4;\n  expect(response.status).equal(200);\n  expect((_response$body3 = response.body) === null || _response$body3 === void 0 ? void 0 : _response$body3.name).equal(user.name);\n  expect((_response$body4 = response.body) === null || _response$body4 === void 0 ? void 0 : _response$body4.job).equal(user.job);\n});",
+              "err": {},
+              "uuid": "936e847d-fea1-43ab-b876-e039e291fd7c",
+              "parentUUID": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2fe36772-96b2-4613-8434-0a2a6b9e08b8",
+            "936e847d-fea1-43ab-b876-e039e291fd7c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 457,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "./cypress/reports/mocha",
+        "quiet": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

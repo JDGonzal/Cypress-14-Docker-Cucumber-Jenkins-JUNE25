@@ -1,0 +1,126 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-28T15:33:48.625Z",
+    "end": "2025-08-28T15:33:49.011Z",
+    "duration": 386,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "aa191659-e11c-4029-afd0-cbef05681b80",
+      "title": "",
+      "fullFile": "cypress\\e2e\\tc16080DELETETesting.cy.js",
+      "file": "cypress\\e2e\\tc16080DELETETesting.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+          "title": "API DELETE testing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "DELETE request",
+              "fullTitle": "API DELETE testing DELETE request",
+              "timedOut": null,
+              "duration": 194,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"DELETE\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  }\n}).then(response => {\n  expect(response.status).equal(204);\n});",
+              "err": {},
+              "uuid": "a17516c6-c9ff-4978-a6b1-780b020ace70",
+              "parentUUID": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "DELETE API in ReqRes Testing",
+              "fullTitle": "API DELETE testing DELETE API in ReqRes Testing",
+              "timedOut": null,
+              "duration": 167,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"DELETE\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  }\n}).then(response => {\n  expect(response.status).equal(204);\n});",
+              "err": {},
+              "uuid": "30427776-b8e0-4e45-87cb-e110f32614e2",
+              "parentUUID": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a17516c6-c9ff-4978-a6b1-780b020ace70",
+            "30427776-b8e0-4e45-87cb-e110f32614e2"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 361,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "./cypress/reports/mocha",
+        "quiet": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
