@@ -5217,3 +5217,70 @@ describe("Mock OrangeHRM Testing", () => {
 >})
 >```
 
+
+
+## Section 18: Docker Integration with Cypress
+
+
+### 85. What is Docker
+
+>[!NOTE]
+>
+>#### En este vídeo aprenderemos qué es Docker y cuáles son las ventajas de utilizar Docker.
+>
+>![Qué es Docker](images/2025-09-01_095103.png "Qué es Docker")
+>
+> * Docker es la plataforma de contenedores de software más importan hace que el proceso de despliegue de aplicaciones sea muy fácilte del mundo.
+> * Docker y eficiente, y resuelve muchos problemas relacionados
+>con el despliegue de aplicaciones antes de la invención de Docker.
+>Desplegar el código en producción es un engorro muy grande, en el que intervienen múltiples procesos y en el que tenemos
+>que gastar demasiados recursos.</br>
+>Pero una vez inventado Docker, hace que el proceso de despliegue de aplicaciones sea muy, muy fácil
+>y muy práctico.
+> * Docker es una herramienta diseñada para facilitar el despliegue y la ejecución de aplicaciones mediante el uso de contenedores.
+>Docker incorporado utiliza una tecnología llamada contenedor con él, lo que ayuda a desplegar con éxito en
+>prod y de una manera muy fácil.
+>
+>#### Ahora entendemos lo que es Docker. Veamos ahora cuáles son las ventajas de utilizar Docker.
+>
+>![Ventajas de usar Docker](images/2025-09-01_100150.png "Ventajas de usar Docker")
+>
+> * **La primera ventaja es crear la aplicación.**</br>
+>SóloVentajas de usar Docker una vez una aplicación dentro de un contenedor puede ejecutarse en cualquier sistema que tenga Docker instalado, por lo que no hay necesidad
+>de construir y configurar las aplicaciones varias veces en diferentes plataformas.</br></br>
+>Por ejemplo, antes de que se inventara el doctor, digamos que si quería ejecutar el código en windows, tenía que desplegar
+>el código en la máquina windows y luego tenía que compilarlo.
+>Del mismo modo, si quisiera ejecutar el código en, por ejemplo, Mac, entonces tengo que desplegarlo en la
+>máquina Mac y luego tengo que compilarlo.
+></br></br>
+>Pero después de la invención de Docker, no necesitamos construir varias veces.
+>Sólo una vez.
+></br></br>
+>Construir es suficiente porque tanto Windows como Mac ejecutan el Docker en una misma plataforma llamada contenedor, por lo que
+>construir una vez es suficiente.
+>
+> * **Lo siguiente es dormir más y preocuparse menos.**</br>
+>Con Docker, puede probar su aplicación dentro de un contenedor y enviarla como tal.
+>Esto significa que el entorno en el que se realizan las pruebas es idéntico al que utilizará la aplicación en producción.
+></br></br>
+>Así, por ejemplo, digamos que si tengo el docker en local y si lo configuro exactamente de la misma manera que el sistema de
+>producción sería, entonces cada vez que despliego y pruebo en mi local, esa es la misma forma en que va a funcionar en la producción
+>también, así que no tenemos que preocuparnos de cómo va a funcionar en la producción.
+>
+> * **La siguiente es la portabilidad.** </br>
+>Esta es la principal.
+>Beneficio de usar Docker, que es portable a cualquier plataforma, lo que significa que puede funcionar
+>en windows, Mac, Linux y todo.
+></br></br>
+>Además, su funcionamiento será idéntico en todas las plataformas.
+>
+> * **Y el último es el control de versiones como git.**</br>
+>Docker también tiene un sistema de control de versiones incorporado.
+>Esto ayudará a los desarrolladores de aplicaciones incluso a volver a la versión anterior de la imagen de compilación de
+></br></br>
+>Docker, que crearon en caso de que la actual tenga algunos problemas o se haya dañado.
+>Así que esto es lo que es Docker.
+>Y estas son las ventajas de utilizar Docker.
+>
+
+
