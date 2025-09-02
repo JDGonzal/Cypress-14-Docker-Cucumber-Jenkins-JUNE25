@@ -5562,3 +5562,100 @@ Pero no veo una solución a la mano.
 >Instead of `cypress/included:latest` should use the cypress version installed in your machine. For example if the cypress version = 12.12.0 --> Then the command should contain </br>`cypress/included:12.12.0`
 >
 
+
+### 91. What is Docker File & Docker Compose
+
+>[!NOTE]
+>
+>**Docker File**
+>
+>![Docker File (Part 1)](images/2025-09-02_161910.png "Docker File (Part 1)")
+>
+>* PrimeDocker File (Part 1)ro veremos qué es un archivo Docker.
+>Un archivo Docker es un archivo de texto que contiene un conjunto de instrucciones para construir una imagen Docker.
+>Estas instrucciones definen cómo se debe crear una imagen Docker, incluyendo qué imagen base utilizar,
+>qué softwares instalar y cómo configurar el entorno.
+>De ahí un desglose de los componentes y conceptos clave relacionados con los archivos Docker.
+>
+>* **La primera es la imagen base**.
+>Toda imagen Docker parte de una imagen base.
+>Es la base sobre la que se asentarán la aplicación, las dependencias y el código.
+>Las imágenes de base comunes incluyen distribuciones Linux oficiales como Ubuntu, Alpine Linux o imágenes especializadas
+>como Node. js, Python, etc..
+>
+>* Lo siguiente son **las instrucciones**.
+>El archivo Docker consiste en una serie de instrucciones que se ejecutan secuencialmente durante la construcción de la imagen.
+>Las instrucciones comunes incluían.
+>   * La primera es de, por lo que especifica la imagen base que debe descargar.
+>   * El segundo comando es ejecutar ejecuta comandos para instalar software, configurar el entorno y realizar otras tareas
+>de configuración.
+>   * La siguiente es copiar y añadir.
+>Copia los archivos de la máquina anfitriona en la imagen.
+>   * El siguiente es Workdir.
+>Esto establece el directorio de trabajo dentro del contenedor.
+>   * La siguiente es exponer.
+>Esto especifica en qué puertos escuchará el contenedor.
+>   * y el último es cmd o punto de entrada.
+>Define el comando predeterminado que se ejecutará cuando se inicie el contenedor.
+>
+>![Docker File (Part 2)](images/2025-09-02_162557.png "Docker File (Part 2)")
+>
+>* La siguiente es la estratificación.
+>Cada instrucción de un archivo Docker crea una nueva capa en la imagen Docker.
+>Las capas se almacenan en caché, por lo que si realizas cambios en el archivo Docker y reconstruyes una imagen, sólo se reconstruyen
+>las capas modificadas, lo que hace que la creación de imágenes sea muy eficiente y la última son las mejores prácticas.
+>
+>* Los archivos Docker deben seguir las mejores prácticas, como minimizar el número de capas utilizando un usuario no root, limpiar los archivos
+>temporales y utilizar compilaciones multietapa para imágenes más pequeñas.
+>Así que este es el archivo Docker.
+>
+>**Docker compose**
+>
+>![Docker Compose](images/2025-09-02_163802.png "Docker Compose")
+>
+>* Docker compose es una herramienta.
+>Para definir la ejecución de las aplicaciones Docker multicontenedor.
+>Permite definir los servicios, redes y volúmenes necesarios para una aplicación en un único archivo de configuración
+>de Yaml.</br>
+>Así que normalmente el archivo docker compose tendrá una extensión llamada Docker hyphen compose dot yaml.
+>Aquí está la explicación detallada del archivo docker compose.
+>
+>   * **Servicios.**
+>En un archivo docker compose, se definen los servicios que componen la aplicación.</br>
+>Cada servicio corresponde a un contenedor e incluye detalles como la imagen a utilizar, las variables de entorno,
+>los puertos a exponer y los volúmenes a montar.
+>   * **Las Redes.**
+>Docker compose crea una red por defecto para tu aplicación y puedes definir redes personalizadas.
+>Esto permite a los contenedores dentro de la misma aplicación comunicarse entre sí, utilizando los nombres de servicio
+>como nombres de host.
+>   * **Los volúmenes.**
+>Los volúmenes se utilizan para persistir los datos entre ejecuciones de contenedores.</br>
+>Puedes definir volúmenes con nombre o montajes bind para compartir los datos entre los contenedores y la máquina anfitriona.
+>   * **Las variables de Ambiente.**
+>Puede especificar variables de entorno en el archivo de composición, que luego estarán disponibles para los contenedores.</br>
+>Esto facilita la configuración de su aplicación.
+>   * **El Escalado.**
+>Docker Compose permite escalar servicios, es decir, ejecutar varias instancias de un servicio.
+>Esto es útil para equilibrar la carga y escalar su aplicación.
+>   * **Las Dependencias.**
+>Docker compose puede definir dependencias entre servicios.</br>
+>Por ejemplo, un servicio web puede depender de un servicio de base de datos, lo que garantiza que la base de datos se inicie antes
+>que el servicio web.
+>   * **La Interfaz de línea de Comandos.**
+>Docker compose proporciona una interfaz de línea de comandos para gestionar tus contenedores y servicios, incluyendo
+>el arranque, parada, reconstrucción y escalado de la imagen.
+>   * **La asignación de Puertos.**
+>Puedes especificar la asignación de puertos entre los contenedores y la máquina anfitriona, haciéndola accesible desde
+>tu red anfitriona.
+>   * **Las anulaciones de configuración.**
+>Puede utilizar varios archivos de composición o anular las configuraciones utilizando archivos de composición específicos
+>del entorno o del despliegue.
+>
+>En resumen, los archivos Docker se utilizan para crear imágenes Docker individuales, mientras que el archivo Docker
+>compose simplifica la gestión de aplicaciones multicontenedor definiendo los servicios, redes y volúmenes
+>necesarios para ejecutarlas conjuntamente.
+>
+>Docker compose es especialmente útil para el desarrollo, las pruebas y las implantaciones locales, ya que permite definir
+>las pilas de aplicaciones complejas en un único archivo de configuración.
+>
+
