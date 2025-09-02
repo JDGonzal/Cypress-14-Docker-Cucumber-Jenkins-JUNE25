@@ -186,7 +186,7 @@
 >   * [Cursor vs Windsurf vs GitHub Copilot](https://www-builder-io.translate.goog/blog/cursor-vs-windsurf-vs-github-copilot?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true).
 >
 
-1. Creamos la csarpeta **"02-JavaScriptBasics"**.
+1. Creamos la carpeta **"02-JavaScriptBasics"**.
 2. Allí creamos el archivo **`HelloWorld.js`**,y le ponemos este código: </br>`console.log("HELLO WORLD!!");`
 3. Abrimos una `TERMINAL` dentro de `Visual Studio Code` y ejecutamos este comando, para cambiar de carpeta:
 ```dos
@@ -5288,40 +5288,40 @@ describe("Mock OrangeHRM Testing", () => {
 
 >[!WARNING]
 >
-> Ver esta otra advertencia de [Docker ⚠️](#docker-no-está-autorizado-en-la-compañía)
+> Antes de empezar véase esta otra advertencia de [Docker Desktop ⚠️](#docker-desktop-no-está-autorizado-en-la-compañía)
 
 
 1. Vamos al sitio [`Docker Desktop release notes`](https://docs.docker.com/desktop/release-notes/), tomamos el mas reciente, que hoy es el `4.45.0` <sup>2025-08-28 </sup> y descargamos  el [`Windows`](https://desktop.docker.com/win/main/amd64/203075/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-windows) <sub>558 MB</sub>, se demora un buen rato la descarga.
 2. Abrimos una `TERMINAL` de `PowerShell` en modo _Admin_ y buscamos la ruta donde descargamos el archivo `Docker Desktop Installer.exe` </br> `cd "$($env:HOMEPATH)\Downloads"`
 3. En la misma `TERMINAL`, ejecutamos este comando </br> `Start-Process 'Docker Desktop Installer.exe' -Wait install`
-4. En la primer pantalla de opciones, dejo marcados todos y le dosy al botón `[OK]`: </br> ![Docker -> Configuration](images/2025-09-01_103624.png "Docker -> Configuration")
+4. En la primer pantalla de opciones, dejo marcados todos y le doy al botón `[OK]`: </br> ![Docker -> Configuration](images/2025-09-01_103624.png "Docker -> Configuration")
 5. El proceso se muestra en pantalla, hasta que al final aparece el botón de `[Close and restart]` </br> ![Docker -> Install Process](images/2025-09-01_103837.png "Docker -> Install Process")</br>Revisamos que tenga todos los archivos guardados para proceder con el `Cerrar y Reiniciar`.
 6. Al regresar nos espera otra ventana de `Docker Subscription Service Agreement`: </br> ![Docker Subscription Service Agreement](images/2025-09-01_104439.png "Docker Subscription Service Agreement") </br> Yo solo le di al botón de `[Close]`.
 7. Abrimos el `Docker Desktop` y veo que toca si o si, darle al botón `[Accept]`.
 8. Luego nos presenta las opciones para hacer `Sign in`: </br> ![Sign in using your ...](images/2025-09-01_110314.png "Sign in using your ...") </br> Yo selecciono la de <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>`Google`
 
->[!WARNING]
+>[!CAUTION]
 >
->#### Docker no está autorizado en la Compañía.
+>#### `Docker Desktop` no está autorizado en la Compañía.
 >
->|Docker no está autorizado.||
+>|`Docker Desktop` No|`Docker` Si|
 >|-|-|
->|![Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).](images/2025-09-01_112515.png "Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).")|Después de varios intentos con ingresar,</br> ya sea con cuentas de `Google`, `GitHub`</br> o el simple correo, me sale esta pantalla.</br>  </br> En pocas palabras `Docker` no está autorizado.</br> Entonces, toca desinstalarlo.|
+>|![Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).](images/2025-09-01_112515.png "Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).")|Después de varios intentos con ingresar,</br> ya sea con cuentas de `Google`, `GitHub`</br> o el simple correo, me sale esta pantalla.</br>  </br> En pocas palabras `Docker Desktop` no está autorizado.</br> Entonces, no se usa la plataforma de `Docker Desktop`, sino la de `Rancher Desktop`.|
 
 
-9. La sugerencia es usar <img alt="" width="20" height="20" src="https://rancherdesktop.io/images/icon-rancher-desktop.svg"/>[`Rancher Desktop`](https://rancherdesktop.io/).
+1. La sugerencia es usar <img alt="" width="20" height="20" src="https://rancherdesktop.io/images/icon-rancher-desktop.svg"/>[`Rancher Desktop`](https://rancherdesktop.io/).
 
 
-### 86b. How to Install Rancher
+### 86b. How to Install Rancher Desktop
 
 [![How to Install & Configure Rancher-Desktop on Windows (How to Run Docker & Kubernetes on Windows)](images/2025-09-01_144806.png "How to Install & Configure Rancher-Desktop on Windows (How to Run Docker & Kubernetes on Windows)")](https://www.youtube.com/watch?v=I9YtRhPRMqc)
 
 1. Empezamos en este sitio [Rancher -> Windows -> Instalación](https://docs.rancherdesktop.io/getting-started/installation#windows)
 2. En los requerimintos vemos con el comando `winver` y en mi caso me sale esta información: </br> ![WinVer](images/2025-09-01_150517.png "WinVer")
-3. Otro de los requerimientos es tener instalado un <img alt="Windows Subsystem for Linux" title="Windows Subsystem for Linux" src="https://learn.microsoft.com/windows/wsl/media/wsl-icon.svg" width="20" height="20" style="background-color:white;">[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).</br> Ejecutar este comando en una `TERMINAL` de `PoweShell` con permisos de _Admin_: </br> `wsl --install` </br> » El sistema te instala un `Ubuntu` por defecto, pese a que hay mas opciones.</br> » Se deja el usuario existente de windows, el que te muestra por defecto. </br> » En la contraseña si le ponemos una muy simple `qwer1234` </br> » Nos sugiere este mensaje: </br> `To run a command as administrator (user "root"), use "sudo <command>".` </br> » Para salirnos de este ambiente escribir el comando `exit`. </br> » Para voler a ingresar con `wsl`.
+3. Otro de los requerimientos es tener instalado un <img alt="Windows Subsystem for Linux" title="Windows Subsystem for Linux" src="https://learn.microsoft.com/windows/wsl/media/wsl-icon.svg" width="20" height="20" style="background-color:white;">[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).</br> Ejecutar este comando en una `TERMINAL` de `PoweShell` con permisos de _Admin_: </br> `wsl --install` </br> » El sistema te instala un `Ubuntu` por defecto, pese a que hay mas opciones.</br> » Se deja el usuario existente de windows, el que te muestra por defecto. </br> » En la contraseña si le ponemos una muy simple `qwer1234` </br> » Nos sugiere este mensaje: </br> `To run a command as administrator (user "root"), use "sudo <command>".` </br> » Para salirnos de este ambiente escribir el comando `exit`. </br> » Para volver a ingresar con `wsl`.
 4. Nos dice que debe ser el `WSL 2`, entonces en la `TERMINAL` de `PowerShell` con permisos de _Admin_ ponemos este comando: </br> `wsl.exe --set-default-version 2`
 5. Debemos ir a esta página para descargar el instalador de cada sistema operativo [rancher-sandbox -> Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop/releases) En mi caso es este [Windows](https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.20.0/Rancher.Desktop.Setup.1.20.0.msi) <sub>657 MB</sub>, se demora un buen rato la descarga.
-6. Ejecutamos el proceso de Instalación: </br> ![Installing Rancher Desktop](images/2025-09-01_160335.gif "Installing Rancher Desktop") </br> Tenemos en cuenta lo siguiente: </br> » Sin cambios en el proceso de instalación</br> » Por defecto la versión de `Kubernetes` que tenga última y `dockerd`. <br> » El Diagnóstico se corre y falla. </br> » En Preferencias definimos el `WSL`, que en ete caso es `Ubuntu`. </br> » Volvemos a correr el diagnóstico y todo esta OK.
+6. Ejecutamos el proceso de Instalación: </br> ![Installing Rancher Desktop](images/2025-09-01_160335.gif "Installing Rancher Desktop") </br> Tenemos en cuenta lo siguiente: </br> » Sin cambios en el proceso de instalación</br> » Por defecto la versión de `Kubernetes` que tenga última y `dockerd`. <br> » El Diagnóstico se corre y falla. </br> » En Preferencias definimos el `WSL`, que en este caso es `Ubuntu`. </br> » Volvemos a correr el diagnóstico y todo esta OK.
 7. En la `TERMINAL` de `PowerShell` con permisos de _Admin_ ejecutamos el comando: </br> `wsl -l -v` </br> Y nos sale esto:
 ```bash
   NAME                    STATE           VERSION
@@ -5381,7 +5381,7 @@ Server:
 
 19. Escribimos simplemente: </br> `sudo -i` </br> La básica: `qwer1234`
 20. Y luego el comando: </br> `docker ps` </br> Y nos sale que no tengo nada: </br> `CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES`
-21. También debemos instalar `kubectl`, basao dn este sitio [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/), con este comando para descargar el instalador: </br> `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"` </br> Y luego se instala con este otro comando </br> `sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl` </br> El proceso es rápido, por si dudas ejecuta sin el `sudo`.
+21. También debemos instalar `kubectl`, basado en este sitio [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/), con este comando para descargar el instalador: </br> `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"` </br> Y luego se instala con este otro comando </br> `sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl` </br> El proceso es rápido, por si dudas ejecuta sin el `sudo`.
 22. Escribo este comando: </br> `kubectl version` </br> Y esta es la respuesta:
 ```bash
 Client Version: v1.34.0
@@ -5389,8 +5389,8 @@ Kustomize Version: v5.7.1
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
 ```
 23. Seguimos con mas comandos: </br> `chmod +x kubectl` </br> `mkdir -p ~/.local/bin` </br> `mv ./kubectl ~/.local/bin/kubectl` </br> `kubectl version --client`
-24. Abro el archivo en mi ambiente Windows con esta ruta **"C:/Users/<username>/.kube"** y allí abro el archivo **`config`**, similar a este: </br> ![.kube/config](images/2025-09-01_191130.png ".kube/config") </br> Copio el contenido.
-25. En el ambiente de `Ubuntu`, el comando </br> `sudo` </br> La contraseña básic y estamos con todos los permisos.
+24. Abro el archivo en mi ambiente Windows con esta ruta **"C:/Users/`<username>`/.kube"** y allí abro el archivo **`config`**, similar a este: </br> ![.kube/config](images/2025-09-01_191130.png ".kube/config") </br> Copio el contenido.
+25. En el ambiente de `Ubuntu`, el comando </br> `sudo` </br> La contraseña básica y estamos con todos los permisos.
 26. Damos el comando: </br> `vim $HOME/.kube/conf` </br> Y pego el contetenido del **`config`** de windows, queda algo así como: </br> ![linux -> .kube/config  (parte 1)](images/2025-09-01_191723.png "linux -> .kube/config  (parte 1)") </br> ![linux -> .kube/config  (parte 2)](images/2025-09-01_191802.png "linux -> .kube/config  (parte 2)")
 27. Presionamos la tecla [`ESC`] y escribimos: </br> `:wq` </br> Y la tecla [`ENTER`].
 28. Para verificar que quedó grabado este comando: </br> `cat $HOME/.kube/conf`.
@@ -5425,7 +5425,7 @@ users:
     client-certificate-data: DATA+OMITTED
     client-key-data: DATA+OMITTED
 ```
-32. Ahora si damos el comando: </br> `kubectl version` </br> Y al fin Obtenemos una respuesta satisfactoria: 
+32. Ahora si damos el comando: </br> `kubectl version` </br> Y al fin Obtenemos una respuesta satisfactoria:
 ```bash
 Client Version: v1.34.0
 Kustomize Version: v5.7.1
@@ -5436,4 +5436,129 @@ Server Version: v1.33.4+k3s1
 35. Ya está en `PowerShell`: </br> ![Regresando a PowerShell](images/2025-09-02_055218.png "Regresando a PowerShell")
 
 
+
+### 87. Additional Work after Docker/Rancher Installation on Windows
+
+>[!NOTE]
+>
+>In Windows post installing the docker if you try to run it  --> It will throw error related to Kernel update
+>
+>To fix it please follow the steps mentioned in this link  - [Manual installation steps for older versions of WSL](https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package)
+
+### 88. Important Note: Cypress Version Update
+
+>[!IMPORTANT]
+>
+>In the upcoming video, we will be installing Cypress Version 12.12
+>
+>But the current month's latest Cypress version is 15.0.0
+>
+>Do not worry. All the videos in the course work with the latest Cypress Version 15.0.0
+>
+>HAPPY LEARNING !!!
+>
+> * `pnpm add -D cypress@15.0.0`</br>
+> * `npx cypress version`
+>```dos
+>Cypress package version: 15.0.0
+>Cypress binary version: 15.0.0
+>Electron version: 36.4.0
+>Bundled Node version: 
+>22.15.1
+>```
+
+
+### 89a. Running Cypress Tests inside Docker/Rancher
+
+1. Creo una carpeta de usando la `TERMINAL` de nombre **"cypress-docker"**: </br> `md cypress-docker`
+2. Ingreso a esa carpeta usando la `TERMINAL`: </br> `cd cypress-docker`
+3. E invoco una nueva ventana de `Visual Studio Code`: </br> `code .`
+
+
+### 89b. All the following instructions will be executed in the new window of `Visual Studio Code`
+
+1. Esta es la ventana inicial del nuevo `Visual Studio Code` para el proyecto `CYPRESS-DOCKER`: </br> ![CYPRESS-DOCKER](images/2025-09-02_083240.png "CYPRESS-DOCKER")
+2. Sigo las instrucciones de [**23. Installation of Cypress**](#23-installation-of-cypress)
+3. Abrimos una `TERMINAL` y ponemos este comando: </br> `npm init -y` </br> con seo se crea el archivo **`package.json`**
+4. Instalamos [`Cypress`](https://www.npmjs.com/package/cypress), en una `TERMINAL`, con este comando: </br> `pnpm add cypress -E`
+5. Verifico la versión con este comando: </br> `npx cypress version`
+6. Seguimos con las instrucciones de [**24. How to use Test Runner to execute cypress tests**](#24-how-to-use-test-runner-to-execute-cypress-tests).
+7. En la `TERMINAL` el comando : </br> `npx cypress open`
+8. Revisamos que `E2E Testing` está en estado `Not Configured`:</br> ![E2E Testing -> Not Configured](images/2025-09-02_092441.png "E2E Testing -> Not Configured")
+9. Damos clic en `E2E Testing`, nos sale esta ventana: </br> ![Configuration files](images/2025-09-02_093212.png "Configuration files") </br> » **`cypress.config.js`** </br> » `cypress/support/e2e.js` </br> » **`cypress/support/commands.js`** </br> » **`cypress/fixtures/example.json`**
+10. Doy clic en el botón azul de `[Continue]` y ya tengo los archivos en mi sistema y me muestra los diferentes `Browsers` que puedo uytilizar para las pruebas: </br> ![Choose a browser & CYPRESS-DOCKER](images/2025-09-02_101506.png "Choose a browser & CYPRESS-DOCKER")
+11. Cerramos la ventana de `Cypress`.
+12. Creamos el archivo **`cypress/e2e/tc18089_test.spec.cy.js`**.
+13. Copiamos el contenido del archivo **`Tc01_FirstScript.spec.cy.js`**, borro algunos comentarios
+14. En una `TERMINAL` doy el comando:</br> `docker --version` </br> Para confirmar que `Docker` si esté funcionando.
+15. En una `TERMINAL` con `DOS` voy a ejecutar este comando: 
+```dos
+docker run -it -v "%cd%":/e2e -w /e2e --entrypoint=cypress cypress/included:latest run
+```
+Pero antes una breve explicación de cada parte del comando:
+* `docker`: Ejecuta el contenedor de `Docker`.
+* `-it`: `i` mantiene la entrada abierta y `t` un pseudo _TTY_ o terminal como si usara un sistema operativo.
+* `-v`: Para montar un volumen en un contenedor.
+* `"%cd%":/e2e`: la ruta donde se va a montar ese contenedor, en la máquina _host_, usado para compartir los archivos de pruebas o las configuraciones.
+* `-w /e2e`: Esto configura el directorio de trabajodentro del contenedor, es decir en la carpeta **"e2e"**, el resto de comandos se ejecutarán dentro de este directorio.
+* `--entrypoint=cypress`: Permite interactar con el DLL de `Cypress`.
+* `cypress/included:latest`: Se usa la mas reciente "imagen" de `Cypress`.
+* `run`: Este ejecuta el `Cypress` dentro del contenedor. En este caso le dice a `Cypress` que ejecute la prueba.
+
+16. En una `TERMINAL` para `MAC`, este sería el comando:
+```bash
+docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:latest run
+```
+17. Abro una terminal de `cmd`, como sugiere el Instructor y ejecuto el comando del paso 15. Estos son los procesos que se ejecutan: </br> ![.](images/2025-09-02_144536.png "") ![.](images/2025-09-02_144650.png "") ![.](images/2025-09-02_144726.png "") ![.](images/2025-09-02_144752.png "")
+18. Debo hacer un cambio en el archivo **`cypress.config.js`**, para que se gener el video del proceso:
+```js
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+    video: true, // Enable video recording
+    videosFolder: "cypress/e2e/videos", // Specify the folder for videos
+  },
+});
+```
+19. Volvemos a ejecutar en la `TERMINAL` de `DOS` el mismo comando, y ahí si obtenemos el vídeo [`tc18089_test.spec.cy.js.mp4`](./cypress-docker/cypress/e2e/videos/tc18089_test.spec.cy.js.mp4).
+20. Otro comando para ver la ejecución en un _browser_ de `Chrome`:
+```bash
+docker run -it -v "%cd%":/e2e -w /e2e --entrypoint=cypress cypress/included:latest run --browser chrome
+```
+
+>[!WARNING]
+>
+>Tengo un error en pantalla: </br>
+>`Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory`</br
+>`Failed to connect to the bus: Address does not contain a colon`</br>
+>Hallo esta información:
+>
+>The error "Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory" within a Docker container indicates that a process inside the container is attempting to communicate with the D-Bus system bus, but the necessary socket file for this communication is missing or inaccessible. This typically arises because Docker containers are designed to be isolated environments and do not, by default, include or expose the D-Bus system bus from the host system. 
+>>
+Pero no veo una solución a la mano.
+
+### 90. Windows vs Mac code to execute Cypress test inside docker
+
+>[!NOTE]
+>
+>**For WINDOWS** --> Execute all the commands mentioned below in the command prompt
+>
+>To check if Docker container is running use command: </br> >`docker ps -a`
+>
+>Command to execute test: </br> `docker run -it -v "%cd%":/e2e -w /e2e --entrypoint=cypress cypress/included:latest run`
+>
+>Instead of `cypress/included:latest` should use the cypress version installed in your machine. For example if the cypress version = 12.12.0 --> Then the command should contain </br>`cypress/included:12.12.0`
+>
+>**For MAC** --> Execute all the commands mentioned below in the terminal
+>
+>To check if Docker container is running use command: </br> `docker ps -a`
+>
+>Command to execute test: </br> `docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:latest run`
+>
+>Instead of `cypress/included:latest` should use the cypress version installed in your machine. For example if the cypress version = 12.12.0 --> Then the command should contain </br>`cypress/included:12.12.0`
+>
 
