@@ -5284,3 +5284,156 @@ describe("Mock OrangeHRM Testing", () => {
 >
 
 
+### 86a. How to Install Docker
+
+>[!WARNING]
+>
+> Ver esta otra advertencia de [Docker ⚠️](#docker-no-está-autorizado-en-la-compañía)
+
+
+1. Vamos al sitio [`Docker Desktop release notes`](https://docs.docker.com/desktop/release-notes/), tomamos el mas reciente, que hoy es el `4.45.0` <sup>2025-08-28 </sup> y descargamos  el [`Windows`](https://desktop.docker.com/win/main/amd64/203075/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-windows) <sub>558 MB</sub>, se demora un buen rato la descarga.
+2. Abrimos una `TERMINAL` de `PowerShell` en modo _Admin_ y buscamos la ruta donde descargamos el archivo `Docker Desktop Installer.exe` </br> `cd "$($env:HOMEPATH)\Downloads"`
+3. En la misma `TERMINAL`, ejecutamos este comando </br> `Start-Process 'Docker Desktop Installer.exe' -Wait install`
+4. En la primer pantalla de opciones, dejo marcados todos y le dosy al botón `[OK]`: </br> ![Docker -> Configuration](images/2025-09-01_103624.png "Docker -> Configuration")
+5. El proceso se muestra en pantalla, hasta que al final aparece el botón de `[Close and restart]` </br> ![Docker -> Install Process](images/2025-09-01_103837.png "Docker -> Install Process")</br>Revisamos que tenga todos los archivos guardados para proceder con el `Cerrar y Reiniciar`.
+6. Al regresar nos espera otra ventana de `Docker Subscription Service Agreement`: </br> ![Docker Subscription Service Agreement](images/2025-09-01_104439.png "Docker Subscription Service Agreement") </br> Yo solo le di al botón de `[Close]`.
+7. Abrimos el `Docker Desktop` y veo que toca si o si, darle al botón `[Accept]`.
+8. Luego nos presenta las opciones para hacer `Sign in`: </br> ![Sign in using your ...](images/2025-09-01_110314.png "Sign in using your ...") </br> Yo selecciono la de <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>`Google`
+
+>[!WARNING]
+>
+>#### Docker no está autorizado en la Compañía.
+>
+>|Docker no está autorizado.||
+>|-|-|
+>|![Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).](images/2025-09-01_112515.png "Membership in the [perficientinc] organization is required. Sign in enforced by your administrators (via registry.json).")|Después de varios intentos con ingresar,</br> ya sea con cuentas de `Google`, `GitHub`</br> o el simple correo, me sale esta pantalla.</br>  </br> En pocas palabras `Docker` no está autorizado.</br> Entonces, toca desinstalarlo.|
+
+
+9. La sugerencia es usar <img alt="" width="20" height="20" src="https://rancherdesktop.io/images/icon-rancher-desktop.svg"/>[`Rancher Desktop`](https://rancherdesktop.io/).
+
+
+### 86b. How to Install Rancher
+
+[![How to Install & Configure Rancher-Desktop on Windows (How to Run Docker & Kubernetes on Windows)](images/2025-09-01_144806.png "How to Install & Configure Rancher-Desktop on Windows (How to Run Docker & Kubernetes on Windows)")](https://www.youtube.com/watch?v=I9YtRhPRMqc)
+
+1. Empezamos en este sitio [Rancher -> Windows -> Instalación](https://docs.rancherdesktop.io/getting-started/installation#windows)
+2. En los requerimintos vemos con el comando `winver` y en mi caso me sale esta información: </br> ![WinVer](images/2025-09-01_150517.png "WinVer")
+3. Otro de los requerimientos es tener instalado un <img alt="Windows Subsystem for Linux" title="Windows Subsystem for Linux" src="https://learn.microsoft.com/windows/wsl/media/wsl-icon.svg" width="20" height="20" style="background-color:white;">[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).</br> Ejecutar este comando en una `TERMINAL` de `PoweShell` con permisos de _Admin_: </br> `wsl --install` </br> » El sistema te instala un `Ubuntu` por defecto, pese a que hay mas opciones.</br> » Se deja el usuario existente de windows, el que te muestra por defecto. </br> » En la contraseña si le ponemos una muy simple `qwer1234` </br> » Nos sugiere este mensaje: </br> `To run a command as administrator (user "root"), use "sudo <command>".` </br> » Para salirnos de este ambiente escribir el comando `exit`. </br> » Para voler a ingresar con `wsl`.
+4. Nos dice que debe ser el `WSL 2`, entonces en la `TERMINAL` de `PowerShell` con permisos de _Admin_ ponemos este comando: </br> `wsl.exe --set-default-version 2`
+5. Debemos ir a esta página para descargar el instalador de cada sistema operativo [rancher-sandbox -> Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop/releases) En mi caso es este [Windows](https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.20.0/Rancher.Desktop.Setup.1.20.0.msi) <sub>657 MB</sub>, se demora un buen rato la descarga.
+6. Ejecutamos el proceso de Instalación: </br> ![Installing Rancher Desktop](images/2025-09-01_160335.gif "Installing Rancher Desktop") </br> Tenemos en cuenta lo siguiente: </br> » Sin cambios en el proceso de instalación</br> » Por defecto la versión de `Kubernetes` que tenga última y `dockerd`. <br> » El Diagnóstico se corre y falla. </br> » En Preferencias definimos el `WSL`, que en ete caso es `Ubuntu`. </br> » Volvemos a correr el diagnóstico y todo esta OK.
+7. En la `TERMINAL` de `PowerShell` con permisos de _Admin_ ejecutamos el comando: </br> `wsl -l -v` </br> Y nos sale esto:
+```bash
+  NAME                    STATE           VERSION
+* Ubuntu                  Running         2
+  rancher-desktop-data    Stopped         2
+  rancher-desktop         Running         2
+```
+8. Estando en el mismo `PowerShell`, damos el comando para ingresar al ambiente de `linux` o `Ubuntu`: </br> `wsl`
+9. Escribimos el comando : </br> `docker` </br> Y nos parece un error: </br> `Command 'docker' not found, but can be installed with: sudo snap install docker`.
+10. Escribimos ese comando: </br> `sudo snap install docker` </br> Nos pide la contraseña básica que le dimos: `qwer1234` </br> El proceso toma su tiempo y termina con: </br> `docker 28.1.1+1 from Canonical✓ installed`
+11. Escribo este comando: </br> `docker version` </br> Y obtengo este error </br> `internal error, please report: running "docker" failed: cannot find installed snap "docker" at revision 3265: missing file /snap/docker/3265/meta/snap.yaml`
+12. Procedo con lo que sugiere el Instructor, pero puede pasar  [`Docker Snap`](#error-cannot-find-installed-snap-docker-at-revision-3265): </br> `sudo apt-get update` </br> Misma contraseña.
+13. Luego el comando: </br> `sudo apt install docker.io` </br> Me sale esta advertencia: `fter this operation, 304 MB of additional disk space will be used.` </br> y le doy `Y`
+14. Repito el comando: </br> `docker version` </br> Y obtengo el mismo error </br> `internal error, please report: running "docker" failed: cannot find installed snap "docker" at revision 3265: missing file /snap/docker/3265/meta/snap.yaml`
+
+>[!WARNING]
+>
+>#### Error "cannot find installed snap docker at revision 3265
+>
+>El error "No se puede encontrar el `Docker Snap` instalado en la revisión 3265: falta el archivo /snap/docker/3265/meta/snap.yaml" indica que el sistema `Snap` no puede localizar ni acceder a un archivo de metadatos crucial para el `Snap` de `Docker` en una revisión específica. Esto puede deberse a diversas razones, como corrupción del sistema de archivos, problemas con el servicio `SnapD` o problemas con la compatibilidad subyacente con _SquashFS_.
+>
+>Los `Snaps` dependen de _squashfs_ para su sistema de archivos. Asegúrate de que tu kernel sea compatible con _squashfs_. Si usas un kernel personalizado o una instalación de `Ubuntu` no estándar, es posible que debas verificar que los módulos del kernel necesarios estén cargados o que la compatibilidad con _squashfs_ esté habilitada. Reinstale o actualice el `Docker Snap`.
+
+15. Escribo estos comandos: </br> `sudo systemctl restart snapd snapd.socket` </br> `sudo systemctl daemon-reload` </br> `sudo reboot`
+16. Volvemos a ingresar al ambiente `Ubuntu`: </br> `wsl`
+17. Doy un comando para refrescar el `Docker Snap`: </br> `sudo snap refresh docker` </br> La contraseña básica : `qwer1234`
+18. Repito el comando: </br> `sudo docker version` </br> Y al fin obtengo una respuesta satisfactoria:
+```bash
+Client:
+ Version:           27.5.1
+ API version:       1.47
+ Go version:        go1.22.2
+ Git commit:        27.5.1-0ubuntu3~24.04.2
+ Built:             Mon Jun  2 11:51:53 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server:
+ Engine:
+  Version:          28.1.1+1
+  API version:      1.49 (minimum version 1.24)
+  Go version:       go1.23.8
+  Git commit:       01f442b
+  Built:            Fri Jun 13 16:12:14 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v1.7.27
+  GitCommit:        05044ec0a9a75232cad458027ca83437aae3f4da
+ runc:
+  Version:          1.2.6
+  GitCommit:
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+```
+
+19. Escribimos simplemente: </br> `sudo -i` </br> La básica: `qwer1234`
+20. Y luego el comando: </br> `docker ps` </br> Y nos sale que no tengo nada: </br> `CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES`
+21. También debemos instalar `kubectl`, basao dn este sitio [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/), con este comando para descargar el instalador: </br> `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"` </br> Y luego se instala con este otro comando </br> `sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl` </br> El proceso es rápido, por si dudas ejecuta sin el `sudo`.
+22. Escribo este comando: </br> `kubectl version` </br> Y esta es la respuesta:
+```bash
+Client Version: v1.34.0
+Kustomize Version: v5.7.1
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+```
+23. Seguimos con mas comandos: </br> `chmod +x kubectl` </br> `mkdir -p ~/.local/bin` </br> `mv ./kubectl ~/.local/bin/kubectl` </br> `kubectl version --client`
+24. Abro el archivo en mi ambiente Windows con esta ruta **"C:/Users/<username>/.kube"** y allí abro el archivo **`config`**, similar a este: </br> ![.kube/config](images/2025-09-01_191130.png ".kube/config") </br> Copio el contenido.
+25. En el ambiente de `Ubuntu`, el comando </br> `sudo` </br> La contraseña básic y estamos con todos los permisos.
+26. Damos el comando: </br> `vim $HOME/.kube/conf` </br> Y pego el contetenido del **`config`** de windows, queda algo así como: </br> ![linux -> .kube/config  (parte 1)](images/2025-09-01_191723.png "linux -> .kube/config  (parte 1)") </br> ![linux -> .kube/config  (parte 2)](images/2025-09-01_191802.png "linux -> .kube/config  (parte 2)")
+27. Presionamos la tecla [`ESC`] y escribimos: </br> `:wq` </br> Y la tecla [`ENTER`].
+28. Para verificar que quedó grabado este comando: </br> `cat $HOME/.kube/conf`.
+29. Verificamos si `kubectl` tomó la configuración, con este comando: </br> `kubectl config view` </br> Y nos arroja este resultado:
+```bash
+apiVersion: v1
+clusters: null
+contexts: null
+current-context: ""
+kind: Config
+users: null
+```
+30. Debemos configurar la variable de ambiente `$KUBECONFIG`, con este comando: </br> `export KUBECONFIG=$HOME/.kube/conf`.
+31. Repetimos el comando: </br> `kubectl config view` </br> Y nos arroja este resultado:
+```bash
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://127.0.0.1:6443
+  name: rancher-desktop
+contexts:
+- context:
+    cluster: rancher-desktop
+    user: rancher-desktop
+  name: rancher-desktop
+current-context: rancher-desktop
+kind: Config
+users:
+- name: rancher-desktop
+  user:
+    client-certificate-data: DATA+OMITTED
+    client-key-data: DATA+OMITTED
+```
+32. Ahora si damos el comando: </br> `kubectl version` </br> Y al fin Obtenemos una respuesta satisfactoria: 
+```bash
+Client Version: v1.34.0
+Kustomize Version: v5.7.1
+Server Version: v1.33.4+k3s1
+```
+33. Salirse del `sudo` con el comando `exit`.
+34. Salirse del `wsl` con el comando `exit`.
+35. Ya está en `PowerShell`: </br> ![Regresando a PowerShell](images/2025-09-02_055218.png "Regresando a PowerShell")
+
+
+
