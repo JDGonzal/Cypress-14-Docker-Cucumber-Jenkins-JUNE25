@@ -5659,3 +5659,47 @@ Pero no veo una solución a la mano.
 >las pilas de aplicaciones complejas en un único archivo de configuración.
 >
 
+
+### 92. Implementing Docker File & Docker Compose
+
+1. Regresamos al `Visual Studio Code` con el proyecto `CYPRESS-DOCKER`, puede ejecutarse en una terminal estos comando para ir allá: </br> `cd cypress-docker` </br> `code .`
+2. Creamos en la raíz de ese proyecto el archivo **`Dockerfile`**.
+3. El `Visual Studio Code` me recomienda instalar la Extensión [`Container Tools`](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers) de [Microsoft](https://marketplace.visualstudio.com/publishers/Microsoft), y procedo a instalarla.
+4. Instalo también la extensión [`Doker`](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) también de [Microsoft](https://marketplace.visualstudio.com/publishers/Microsoft)
+5. Coloco este código en el archivo **`Dockerfile`**:
+```docker
+FROM cypress/included:latest
+WORKDIR /app
+COPY . /app
+RUN npm i
+RUN npx cypress verify
+CMD [ "npx", "cypress", "run" ]
+```
+6. Creamos otro archivo en la raíz **`.dockerignore`**, con esta sola línea:
+```ini
+node_modules
+```
+7. Creamos el achivo **`docker-compose.yml`**, con esta información:
+```yml
+version: '3'
+services:
+  e2e:
+    image: cypress
+    build: .
+    container_name: cypress_docker
+    command: npx cypress run
+```
+Super importante la _identación_ o los tabuladores en un archivo **`.yml`**
+
+8. Ejecutamos este comando en una `TERMINAL`: </br> `docker-compose -f docker-compose.yml up` </br> Y obtenemos algo parecido a esto: </br> ![docker-compose 1](images/2025-09-02_172715.png "docker-compose 1") ![docker-compose 2](images/2025-09-02_172747.png "docker-compose 2") ![docker-compose 3](images/2025-09-02_172816.png "docker-compose 3")
+
+
+
+
+
+
+
+9. Revisamos el `Rancher Desktop`, en la opción de `Containers`, y nos parece esto: </br> !["Rancher Desktop -> Containers](images/2025-09-02_173233.png "Rancher Desktop -> Containers")
+
+
+
