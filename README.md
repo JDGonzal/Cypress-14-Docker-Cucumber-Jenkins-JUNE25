@@ -5703,3 +5703,110 @@ Super importante la _identación_ o los tabuladores en un archivo **`.yml`**
 
 
 
+
+### 93. Code - DockerFile & DockerCompose
+
+>[!NOTE]
+>
+>#### For WINDOWS
+>
+>**Docker File :**
+>```docker
+>#Below in place of <Cypress Version> replace with cypress version installed in your system
+>FROM cypress/included:<Cypress Version>
+>WORKDIR /app
+>COPY . /app
+>RUN npm install
+>```
+>**Docker Compose :**
+>```yml
+>version: '3'
+>services: 
+>  e2e:
+>    image: cypress
+>    build: .
+>    container_name: cypress
+>    command: npx cypress run
+>```
+>
+>#### For MAC
+>
+>**Docker File :**
+>```docker
+>#Below in place of <Cypress Version> replace with cypress version installed in your system
+>FROM cypress/included:<Cypress Version>
+>WORKDIR /app
+>COPY . /app
+>RUN npm install
+>RUN npx cypress verify
+>CMD [ "npx", "cypress", "run" ]
+>```
+>**Docker Compose :**
+>```yml
+>version: '3'
+>services: 
+>  e2e:
+>    image: cypress
+>    build: .
+>    container_name: cypress
+>    command: npx cypress run
+>```
+
+
+
+### 94. Volume Mapping in Docker
+
+1. Regresamos al `Visual Studio Code` con el proyecto `CYPRESS-DOCKER`, puede ejecutarse en una terminal estos comando para ir allá: </br> `cd cypress-docker` </br> `code .`
+2. Abrimos el archivo **`docker-compose.yml`**, añadimos la _key_ `volumnes`:
+```yml
+version: '3'
+services:
+  e2e:
+    image: cypress
+    build: .
+    container_name: cypress_docker
+    command: npx cypress run
+    volumes:
+      - ./:/app
+```
+3. Ejecutamos de nuevo el comando en una `TERMINAL`: </br> `docker-compose -f docker-compose.yml up`
+4. Este es el resultado luego de ejecutar: </br> ![docker-compose 4](images/2025-09-03_081406.png "docker-compose 4") ![docker-compose 5](images/2025-09-03_081435.png "docker-compose 5")
+
+
+
+
+### 95. Code - Volume Mapping
+
+>[!NOTE]
+>
+>#### FOR WINDOWS
+>
+>**Docker Compose :**
+>```yml
+>version: '3'
+>services: 
+>  e2e:
+>    image: cypress
+>    build: .
+>    container_name: cypress
+>    command: npx cypress run
+>    volumes:
+>      - ./:/app
+>```
+>
+>#### FOR MAC
+>
+>**Docker Compose :**
+>```yml
+>version: '3'
+>services: 
+>  e2e:
+>    image: cypress
+>    build: .
+>    container_name: cypress
+>    command: npx cypress run
+>    volumes: 
+>      - $PWD:/app
+>```
+
+
