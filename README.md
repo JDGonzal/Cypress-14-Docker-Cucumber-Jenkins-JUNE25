@@ -5810,3 +5810,51 @@ services:
 >```
 
 
+
+## Section 19: Cucumber - BDD Framework
+
+
+### 96. Cucumber Introduction
+
+>[!NOTE]
+>
+>Antes de entender lo que es `Cucumber`, primero vamos a entender algo llamado BDD.
+>
+>![BDD - Behaviour-Driven Development](images/2025-09-08_074302.png "BDD - Behaviour-Driven Development")
+>
+> * BDD significa desarrollo guiado por el comportamiento.
+>BDD es una forma de trabajar para los equipos de software que cierra la brecha entre la gente de negocios y la
+>
+> * Gente técnica mediante el fomento de la colaboración a través de roles para construir una comprensión compartida del problema a resolver.
+> * Este BDD nos ayuda a trabajar en iteraciones rápidas y pequeñas para aumentar la retroalimentación y el flujo de valor produciendo documentación del sistema
+> * que se comprueba automáticamente con el comportamiento del sistema.
+
+>
+>**¿Qué es el `Cucumber`?**
+>
+> ![¿Qué es el `Cucumber`? (Parte 1)](images/2025-09-08_074718.png "¿Qué es el `Cucumber`? (Parte 1)")
+>
+> * Cucumber es una herramienta que permitirá al usuario escribir la prueba de una manera orientada al negocio.
+> * `Gherkin` es la sintaxis que debemos seguir para escribir la prueba en cucumber.
+>
+>**¿Cuáles son las ventajas de utilizar pepino sobre el enfoque más bien TDD, que hemos aprendido hasta ahora?**
+>
+>![¿Qué es el `Cucumber`? (Parte 2)](images/2025-09-08_075508.png "¿Qué es el `Cucumber`? (Parte 2)")
+>
+> * Incluso las partes interesadas de negocio pueden entender fácilmente la prueba de automatización con nuestra
+> prueba escrita anterior de la manera TDD, no es muy fácil para las partes interesadas de negocio leer el código y entenderlo.</br>
+> TDD es para la gente técnica, mientras que cuando escribimos la prueba en cucumber, incluso las partes interesadas del negocio pueden entender
+> fácilmente lo que estamos probando como parte de eso.
+> * Aumenta la legibilidad, por lo que fomenta el trabajo en equipo.
+> Así que cuando escribimos la prueba en cucumber, como he mencionado antes, cualquier parte interesada puede leerlo, a pesar de que no saben
+> ningún conocimiento técnico acerca de la herramienta de automatización, y aún así pueden compartir
+> sus comentarios con el fin de mejorar su trabajo en equipo.
+> Y el siguiente es `Gherkin` es un fácil de adoptar.
+> * `Gherkin` es el lenguaje que utilizaremos para escribir la prueba del pepino.
+> `Gherkin` no es más que un lenguaje sencillo y llano en el que escribiremos todos los escenarios
+> que vamos a probar para que cualquier interesado pueda leerlo y entenderlo fácilmente.
+> Ahora ya sabemos qué es el pepino y cuáles son sus ventajas.
+>
+
+
+
