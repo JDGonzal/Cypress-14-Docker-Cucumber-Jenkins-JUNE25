@@ -5938,3 +5938,134 @@ module.exports = defineConfig({
 >```
 
 
+### 99. Writing First Test in Cucumber
+
+>[!TIP]
+>
+>El siguiente proceso se hace dentro de la nueva ventana de `Visual Studio Code` del nuevo proyecto `CYPRESS-CUCUMBER`.
+>
+
+1. Creamos la carpeta **"cypress/e2e/cucumber"**.
+2. Creamos otras dos nuevas carpetas dentro de esta última nueva: </br> » **"feature"** </br> » **"step_definitions"**
+3. Se requiere instalar dos _pluggins_ en la zona de ![.](images/VSC-Extensions-icon2.png "") `[Extensions]` de `Visual Studio Code`:
+    * [Cucumber](https://marketplace.visualstudio.com/items?itemName=CucumberOpen.cucumber-official) de [Cucumber](https://marketplace.visualstudio.com/publishers/CucumberOpen).
+    * [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) de [Alexander Krechik](https://marketplace.visualstudio.com/publishers/alexkrechik).
+  
+4. Creamos el archivo **`cypress/e2e/cucumber/feature/orangeLogin.feature`** y le cargamos nuestra primera funcionalidad:
+```feature
+Feature: Orange-HRM Login Functionality
+
+  Scenario: Login and Logout with Valid Credentials
+    Given I open the OrangeHRM login page
+    When User enters valid username and password
+    And User clicks on the login button
+    Then User should be logged in successfully
+    When User clicks on the userdropdown-name link
+    And User clicks on the logout link
+    Then User should be logged out successfully
+```
+5. Creamos el archivo **`cypress/e2e/cucumber/step_definitions/orangeLogin/orangeLogin.step.js`**, empezamos con unos elementos importados de `'cypress-cucumber-preprocessor'`:
+```js
+import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
+```
+6. Siguiendo la lógica del archivo **`orangeLogin.feature`**, hacemos un `Given`, para apuntar a la página de trabajo:
+```js
+Given("User open the OrangeHRM login page", () => {
+  cy.visit(
+    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+  );
+});
+```
+7. Hacemos los tres primeros pasos una vez hallada la página, los de `When`, `And` y `Then`:
+```js
+When("User enters valid username and password", () => {
+  cy.get('input[name="username"]').type("Admin", { delay: 0 });
+  cy.get('input[name="password"]').type("admin123", { delay: 0 });
+});
+
+And("User clicks on the login button", () => {
+  cy.get('button[type="submit"]').click();
+});
+
+Then("User should be logged in successfully", () => {
+  cy.url().should("include", "/dashboard");
+  cy.contains("Dashboard").should("be.visible");
+  cy.get(".oxd-sidepanel-body").contains("Admin").click();
+});
+```
+8. Hacemos los últimos tres pasos paso que también tienen `When`, `And` y `Then`:
+```js
+When("User clicks on the userdropdown-name link", () => {
+  cy.get(".oxd-userdropdown-name").click();
+});
+
+And("User clicks on the logout link", () => {
+  // cy.xpath("//a[normalize-space()='Logout']").click(); Aquí no funciona el `xpath`
+    cy.get('a[href="/web/index.php/auth/logout"]').click();
+});
+
+Then("User should be logged out successfully", () => {
+  cy.url().should("include", "/auth/login");
+  cy.contains("Login").should("be.visible");
+});
+```
+9. » Ejecutamos el comando en la `TERMINAL` del proyecto `CYPRESS-CUCUMBER`: </br> `npx cypress open`</br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `orangeLogin.feature`.
+10. Así aparece el proceso de ejecución: </br> ![Cypress -> orangeLogin.feature](images/2025-09-08_151213.gif "Cypress -> orangeLogin.feature")
+
+
+
+
+11. Aprovechamos para actualiza a la última versión de `Cypress`: </br> `npm install -D cypress@15.1.0`
+12. Cerramos la ventana de `Chrome` gobernada por `Cypress`.
+13. Y cerramos la ventana de `Cypress`, abajo la `TERMINAL` muestra que ya se detuvo la ejecución  de [`npx cypress open`]
+
+
+### 100. Code - First Test in Cucumber
+
+>[!NOTE]
+>
+>**Feature File**
+>```feature
+>Feature: Conduit Login Functionality
+> 
+>  Scenario: Login and Logout with Valid Credentials
+>    Given User is on the login page
+>    When User login with valid credentials
+>    And User click on the settings button
+>    And User click on the logout button
+>    Then User should be routed back to login page
+>```
+>**Step Definition File**
+>```js
+>import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
+> 
+>beforeEach(function(){
+>    cy.fixture('conduitLoginData').as('data')
+>})
+> 
+>Given('User is on the login page', function () {
+>    cy.visit('https://react-redux.realworld.io/')
+>    cy.get('a[href="#login"]').click()
+>})
+> 
+>When('User login with valid credentials', function () {
+>    >cy.get('input[placeholder="Email"]').type(this.data.validEmail)
+>    >cy.get('input[placeholder="Password"]').type(this.data.validPassword)
+>    cy.get('button[type="submit"]').click()
+>})
+> 
+>When('User click on the settings button', function () {
+>    cy.get('a[href="#settings"]').click()
+>})
+> 
+>When('User click on the logout button', function () {
+>    cy.get('.btn.btn-outline-danger').click()
+>})
+> 
+>Then('User should be routed back to login page', function () {
+>    cy.title().should('eq', 'Conduit')
+>})
+>```
+
+
+
