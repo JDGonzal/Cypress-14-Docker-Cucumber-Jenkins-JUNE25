@@ -6068,4 +6068,26 @@ Then("User should be logged out successfully", () => {
 >```
 
 
+### 101. How to Synchronize Feature File and Step Definition File
+
+1. En Windows y dentro de `Visual Studio Code`, presiono las teclas [`CTRL`] + [`,`].
+2. Sale la ventana de `Settings`, con las opciones de `Backup and Sync Settings`
+3. Escribimos `cucumber` y seleccionamos el link [Edit in settings.json](Edit-in-settings.json) </br> ![cucumber -> Edit in settings.json](images/2025-09-08_171057.png "cucumber -> Edit in settings.json")
+4. Agrego datos para `"cucumber.features"`, `"cucumber.glue"` y `"cucumberautocomplete.steps"`:
+```json
+  "cucumber.features": [
+    "cypress/e2e/**/*.feature" // Adjust path based on your feature file location
+  ],
+  "cucumber.glue": [
+    "cypress/e2e/**/*.js", // Adjust path based on your step definition file location
+    "cypress/support/*.js" // Include support files if step definitions are there
+  ],
+  "cucumberautocomplete.steps": [
+    "cypress/e2e/**/*.js", // Adjust path based on your step definition file location
+    "cypress/support/*.js" // Include support files if step definitions are there
+  ]
+```
+5. Le doy guardar y cierro esos tabuladores.
+6. Cerramos ese `Visual Studio Code`, para que los cambios sean tomados.
+7. Abrimos de nuevo el proyecto `CYPRESS-CUCUMBER`
 
