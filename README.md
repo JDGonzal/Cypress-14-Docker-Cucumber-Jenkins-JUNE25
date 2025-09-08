@@ -5449,11 +5449,11 @@ Server Version: v1.33.4+k3s1
 
 >[!IMPORTANT]
 >
->In the upcoming video, we will be installing Cypress Version 12.12
+>In the upcoming video, we will be installing Cypress Version **12.12**
 >
->But the current month's latest Cypress version is 15.0.0
+>But the current month's latest Cypress version is **15.0.0**
 >
->Do not worry. All the videos in the course work with the latest Cypress Version 15.0.0
+>Do not worry. All the videos in the course work with the latest Cypress Version **15.0.0**
 >
 >HAPPY LEARNING !!!
 >
@@ -5856,5 +5856,85 @@ services:
 > Ahora ya sabemos qué es el pepino y cuáles son sus ventajas.
 >
 
+
+### 97. Cucumber Installation
+
+1. Creo la carpeta **"cypress-cucumber"** en raíz.
+2. Desde una `TERMINAL` ejecutamos estos comandos:
+```bash
+cd ./cypress-cucumber
+code .
+```
+3. Todo lo siguientes comandos lo jugamos desde la `TERMINAL` del nuevo `Visual Studio Code` y son similares a [23. Installation of Cypress](#23-installation-of-cypress) y [...in the new window of `Visual Studio Code`](#89b-all-the-following-instructions-will-be-executed-in-the-new-window-of-visual-studio-code).
+4. En esa otra `TERMINAL`, ejecutamos estos comando en el proyecto `CYPRESS-CUCUMBER`:
+```bash
+npm init -y
+pnpm add cypress -E
+```
+5. Hasta acá tenemos lo básico del proyecto, debemos poner el comando que activa la configuración de `Cypress`:
+```bash
+npx cypress open
+```
+
+6. Esto activa un proceso para completar los archivo faltantes de `Cypress`  </br> ![npx cypress open](images/2025-09-08_082744.png "npx cypress open")
+
+
+
+
+7. Ahora si empezamos a instalar `Cucumber` de esta página [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor), con este comando en esa nueva `TERMINAL` del proyecto `CYPRESS-CUCUMBER`:
+```bash
+pnpm add -D cypress-cucumber-preprocessor -E
+```
+Así va el **`package.json`** hasta el momento: </br> ![CYPRESS-CUCUMBER -> package.json](images/2025-09-08_110535.png "CYPRESS-CUCUMBER -> package.json")
+
+
+
+8. Abrimos el archivo **`cypress.config.js`** y agregamos lo relacionado con `Cucumber`:
+```js
+const { defineConfig } = require("cypress");
+const cucumber = require("cypress-cucumber-preprocessor").default;
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', cucumber()); // Integrate Cucumber preprocessor
+    },
+    video: true, // Enable video recording
+    videosFolder: "cypress/e2e/videos", // Specify the folder for videos
+    specPattern: "cypress/e2e/**/*.feature", // Use .feature files for specs
+    // specPattern: "cypress/e2e/cucumber/feature/*.feature", // Alternative pattern
+  },
+});
+```
+9. Abrimos el archivo **`package.json`**, para agregarle la configuración relacionada con `Cucucmber`, al final:
+```json
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "cypress/e2e/cucumber/step_definitions/*"
+  }
+```
+
+
+### 98. Important Note: Cypress Version Update
+
+>[!NOTE]
+>
+>In the upcoming video, we will be installing Cypress Version **12.12**
+>
+>But the current month's latest Cypress version is **15.0.0**
+>
+>Do not worry. All the videos in the course work with the latest Cypress Version **15.0.0**
+>
+>HAPPY LEARNING !!!
+>
+> * `pnpm add -D cypress@15.0.0`</br>
+> * `npx cypress version`
+>```dos
+>Cypress package version: 15.0.0
+>Cypress binary version: 15.0.0
+>Electron version: 36.4.0
+>Bundled Node version: 
+>22.15.1
+>```
 
 
