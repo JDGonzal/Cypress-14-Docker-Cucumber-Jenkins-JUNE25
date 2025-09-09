@@ -6429,3 +6429,370 @@ report.generate({
 >});
 >
 
+
+### 107. Add Failed test screenshot in HTML Report
+
+>[!NOTE]
+>
+>En este vídeo, aprenderemos a añadir las capturas de pantalla en el informe HTML de cucumber.
+>En el vídeo anterior, hemos creado un magnífico informe HTML.
+>
+>Pero si una prueba falla, el informe sólo muestra el mensaje de error, que nos ayudará a depurar dónde falló,
+>pero no adjuntará ninguna captura de pantalla.
+>
+>En este vídeo aprenderemos a configurar el informe HTML para que muestre las capturas de pantalla en caso
+>de fallo.
+
+1. Abrimos el archivo **`package.json`**, y cambiamos el valor para la _key_ de nombre `"outputFolder"`:
+```json
+      "outputFolder": "cypress/test-results/cucumber-json/",
+```
+2. Creamos el archivo **`reporting/delete-results.js`**.
+3. Pegamos el contenido del paso [without `rimraf` dependency](#106-note-on-code-update-for-next-video):
+```js
+#!/usr/bin/env node
+const fs = require('fs').promises;
+// const path = require('path');
+
+const testResultsDir = './cypress/test-results';
+
+async function deleteDirectory(directoryPath = testResultsDir) {
+  try {
+    await fs.rm(directoryPath, { recursive: true, force: true });
+    console.log(
+      `Directory '${directoryPath}' and its contents deleted successfully.`
+    );
+  } catch (error) {
+    console.error(`Error deleting directory '${directoryPath}':`, error);
+  }
+}
+
+deleteDirectory();
+```
+4. Creamos otro archivo **`reporting/report.js`**, con este código:
+```js
+#!/usr/bin/env node
+const report = require('multiple-cucumber-html-reporter');
+const fs = require('fs-extra');
+const path = require('path');
+const chalk = require('chalk');
+
+const cucumberJsonDir = './cypress/test-results/cucumber-json';
+const cucumberReportFileMap = {};
+const cucumberReportMap = {};
+const jsonIndentLevel = 2;
+const htmlReportDir = './cypress/test-results/html';
+const screenshotsDir = './cypress/screenshots';
+
+getCucumberReportMaps();
+addScreenshots();
+generateReport();
+
+function getCucumberReportMaps() {
+  const files = fs.readdirSync(cucumberJsonDir).filter((file) => {
+    return file.indexOf('.json') > -1;
+  });
+  files.forEach((file) => {
+    const json = JSON.parse(fs.readFileSync(path.join(cucumberJsonDir, file)));
+    if (!json[0]) {
+      return;
+    }
+    const [feature] = json[0].uri.split('/').reverse();
+    cucumberReportFileMap[feature] = file;
+    cucumberReportMap[feature] = json;
+  });
+}
+
+function addScreenshots() {
+  // Prepend the given path segment
+  const prependPathSegment = (pathSegment) => (location) =>
+    path.join(pathSegment, location);
+  // fs.readdir but with relative paths
+  const readdirPreserveRelativePath = (location) =>
+    fs.readdirSync(location).map(prependPathSegment(location));
+  // Recursive fs.readdir but with relative paths
+  const readdirRecursive = (location) =>
+    readdirPreserveRelativePath(location).reduce(
+      (result, currentValue) =>
+        fs.statSync(currentValue).isDirectory()
+          ? result.concat(readdirRecursive(currentValue))
+          : result.concat(currentValue),
+      []
+    );
+  const screenshots = readdirRecursive(path.resolve(screenshotsDir)).filter(
+    (file) => {
+      return file.indexOf('.png') > -1;
+    }
+  );
+  // Extract feature list from screenshot list
+  const featuresList = Array.from(
+    new Set(screenshots.map((x) => x.match(/[\w-_.]+\.feature/g)[0]))
+  );
+  featuresList.forEach((feature) => {
+    screenshots.forEach((screenshot) => {
+      // regex to parse 'I can use scenario outlines with examples' from either of these:
+      //   - Getting Started -- I can use scenario outlines with examples (example #1) (failed).png
+      //   - Getting Started -- I can use scenario outlines with examples (failed).png
+      //   - Getting Started -- I can use scenario outlines with examples.png
+      const regex =
+        /(?<=--\ ).+?((?=\ \(example\ #\d+\))|(?=\ \(failed\))|(?=\.\w{3}))/g;
+      const [scenarioName] = screenshot.match(regex);
+      console.info(
+        chalk.blue('\n    Adding screenshot to cucumber-json report for')
+      );
+      console.info(chalk.blue(`    '${scenarioName}'`));
+      // Find all scenarios matching the scenario name of the screenshot.
+      // This is important when using the scenario outline mechanism
+      const myScenarios = cucumberReportMap[feature][0].elements.filter((e) =>
+        scenarioName.includes(e.name)
+      );
+      if (!myScenarios) {
+        return;
+      }
+      let foundFailedStep = false;
+      myScenarios.forEach((myScenario) => {
+        if (foundFailedStep) {
+          return;
+        }
+        let myStep;
+        if (screenshot.includes('(failed)')) {
+          myStep = myScenario.steps.find(
+            (step) => step.result.status === 'failed'
+          );
+        } else {
+          myStep = myScenario.steps.find((step) =>
+            step.name.includes('screenshot')
+          );
+        }
+        if (!myStep) {
+          return;
+        }
+        const data = fs.readFileSync(path.resolve(screenshot));
+        if (data) {
+          const base64Image = Buffer.from(data, 'binary').toString('base64');
+          if (!myStep.embeddings) {
+            myStep.embeddings = [];
+            myStep.embeddings.push({
+              data: base64Image,
+              mime_type: 'image/png',
+            });
+            foundFailedStep = true;
+          }
+        }
+      });
+      //Write JSON with screenshot back to report file.
+      fs.writeFileSync(
+        path.join(cucumberJsonDir, cucumberReportFileMap[feature]),
+        JSON.stringify(cucumberReportMap[feature], null, jsonIndentLevel)
+      );
+    });
+  });
+}
+
+function generateReport() {
+  if (!fs.existsSync(cucumberJsonDir)) {
+    console.warn(
+      chalk.yellow(
+        `WARNING: Folder './${cucumberJsonDir}' not found. REPORT CANNOT BE CREATED!`
+      )
+    );
+  } else {
+    report.generate({
+      jsonDir: cucumberJsonDir,
+      reportPath: htmlReportDir,
+      displayDuration: true,
+      displayReportTime: true,
+      pageTitle: 'System-Test Report',
+      reportName: `System-Test Report - ${new Date().toLocaleString()}`,
+      hideMetadata: true,
+    });
+  }
+}
+```
+5. Abrimos el archivo **`package.json`** y hacemos unos cambios en `"scripts"`:
+```json
+  "scripts": {
+    "open": "cypress open",
+    "excecute:script": "cypress run",
+    "pretest": "node ./reporting/delete-results.js",
+    "posttest": "node ./reporting/report.js",
+    "test": "pnpm excecute:script || pnpm posttest"
+  },
+```
+
+
+6. Vamos a probar el funcionamiento con este comando: </br> `pnpm test` </br> Y este fue el resultado: </br> ![pnpm test (parte 1)](images/2025-09-09_182926.png "pnpm test (parte 1)") ![pnpm test (parte 2)](images/2025-09-09_183010.png "pnpm test (parte 2)")
+
+
+
+
+
+
+
+
+7. Adicional tengo un nuevo archivo **`cypress/test-results/cucumber-json/orangeLogin.cucumber.json`**: </br> ![orangeLogin.cucumber.json](images/2025-09-09_183453.png "orangeLogin.cucumber.json")
+
+
+
+
+
+
+8. Y otro nuevo archivo **`cypress/test-results/html/index.html`**
+9. Provocamos un error en el archivo **`orangeLogin.step.js`**, cambiando esto: </br> `cy.get('input[name="username"]')` </br> por esto: </br> `cy.get('input[name="usernames"]')`
+10. Volvemos ajecutar el comando: </br> `pnpm test`
+11. Vamos directo al archivo **`cypress\test-results\html\index.html`** y vemos el contenido donde se produjo la falla: </br> ![⚠️ When User enters valid username and password](images/2025-09-09_184614.png "⚠️ When User enters valid username and password")
+
+
+
+
+12. Regresamos el cambio en el archivo **`orangeLogin.step.js`**
+
+
+
+### 108. Code - Screenshot in Cucumber report
+
+>[!NOTE]
+>
+>**delete-results.js**
+>```js
+>#!/usr/bin/env node
+>const fs = require('fs');
+>const path = require('path');
+>const testResultsDir = './cypress/test-results';
+> 
+>fs.rmdir(testResultsDir, { recursive: true }, (err) => {
+>  if (err) {
+>    console.error('Error deleting former test results:', >err);
+>  } else {
+>    console.log('Deleted former test results');
+>  }
+>});
+>```
+>**reports.js**
+>```js
+>#!/usr/bin/env node
+>const report = require('multiple-cucumber-html-reporter')
+>const fs = require('fs-extra')
+>const path = require('path')
+>const chalk = require('chalk')
+> 
+>const cucumberJsonDir = './cypress/test-results/cucumber-json'
+>const cucumberReportFileMap = {}
+>const cucumberReportMap = {}
+>const jsonIndentLevel = 2
+>const htmlReportDir = './cypress/test-results/html'
+>const screenshotsDir = './cypress/screenshots'
+> 
+>getCucumberReportMaps()
+>addScreenshots()
+>generateReport()
+> 
+>function getCucumberReportMaps() {
+> const files = fs.readdirSync(cucumberJsonDir).filter(file => {
+>   return file.indexOf('.json') > -1
+> })
+> files.forEach(file => {
+>   const json = JSON.parse(
+>     fs.readFileSync(path.join(cucumberJsonDir, file))
+>   )
+>   if (!json[0]) { return }
+>   const [feature] = json[0].uri.split('/').reverse()
+>   cucumberReportFileMap[feature] = file
+>   cucumberReportMap[feature] = json
+> })
+>}
+> 
+>function addScreenshots() {
+> // Prepend the given path segment
+> const prependPathSegment = pathSegment => location => >path.join(pathSegment, location)
+> // fs.readdir but with relative paths
+> const readdirPreserveRelativePath = location => >fs.readdirSync(location).map(prependPathSegment(location))
+> // Recursive fs.readdir but with relative paths
+> const readdirRecursive = location => readdirPreserveRelativePath(location)
+>   .reduce((result, currentValue) => >fs.statSync(currentValue).isDirectory()
+>     ? result.concat(readdirRecursive(currentValue))
+>     : result.concat(currentValue), [])
+> const screenshots = >readdirRecursive(path.resolve(screenshotsDir)).filter(file => {
+>   return file.indexOf('.png') > -1
+> })
+> // Extract feature list from screenshot list
+> const featuresList = Array.from(new Set(screenshots.map(x => x.match(/[\w-_.]+\.feature/g)[0])))
+> featuresList.forEach(feature => {
+>   screenshots.forEach(screenshot => {
+>     // regex to parse 'I can use scenario outlines with examples' from either of these:
+>     //   - Getting Started -- I can use scenario outlines with examples (example #1) (failed).png
+>     //   - Getting Started -- I can use scenario outlines with examples (failed).png
+>     //   - Getting Started -- I can use scenario outlines with examples.png
+>     const regex = /(?<=--\ ).+?((?=\ \(example\ #\d+\))|(?=\ \(failed\))|(?=\.\w{3}))/g
+>     const [scenarioName] = screenshot.match(regex)
+>     console.info(chalk.blue('\n    Adding screenshot to cucumber-json report for'))
+>     console.info(chalk.blue(`    '${scenarioName}'`))
+>     // Find all scenarios matching the scenario name of the screenshot.
+>     // This is important when using the scenario outline mechanism
+>     const myScenarios = cucumberReportMap[feature][0].elements.filter(
+>       e => scenarioName.includes(e.name)
+>     )
+>     if (!myScenarios) { return }
+>     let foundFailedStep = false
+>     myScenarios.forEach(myScenario => {
+>       if (foundFailedStep) {
+>         return
+>       }
+>       let myStep
+>       if (screenshot.includes('(failed)')) {
+>         myStep = myScenario.steps.find(
+>           step => step.result.status === 'failed'
+>         )
+>       } else {
+>         myStep = myScenario.steps.find(
+>           step => step.name.includes('screenshot')
+>         )
+>       }
+>       if (!myStep) {
+>         return
+>       }
+>       const data = fs.readFileSync(
+>         path.resolve(screenshot)
+>       )
+>       if (data) {
+>         const base64Image = Buffer.from(data, 'binary').toString('base64')
+>         if (!myStep.embeddings) {
+>           myStep.embeddings = []
+>           myStep.embeddings.push({ data: base64Image, mime_type: 'image/png' })
+>           foundFailedStep = true
+>         }
+>       }
+>     })
+>     //Write JSON with screenshot back to report file.
+>     fs.writeFileSync(
+>       path.join(cucumberJsonDir, >cucumberReportFileMap[feature]),
+>       JSON.stringify(cucumberReportMap[feature], null, jsonIndentLevel)
+>     )
+>   })
+> })
+>}
+> 
+>function generateReport() {
+> if (!fs.existsSync(cucumberJsonDir)) {
+>   console.warn(chalk.yellow(`WARNING: Folder './${cucumberJsonDir}' not found. REPORT CANNOT BE CREATED!`))
+> } else {
+>   report.generate({
+>     jsonDir: cucumberJsonDir,
+>     reportPath: htmlReportDir,
+>     displayDuration: true,
+>     displayReportTime: true,
+>     pageTitle: 'System-Test Report',
+>     reportName: `System-Test Report - ${new Date().toLocaleString()}`,
+>     hideMetadata: true
+>   })
+> }
+>}
+>```
+>**package.json**
+>```json
+>"scripts": "cypress run",
+>"pretest": "node ./cypress/reporting/delete-results.js",
+>"posttest": "node ./cypress/reporting/report.js",
+>"test": "npm run scripts || npm run posttest"
+>```
+
