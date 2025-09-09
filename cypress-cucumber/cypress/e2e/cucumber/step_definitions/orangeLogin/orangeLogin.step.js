@@ -1,14 +1,22 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 
+let data = {};
+
+beforeEach(() => {
+  cy.fixture("orangeLogin.data").then((orange) => {
+    data = orange;
+  });
+});
+
 Given(/^User open the OrangeHRM login page$/, () => {
   cy.visit(
     "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
   );
 });
 
-When(/^User enters valid username and password$/, () => {
-  cy.get('input[name="username"]').type("Admin", { delay: 0 });
-  cy.get('input[name="password"]').type("admin123", { delay: 0 });
+When(/^User enters valid username and password$/, (dataTable) => {
+  cy.get('input[name="username"]').type(dataTable.rawTable[1][0], { delay: 0 });
+  cy.get('input[name="password"]').type(dataTable.rawTable[1][1], { delay: 0 });
 });
 
 When(/^User clicks on the login button$/, () => {

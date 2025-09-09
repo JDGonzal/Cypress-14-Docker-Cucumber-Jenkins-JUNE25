@@ -3,6 +3,8 @@ Feature: Orange-HRM Login Functionality
   Scenario: Login and Logout with Valid Credentials
     Given User open the OrangeHRM login page
     When User enters valid username and password
+    |username|password|
+    |Admin   |admin123|
     And User clicks on the login button
     Then User should be logged in successfully
     When User clicks on the userdropdown-name link
