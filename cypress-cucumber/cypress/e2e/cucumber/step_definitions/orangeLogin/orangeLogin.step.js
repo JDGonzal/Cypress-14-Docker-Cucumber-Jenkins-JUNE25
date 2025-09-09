@@ -1,16 +1,16 @@
-import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 let data = {};
 
 beforeEach(() => {
-  cy.fixture("orangeLogin.data").then((orange) => {
+  cy.fixture('orangeLogin.data').then((orange) => {
     data = orange;
   });
 });
 
 Given(/^User open the OrangeHRM login page$/, () => {
   cy.visit(
-    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
   );
 });
 
@@ -24,13 +24,13 @@ When(/^User clicks on the login button$/, () => {
 });
 
 Then(/^User should be logged in successfully$/, () => {
-  cy.url().should("include", "/dashboard");
-  cy.contains("Dashboard").should("be.visible");
-  cy.get(".oxd-sidepanel-body").contains("Admin").click();
+  cy.url().should('include', '/dashboard');
+  cy.contains('Dashboard').should('be.visible');
+  cy.get('.oxd-sidepanel-body').contains('Admin').click();
 });
 
 When(/^User clicks on the userdropdown-name link$/, () => {
-  cy.get(".oxd-userdropdown-name").click();
+  cy.get('.oxd-userdropdown-name').click();
 });
 
 When(/^User clicks on the logout link$/, () => {
@@ -39,6 +39,6 @@ When(/^User clicks on the logout link$/, () => {
 });
 
 Then(/^User should be logged out successfully$/, () => {
-  cy.url().should("include", "/auth/login");
-  cy.contains("Login").should("be.visible");
+  cy.url().should('include', '/auth/login');
+  cy.contains('Login').should('be.visible');
 });

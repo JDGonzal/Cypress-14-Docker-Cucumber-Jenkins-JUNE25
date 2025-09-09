@@ -6312,4 +6312,120 @@ When(/^User enters valid username and password$/, (dataTable) => {
 >```
 
 
+### 105. Setup HTML Report
+
+>[!NOTE]
+>
+>En este vídeo aprenderemos a configurar el informe _HTML_ de `Cucumber`.
+>
+>En nuestro vídeo anterior hemos configurado `Mocha Awesome Report`.
+>
+>El mismo informe también funcionará con `Cucumber`, pero siempre es mejor tener el informe _HTML_ para `Cucumber` ya
+>que `Cucumber` funciona bien con el informe _HTML_ que con el informe _json_.
+>
+>Para configurar el informe _HTML_, primero tenemos que añadir alguna configuración en el **`package.json`**.
+
+1. Todo lo que sigue, se trabaja en el nuevo `Visual Studio Code` para el proyecto `CYPRESS-CUCUMBER`.
+2. Abrimos el archivo **`package.json`** y hacemos estos cambios en  `"cypress-cucumber-preprocessor"`:
+```json
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "cypress/e2e/cucumber/step_definitions/*",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/reports/cucumber-json/",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  }
+```
+3. Agrego esto al `"scripts"`:
+```json
+  "scripts": {
+    "open": "cypress open",
+    "test": "cypress run"
+  },
+```
+4. Ejecutamos el comando: </br> `pnpm test` </br> Esperamos el proceso y vemos este resultado: </br> ![proceso `npm test`(parte 1)](images/2025-09-09_091717.png "proceso `npm test`(parte 1)") ![proceso `npm test`(parte 1)](images/2025-09-09_091825.png "proceso `npm test`(parte 2)") ![proceso `npm test`(parte 3)](images/2025-09-09_091859.png "proceso `npm test`(parte 3)")
+
+
+
+
+
+
+
+
+
+
+
+5. Adicional observamos un nuevo archivo **`cypress/reports/cucumber-json/orangeLogin.cucumber.json`**: </br> ![reports -> orangeLogin.cucumber.json](images/2025-09-09_160727.png "reports -> orangeLogin.cucumber.json")
+
+
+
+
+
+6. Para visualizar en un formato _HTML_, debemos instalar la biblioteca [Multiple Cucumber HTML Reporter](https://www.npmjs.com/package/multiple-cucumber-html-reporter): </br> `pnpm add -D multiple-cucumber-html-reporter -E`
+7. Creamos un archivo en la raíz del proyecto de nombre **`cucumber-html-report.js`**, y copio el contenido del sitio [Multiple Cucumber HTML Reporter](https://www.npmjs.com/package/multiple-cucumber-html-reporter) en la sección `Usage`, para luego hacer los cambios correspondientes:
+```js
+const report = require('multiple-cucumber-html-reporter');
+
+report.generate({
+  jsonDir: 'cypress/reports/cucumber-json',
+  reportPath: 'cypress/reports/cucumber-html',
+  metadata: {
+    browser: {
+      name: 'chrome',
+      version: '138',
+    },
+    device: 'Local test machine',
+    platform: {
+      name: 'Windows',
+      version: '11',
+    },
+  },
+  customData: {
+    title: 'Run info',
+    data: [
+      { label: 'Project', value: 'Custom project' },
+      { label: 'Release', value: '1.2.3' },
+      { label: 'Cycle', value: 'B11221.34321' },
+      { label: 'Execution Start Time', value: 'Nov 19th 2017, 02:31 PM EST' },
+      { label: 'Execution End Time', value: 'Nov 19th 2017, 02:56 PM EST' },
+    ],
+  },
+});
+```
+8. Ejecutamos el simple archivo **`cucumber-html-report.js`**, con el comando: </br> `node cucumber-html-report.js`.
+9. Esto nos crea el archivo **`cypress\reports\cucumber-html\index.html`** y esto es lo que se visualiza en este: </br> ![cucumber-html\index.html](images/2025-09-09_170303.png "cucumber-html\index.html")
+
+
+
+
+
+
+### 106. Note on code update for next video
+
+>[!NOTE]
+>
+>In the upcoming video, we will be writing a file called **`delete-results.js`**
+>
+>In that code, I will be using `rimraf` dependency.
+>
+>But with the recent Cypress + Cucumber update, this code does not work.
+>
+>So use the below code in the **`delete-result.js`**
+>```js
+>#!/usr/bin/env node
+>const fs = require('fs');
+>const path = require('path');
+>const testResultsDir = './cypress/test-results';
+> 
+>fs.rmdir(testResultsDir, { recursive: true }, (err) => {
+>  if (err) {
+>    console.error('Error deleting former test results:', err);
+>  } else {
+>    console.log('Deleted former test results');
+>  }
+>});
+>
 
