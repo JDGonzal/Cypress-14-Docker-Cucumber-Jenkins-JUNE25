@@ -5947,7 +5947,7 @@ module.exports = defineConfig({
 
 1. Creamos la carpeta **"cypress/e2e/cucumber"**.
 2. Creamos otras dos nuevas carpetas dentro de esta última nueva: </br> » **"feature"** </br> » **"step_definitions"**
-3. Se requiere instalar dos _pluggins_ en la zona de ![.](images/VSC-Extensions-icon2.png "") `[Extensions]` de `Visual Studio Code`:
+3. Se requiere instalar dos _plugins_ en la zona de ![.](images/VSC-Extensions-icon2.png "") `[Extensions]` de `Visual Studio Code`:
     * [Cucumber](https://marketplace.visualstudio.com/items?itemName=CucumberOpen.cucumber-official) de [Cucumber](https://marketplace.visualstudio.com/publishers/CucumberOpen).
     * [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) de [Alexander Krechik](https://marketplace.visualstudio.com/publishers/alexkrechik).
   
@@ -6070,7 +6070,7 @@ Then("User should be logged out successfully", () => {
 
 ### 101. How to Synchronize Feature File and Step Definition File
 
-1. En Windows y dentro de `Visual Studio Code`, presiono las teclas [`CTRL`] + [`,`].
+1. En Windows y dentro de `Visual Studio Code`, presiono las teclas [`Ctrl`] + [`,`].
 2. Sale la ventana de `Settings`, con las opciones de `Backup and Sync Settings`
 3. Escribimos `cucumber` y seleccionamos el link [Edit in settings.json](Edit-in-settings.json) </br> ![cucumber -> Edit in settings.json](images/2025-09-08_171057.png "cucumber -> Edit in settings.json")
 4. Agrego datos para `"cucumber.features"`, `"cucumber.glue"` y `"cucumberautocomplete.steps"`:
@@ -6090,4 +6090,86 @@ Then("User should be logged out successfully", () => {
 5. Le doy guardar y cierro esos tabuladores.
 6. Cerramos ese `Visual Studio Code`, para que los cambios sean tomados.
 7. Abrimos de nuevo el proyecto `CYPRESS-CUCUMBER`
+8. Estando en el archivo **`orangeLogin.feature`**, doy las teclas [`Ctrl`]+`clic` y nos lleva al archivo **`orangeLogin.step.js`**, en la función donde están los pasos a procesar con `Cypress`.
+
+
+
+### 102. Plugin to generate Step Definition file
+
+1. Vamos a las ![.](images/VSC-Extensions-icon2.png "") `[Extensions]` de `Visual Studio Code`, para instalalar un _plugin_:
+    * [Cuke Step Definition Generator](https://marketplace.visualstudio.com/items?itemName=muralidharan92.cuke-step-definition-generator) de [Muralidharan Rajendran](https://marketplace.visualstudio.com/publishers/muralidharan92)
+2. Desde el proyecto `CYPRESS-CUCUMBER` en el nuevo `Visual Studio Code` Vamos al archivo **`orangeLogin.feature`**, selecciono todo debajo de `Scenario` y vemos las opciones que nos aparecen: </br> ![Opciones en un archivo `feature`](images/2025-09-09_072934.png "Opciones en un archivo `feature`")
+3. Selecciono el primero `Generate Stop Definition: Copy to Clipboard` o las teclas [`Ctrl`]+[`Alt`]+[`C`].
+4. Luego abro el otro archivo **`orangeLogin.step.js`** y le doy en la parte inferior clic derecho y pegar o las teclas [`Ctrl`]+[`V`] y esto es el valor que aparece:
+```js
+Given(/^User open the OrangeHRM login page$/, () => {
+	return true;
+});
+
+When(/^User enters valid username and password$/, () => {
+	return true;
+});
+
+When(/^User clicks on the login button$/, () => {
+	return true;
+});
+
+Then(/^User should be logged in successfully$/, () => {
+	return true;
+});
+
+When(/^User clicks on the userdropdown-name link$/, () => {
+	return true;
+});
+
+When(/^User clicks on the logout link$/, () => {
+	return true;
+});
+
+Then(/^User should be logged out successfully$/, () => {
+	return true;
+});
+```
+5. Utiliza la barra obliqua o _slash_ `/` y el caret `^`, y termina con el síbolo de dólar `$` y barra oblicua o _slash_, que es un _regex_, no es obligatorio que pero es bueno tenerlo, cambiamos por nuestra propia lógica, es decir pasamos lo de arriba para estas nuevas funciones:
+```js
+Given(/^User open the OrangeHRM login page$/, () => {
+  cy.visit(
+    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+  );
+});
+
+When(/^User enters valid username and password$/, () => {
+  cy.get('input[name="username"]').type("Admin", { delay: 0 });
+  cy.get('input[name="password"]').type("admin123", { delay: 0 });
+});
+
+When(/^User clicks on the login button$/, () => {
+  cy.get('button[type="submit"]').click();
+});
+
+Then(/^User should be logged in successfully$/, () => {
+  cy.url().should("include", "/dashboard");
+  cy.contains("Dashboard").should("be.visible");
+  cy.get(".oxd-sidepanel-body").contains("Admin").click();
+});
+
+When(/^User clicks on the userdropdown-name link$/, () => {
+  cy.get(".oxd-userdropdown-name").click();
+});
+
+When(/^User clicks on the logout link$/, () => {
+  // cy.xpath("//a[normalize-space()='Logout']").click(); Aquí no funciona el `xpath`
+  cy.get('a[href="/web/index.php/auth/logout"]').click();
+});
+
+Then(/^User should be logged out successfully$/, () => {
+  cy.url().should("include", "/auth/login");
+  cy.contains("Login").should("be.visible");
+});
+```
+6. Y borro las funciones anteriores.
+7. » Ejecutamos el comando en la `TERMINAL` del proyecto `CYPRESS-CUCUMBER`: </br> `npx cypress open`</br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `orangeLogin.feature`.
+8. El proceso funciona correctamente: </br> ![orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar](images/2025-09-09_075504.png "orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar")
+9. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
 
