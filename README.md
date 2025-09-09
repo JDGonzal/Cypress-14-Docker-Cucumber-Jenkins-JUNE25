@@ -6100,7 +6100,7 @@ Then("User should be logged out successfully", () => {
     * [Cuke Step Definition Generator](https://marketplace.visualstudio.com/items?itemName=muralidharan92.cuke-step-definition-generator) de [Muralidharan Rajendran](https://marketplace.visualstudio.com/publishers/muralidharan92)
 2. Desde el proyecto `CYPRESS-CUCUMBER` en el nuevo `Visual Studio Code` Vamos al archivo **`orangeLogin.feature`**, selecciono todo debajo de `Scenario` y vemos las opciones que nos aparecen: </br> ![Opciones en un archivo `feature`](images/2025-09-09_072934.png "Opciones en un archivo `feature`")
 3. Selecciono el primero `Generate Stop Definition: Copy to Clipboard` o las teclas [`Ctrl`]+[`Alt`]+[`C`].
-4. Luego abro el otro archivo **`orangeLogin.step.js`** y le doy en la parte inferior clic derecho y pegar o las teclas [`Ctrl`]+[`V`] y esto es el valor que aparece:
+4. Luego abro el otro archivo **`orangeLogin.step.js`** y le doy en la parte inferior clic derecho y pegar o las teclas [`Ctrl`]+[`V`], esto es el valor que aparece:
 ```js
 Given(/^User open the OrangeHRM login page$/, () => {
 	return true;
@@ -6171,5 +6171,145 @@ Then(/^User should be logged out successfully$/, () => {
 7. » Ejecutamos el comando en la `TERMINAL` del proyecto `CYPRESS-CUCUMBER`: </br> `npx cypress open`</br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `orangeLogin.feature`.
 8. El proceso funciona correctamente: </br> ![orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar](images/2025-09-09_075504.png "orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar")
 9. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
+
+
+### 103. Handling test data in Cucumber
+
+1. Todo lo que sigue, se trabaja en el nuevo `Visual Studio Code` para el proyecto `CYPRESS-CUCUMBER`.
+2. Creamos el archivo **`cypress/fixtures/orangeLogin.data.json`**, y le ponemos esta información:
+```json
+{
+  "validUsername": "Admin",
+  "validPassword": "admin123"
+}
+```
+3. En el archivo **`orangeLogin.step.js`**, agregamos un `beforeEach`:
+```js
+let data = {};
+
+beforeEach(() => {
+  cy.fixture("orangeLogin.data").then((orange) => {
+    data = orange;
+  });
+});
+```
+4. Sustituimos en el primer `When` con el texto `User enters valid username and password`, los valores fijos por los de `data` obtenido por el `cy.fixture`:
+```js
+When(/^User enters valid username and password$/, () => {
+  cy.get('input[name="username"]').type(data?.validUsername, { delay: 0 });
+  cy.get('input[name="password"]').type(data?.validPassword, { delay: 0 });
+});
+```
+5. » Ejecutamos el comando en la `TERMINAL` del proyecto `CYPRESS-CUCUMBER`: </br> `npx cypress open`</br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `orangeLogin.feature`.
+6. El proceso funciona correctamente: </br> ![orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar](images/2025-09-09_075504.png "orangeLogin.feature con el cambio en orangeLogin.step.js con slash, carets y signo dólar")
+7. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+8. En el archivo **`orangeLogin.feature`**, abro un reglón debajo del primer `When` y le ponemos esta información a odo de tabla:
+```feature
+    |username|password|
+    |Admin   |admin123|
+```
+9. De regreso a **`orangeLogin.step.js`**, hacemos los cambios para tomar estos nuevos valores:
+```js
+When(/^User enters valid username and password$/, (dataTable) => {
+  cy.get('input[name="username"]').type(dataTable.rawTable[1][0], { delay: 0 });
+  cy.get('input[name="password"]').type(dataTable.rawTable[1][1], { delay: 0 });
+});
+```
+10. Regresamos al `Chrome` gobernado por el `Cypress`, para ejecutar de nuevo el `orangeLogin.feature`: </br> ![`orangeLogin.feature` con una tabla de datos](images/2025-09-09_084315.gif "`orangeLogin.feature` con una tabla de datos")
+11. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
+
+
+### 104. Code - DataDriven
+
+>[!NOTE]
+>
+>**Data Driven using Fixtures and beforeEach**
+>```js
+>import {Given,When,And,Then} from "cypress-cucumber-preprocessor/steps"
+> 
+>beforeEach(function(){
+>    cy.fixture('ConduitData').as('data')
+>})
+> 
+>Given('I am on the Login page',function() {
+>    cy.visit('https://react-redux.realworld.io/')
+>    cy.contains('Sign in').click()
+>})
+> 
+>When('I login with valid credentials and clicked on sign in',function(){
+>    cy.get('input[type="email"]').type(this.data.email)
+>    cy.get('input[type="password"]').type(this.data.password)
+>    cy.get('button[type="submit"]').click()
+>})
+> 
+>When('I login with invalid credentials and clicked on sign in',function(){
+>    cy.get('input[type="email"]').type(this.data.email)
+>    >cy.get('input[type="password"]').type(this.data.passwordWrong)
+>    cy.get('button[type="submit"]').click()
+>})
+> 
+>And('I click on settings button',function(){
+>    cy.contains('Settings').click()
+>})
+> 
+>And('I click on Logout button',function(){
+>    cy.contains('Or click here to logout.').click()
+>})
+> 
+>Then('I routed back to login page',function(){
+>    cy.title().should('eq','Conduit')
+>})
+>```
+>**Data Driven using Feature file and dataTable**
+>
+>* **Feature File**
+>```feature
+>Feature: Conduit Login Functionality
+> 
+>  Scenario: Login and Logout with Valid Credentials
+>    Given User is on the login page
+>    When User login with valid credentials
+>    |email                |password      |
+>    |cypressdemo@gmail.com|cypressdemo   |
+>    And User click on the settings button
+>    And User click on the logout button
+>    Then User should be routed back to login page
+>```
+>* **Step Definition File**
+>```js
+>import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
+> 
+>beforeEach(function(){
+>    cy.fixture('conduitLoginData').as('data')
+>})
+> 
+>Given('User is on the login page', function () {
+>    cy.visit('https://react-redux.realworld.io/')
+>    cy.get('a[href="#login"]').click()
+>})
+>
+>When('User login with valid credentials', function (dataTable) {
+>    >cy.get('input[placeholder="Email"]').type(dataTable.rawTable[1][0])
+>    >cy.get('input[placeholder="Password"]').type(dataTable.rawTable[1][1])
+>    cy.get('button[type="submit"]').click()
+>})
+> 
+>When('User click on the settings button', function () {
+>    cy.get('a[href="#settings"]').click()
+>})
+> 
+>When('User click on the logout button', function () {
+>    cy.get('.btn.btn-outline-danger').click()
+>})
+> 
+>Then('User should be routed back to login page', function () {
+>    cy.title().should('eq', 'Conduit')
+>})
+>```
+
 
 
