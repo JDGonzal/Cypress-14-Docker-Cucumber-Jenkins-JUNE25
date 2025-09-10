@@ -6796,3 +6796,136 @@ function generateReport() {
 >"test": "npm run scripts || npm run posttest"
 >```
 
+
+
+### 109. Page Object Model
+
+>[!NOTE]
+>
+>En este vídeo, aprenderemos a integrar el _Page Object Model_ `POM` con `Cucumber` en `Cypress`.
+>
+>En nuestro vídeo anterior, ya hemos aprendido en detalle qué es el _Page Object Model_ `POM`.
+>
+>Cuáles son las ventajas de utilizar el _Page Object Model_ `POM`, cómo implementar diferentes clases de páginas
+>y cómo implementar la página base.
+>
+>Si usted no ha visto esos videos, por favor visite la sección Marco tres donde he discutido en detalle
+>sobre todos estos temas.
+>
+>Ya hemos escrito aquí un archivo de características y un archivo de definición de pasos para la automatización del conducto.
+>
+>Vamos a la carpeta **"feature"**, tenemos una característica llamada como **`orangeLogin.feature`**, mostrando los pasos de:
+>* `When User enters valid username and password`
+>* `And User clicks on the login button`
+>* `Then User should be logged in successfully`
+>* `When User clicks on the userdropdown-name link`
+>* `And User clicks on the logout link`
+>* `Then User should be logged out successfully`
+>
+>Ahora bien, si estoy enrutando a otra ruta que hemos creado en forma de `TDD`, se ha creado el archivo en esta ruta **"cypress/13071-e2e/pages"**, con los archivo:
+>* **`base.page.js`**
+>* **`home.page.js`**
+>* **`landing.page.js`**
+>* **`login.page.js`**
+>* **`settings.page.js`**
+>
+>Y también tenemos una prueba de _Page Object Model_ `POM`.
+>
+>Así que con el fin de ahorrar algo de tiempo, lo que voy a hacer es sólo voy a copiar esta carpeta de páginas de este
+>
+
+1. Vamos a copiar la carpeta **"cypress/13071-e2e/pages"**, dentro de la carpeta del proyecto `CYPRESS-CUCUMBER` en la ruta de allá **"cypress/e2e/cucumber"**: </br> ![Copia de \"pages\"](images/2025-09-10_081541.png "Copia de \"pages\" ")
+
+
+
+
+2. Lo que sigue se hará dentro del `Visual Studio Code` del proyecto `CYPRESS-CUCUMBER`.
+3. En el archivo **`cypress/e2e/cucumber/feature/orangeLogin.feature`**, empezamos importando `landing.page.js` y también los otros tres:
+```js
+import landingPage from '../../pages/landing.page.js';
+import loginPage from '../../pages/login.page.js';
+import homePage from '../../pages/home.page.js';
+import settingsPage from '../../pages/settings.page.js';
+```
+
+4. Empezamos cambiando el primer `Given`, para hacer uso de la `landingPage`:
+```js
+Given(/^User open the OrangeHRM login page$/, () => {
+  // cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  landingPage.visitLoginPage();
+});
+```
+
+5. Vamos por el primer `When`, para utilizar `loginPage`:
+```js
+When(/^User enters valid username and password$/, (dataTable) => {
+  // cy.get('input[name="username"]').type(dataTable.rawTable[1][0], { delay: 0 });
+  // cy.get('input[name="password"]').type(dataTable.rawTable[1][1], { delay: 0 });
+  // loginPage.login(dataTable.rawTable[1][0], dataTable.rawTable[1][1]);
+  loginPage.enterUsername(dataTable.rawTable[1][0]);
+  loginPage.enterPassword(dataTable.rawTable[1][1]);
+});
+```
+
+6. Cambiamos el siguiente `When` (que podría ser un `And`), para hacer uso de `loginPage`:
+```js
+When(/^User clicks on the login button$/, () => {
+  // cy.get('button[type="submit"]').click();
+  loginPage.clickLoginButton();
+});
+```
+
+7. Vamos al primer `Then`, para hacer uso de `homePage`:
+```js
+Then(/^User should be logged in successfully$/, () => {
+  // cy.url().should('include', '/dashboard');
+  // cy.contains('Dashboard').should('be.visible');
+  // cy.get('.oxd-sidepanel-body').contains('Admin').click();
+  homePage.verifyDasboardUrl();
+  homePage.verifyDashboardText();
+  homePage.clickAdminTab();
+  homePage.shouldSeeAdminTab();
+})
+```
+
+8. Vamos con los dos `When` siguientes, para hacer uso de `settingsPage`:
+```js
+When(/^User clicks on the userdropdown-name link$/, () => {
+  // cy.get('.oxd-userdropdown-name').click();
+  settingsPage.clickLogoutSelector();
+});
+
+When(/^User clicks on the logout link$/, () => {
+  // cy.xpath("//a[normalize-space()='Logout']").click(); // Aquí no funciona el `xpath`
+  // cy.get('a[href="/web/index.php/auth/logout"]').click();
+  settingsPage.clickLogoutLink();
+});
+```
+
+9. Cerramos con el útimo `Then`, haciendo uso de `homePage`:
+```js
+Then(/^User should be logged out successfully$/, () => {
+  // cy.url().should('include', '/auth/login');
+  // cy.contains('Login').should('be.visible');
+  homePage.verfifiyLoginUrl();
+  homePage.verifyLoginText();
+});
+```
+
+10. Hay que hacer ajustes en los archivos:
+* **`base.page.js`**
+* **`home.page.js`**
+* **`landing.page.js`**
+* **`login.page.js`**
+* **`settings.page.js`**
+* **`base.page.js`**
+
+11. » Ejecutamos el comando en la `TERMINAL` del proyecto `CYPRESS-CUCUMBER`: </br> `npx cypress open`</br> » Este abre el `Cypress`. </br>» Entro al `E2E`. </br>» Selecciono `Chrome` y ejecuto `Start E2E Testing in Chrome`. </br>» Busco y ejecuto el archivo que estamos trabajando `orangeLogin.feature`.
+12. El proceso funciona correctamente: </br> ![Uso de archivos `page` para el POM](images/2025-09-09_075504.png "Uso de archivos `page` para el POM")
+
+
+
+13. Cierro el browser administrado por el `Cypress` y también el `Cypress`.
+
+
+
