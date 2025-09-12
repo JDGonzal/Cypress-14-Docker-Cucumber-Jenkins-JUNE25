@@ -6929,3 +6929,126 @@ Then(/^User should be logged out successfully$/, () => {
 
 
 
+## Section 20: CICD Integration
+
+
+### 110. What is CICD ?
+
+>[!NOTE]
+>
+> En este vídeo entenderemos el concepto de CI, CD, CI CD, que significa integración continua y entrega
+>continua o despliegue continuo.
+>
+> **En primer lugar, aprenderemos qué es CI, que es la integración continua.**
+>
+>![What is Contiues Integration](images/2025-09-12_104302.png "What is Contiues Integration")
+>
+> La integración continua es una práctica que consiste en integrar el código de varios desarrolladores en un repositorio
+>o rama central varias veces al día.
+>
+> Una factura consiste en procesos automatizados que ejecutan un análisis automático de la calidad del código y generan un informe.
+>
+> * En qué medida los últimos cambios en el código se ajustan a las buenas prácticas de codificación.
+> * Construya el código y ejecute las pruebas automatizadas.
+> Principalmente los casos de prueba de unidad que se escriben para asegurarse de que los cambios no rompen ninguna funcionalidad.
+> * Genere y publique un informe de cobertura de pruebas.
+>
+> ![Modelo de Integración Continua](images/2025-09-12_104654.png "Modelo de Integración Continua")
+>
+> Así que este es un modelo de la integración continua.
+> Puede ver que varios desarrolladores están fusionando sus códigos en el repositorio.
+>
+> Por ejemplo, el GitHub, una vez que los códigos se han fusionado en el repositorio, entonces será empujado
+> al servidor de CI y el servidor va a construir la prueba y publicará los resultados para asegurarse de si todo está funcionando
+>bien.
+>
+> **A continuación aprenderemos qué es la CD.**
+>
+> ![¿Qué es CD?](images/2025-09-12_105552.png "¿Qué es CD?")
+>
+> CD tiene dos significados.
+> * Una es la entrega continua,
+> * y la segunda es el despliegue continuo.
+>
+> **En primer lugar, entenderemos qué es la entrega continua.**
+>
+> ![What is Continuous Delivery?](images/2025-09-12_110601.png "What is Continuous Delivery?")
+>
+> * La entrega continua es una extensión de la integración continua en la que los cambios de código se preparan automáticamente
+> para su lanzamiento a producción.
+>
+> * Amplía el despliegue de los cambios de código a las pruebas, el entorno y la ejecución de pruebas funcionales.
+> Pruebas de interfaz de usuario.
+> Pruebas de rendimiento.
+> Pruebas de seguridad.
+> Y así sucesivamente después de la fase de construcción.
+>
+> **A continuación aprenderemos qué es el despliegue continuo.**
+>
+> ![.](images/2025-09-12_111229.png "")
+>
+> * El despliegue continuo va un paso más allá de la entrega continua.
+> * Todos los cambios que superan todas las fases de la cadena de producción se ponen a disposición de los clientes sin intervención
+> humana.
+> * Sólo un paso fallido puede impedir que un nuevo cambio se despliegue en producción.
+>
+> **En este diagrama, podemos entender fácilmente la diferencia entre entrega continua y desarrollo continuo.**
+>
+> ![CI/CD](images/2025-09-12_111541.png "CI/CD")
+>
+> El área dentro de la caja azul es la integración continua donde el servidor CI construirá y ejecutará
+> la prueba después del CI.
+> 
+> Podemos ver cuatro pasos tanto en la entrega continua como en el desarrollo continuo.
+> * Así que en la entrega continua se puede ver que primero se ejecuta la prueba de aceptación.
+> * A continuación, se desplegará a la puesta en escena 
+> * y la siguiente parte es desplegar a la producción.
+> * Y la última es ejecutar la prueba de humo en producción para asegurarse de que todo funciona correctamente.
+>
+> Pero en la entrega continua, el despliegue en producción es un proceso manual.
+> No se trata de un proceso automático en el que necesitemos una intervención humana para desplegarlo manualmente a producción,
+> mientras que en el despliegue continuo, el mismo procedimiento se puede realizar de forma automática donde también
+> se desplegará a producción si el paso anterior se ha superado con éxito.
+>
+> **Ahora comprenderemos ¿Cuáles son las ventajas de la CD CI?**
+>
+> ![Benefits of CI/CD](images/2025-09-12_112818.png "Benefits of CI/CD")
+>
+> * La primera ventaja del CD CI es su mayor calidad.
+> Usando CD, nos puede dar muy menos errores.
+>  Se envía a la producción a medida que las pruebas automatizadas detectan los errores.</br>
+>  Los desarrolladores reciben una alerta en cuanto rompen una compilación y pueden trabajar en su reparación antes de pasar a
+> otra tarea.
+> * La segunda gran ventaja es la liberación de bajo riesgo.
+> Esto puede lograrse atendiendo al primer paso, que es de mayor calidad, lo que significa que no habrá errores importantes
+>  liberados a la producción debido a toda la automatización de la ejecución anterior.
+> * El tercero es el menor coste.
+> Corregir el error en desarrollo es menos costoso que hacerlo en producción.
+> * Y la última es una comercialización más rápida.
+>
+> **Estas son las herramientas más populares disponibles en el mercado hoy en día.**
+>
+> ![Popular CI/CD tools](images/2025-09-12_111942.png "Popular CI/CD tools")
+>
+> Hay muchas herramientas disponibles para esto, y estas son las más populares como Jenkins, GitLab,
+> Circleci, Travis, CI y etcétera.
+>
+> **La implantación de la CI CD también plantea algunos retos.**
+>
+> ![Challenges when implementing CI/CD](images/2025-09-12_112405.png "Challenges when implementing CI/CD")
+>
+> * El primer reto es que requiere cambios organizativos y de mentalidad, ya que la ciudad no es específica de un
+> determinado equipo o proyecto, sino que es una organización universal.
+> Se necesita dependencia.
+> Por eso requiere un cambio de organización y de mentalidad de la gente.
+> * Se necesita un profundo conocimiento técnico para automatizar todo el proceso relacionado con el CD de CI.
+> * El equipo debe utilizar diversas tecnologías en función de la pila de aplicaciones.
+> * El coste de la infraestructura es un problema potencial, ya que Steam requiere al menos dos entornos idénticos, uno
+> de ensayo y otro de producción, que permitan al equipo probar los nuevos cambios sin interrumpir la producción.
+>
+> Ten en cuenta que el CD no es mágico.
+> Se trata de la mejora continua diaria.
+
+
+
+
