@@ -7050,5 +7050,61 @@ Then(/^User should be logged out successfully$/, () => {
 > Se trata de la mejora continua diaria.
 
 
+### 111. Jenkins Introduction
+
+>[!NOTE]
+> **¿Qué es Jenkins?**
+>
+> ![What is Jenkins](images/2025-09-12_115454.png "What is Jenkins")
+>
+> * Jenkins es una herramienta de integración continua que permite probar y desplegar de forma continua los códigos recién
+> creados.
+> * Jenkins es un servidor de automatización de código abierto escrito en Java.
+>
+> **¿Comprenderá cuáles son las características de Jenkins?**
+>
+> ![Features of Jenkins 1](images/2025-09-12_115805.png "Features of Jenkins 1")
+>
+> * **La primera característica es su fácil instalación.**</br>
+> Jenkins es un programa autónomo basado en Java, listo para ejecutarse con paquetes para Windows, Mac OS y sistemas operativos
+> tipo Unix.
+> * **La segunda característica es la facilidad de configuración.**</br>
+> Puede instalarse y configurarse fácilmente a través de su interfaz web, que incluye comprobaciones de errores y ayuda
+> integrada.
+>
+> ![Features of Jenkins 2](images/2025-09-12_120107.png "Features of Jenkins 2")
+>
+> * **La siguiente función son los plugins.**</br>
+> Cuenta con cientos de plugins en el centro de actualizaciones y se integra con todas las herramientas de la cadena de herramientas de CI y CD.
+> * **La última característica se distribuye.**</br>
+> Puede distribuir fácilmente el trabajo entre varias máquinas, lo que agiliza las pruebas de compilación y los despliegues
+> en varias plataformas.
+>
+> **Se trata de las tuberías Jenkins.**
+>
+> ![Jenkins Pipeline](images/2025-09-12_120312.png "Jenkins Pipeline")
+>
+> * El inicio de este proceso se puede ver en el desarrollo.
+> * Una vez que el desarrollador empuja el código, irá a la confirmación de código.
+> * Así que una vez que el código se ha comprometido, se iniciará el proceso de construcción.
+> * Así que va a construir el código y luego se ejecutará la prueba.
+> * Una vez superadas todas las pruebas, se iniciará el proceso de lanzamiento y, por último, se desplegará o entregará
+> el código en producción.
+> * Así que en todo este proceso, Jenkins cubre tanto la integración continua como la entrega continua.
+>
+> **Esta es la sencilla arquitectura de Jenkins.**
+>
+> ![Jenkins Architecture](images/2025-09-12_163618.png "Jenkins Architecture")
+>
+> * En primer lugar, el master de Jenkins extrae el código del repositorio de código fuente remoto cada vez que hay un commit,
+> * y este cambio está siendo empujado al servidor Jenkins.
+> Aquí se le considera el amo.
+> * Ahora este maestro distribuye su carga de trabajo a todos los esclavos a través del protocolo TCP IP.
+> * A petición del maestro Jenkins, los esclavos llevan a cabo la construcción y la prueba y producen los informes de prueba.
+> * Como se puede ver, el maestro no sólo empuja a un esclavo, pero empuja a múltiples esclavos según la característica
+> que hemos mencionado anteriormente, que se distribuye debido a que el proceso de Jenkins es muy rápido y se puede
+> * construir y ejecutar las pruebas muy rápidamente en comparación con otras herramientas.
+>
+>Así que este es el Jenkins y esta es la arquitectura del Jenkins.
 
 
