@@ -7108,3 +7108,123 @@ Then(/^User should be logged out successfully$/, () => {
 >Así que este es el Jenkins y esta es la arquitectura del Jenkins.
 
 
+### 112. Prerequisite before Installing Jenkins
+
+>[!NOTE]
+>
+>[![Java Support Policy](images/2025-09-15_074654.png "Java Support Policy")](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)
+>
+>En este vídeo, comprenderemos los requisitos previos necesarios antes de instalar `Jenkins`.
+>Según esta página web oficial de `Jenkins`, `Jenkins` sólo funcionará con `Java` 11 o 17.
+>Aquí han mencionado claramente que `Jenkins` requiere `Java` 11 o 17.
+>
+>Desde `Jenkins` 2.357 y la última versión estable, que es la `2.361.1` (Pero hoy en **Sep. 15 de 2025**, la mas estable es `2.479.1`, nada raro que en poco salga otra versión).
+>
+>Así que antes de avanzar al siguiente video, por favor asegúrese de que tiene `Java` 11 o `Java` 17 instalado
+>en su sistema y la misma versión se está añadiendo a Java subrayado casa como una variable
+>de entorno en Windows y como una ruta en el Mac.
+>
+
+
+### 113. Installing Jenkins
+
+1. Empiezo en este sitio con las diferentes versiones para cada sistema operativo [Downloading Jenkins](https://www.jenkins.io/download/#downloading-jenkins).
+2. Descargo dos de la versión mas reciente , tanto el archivo **`jenkins.war`** como el **`jenkins.msi`**.
+3. Podría simplemente instalarlo como cualquier archivo de Windows, pero he prefiero utilizar el archivo **`**`jenkins.war`**`** y lo voy a poner en la carpeta **"c:/dev"**.
+4. Lo voy a renombrar con la versión que usé para la descarga, con el nombre **`jenkins.2.516.2.war`**.
+5. Desde una `TERMINAL` de `PowerShell`, ejecuto este comando: </br> `java -jar C:\dev\jenkins.2.516.2.war`
+6. Entro en un _browser_ a esta dirección: </br> `http://localhost:8080/` </br> Y me pide esta pantalla: </br> ![Unlock Jenkins -> C:/Users/<username>/.jenkins/secrets/initialAdminPassword](images/2025-09-15_100617.png "Unlock Jenkins -> C:/Users/<username>/.jenkins/secrets/initialAdminPassword")
+
+
+
+
+
+
+
+7. Luego de poner la contraseña, que está en este archivo **`C:/Users/<username>/.jenkins/secrets/initialAdminPassword`**, me sale esta ventana: </br> ![Customize Jenkins](images/2025-09-15_100933.png "Customize Jenkins")
+
+
+
+
+
+
+
+8. Le doy clic en el cuadro de `Install suggested pluggins`. Y es un proceso similar a este: </br> ![Installing pluggins](images/2025-09-15_103342.png "Installing pluggins")
+
+
+
+
+
+
+
+9. Coloco la contraseña que quiera, completo el `Full name` y el `E-mail address` y le doy al botón `Save and Continue`. El borró el archivo que tenía al principio de **`C:/Users/<username>/.jenkins/secrets/initialAdminPassword`**.
+
+
+
+
+
+10. La instancia de configuración, la que está por defecto `http://localhost:8080/` y el botón `Save and Finish`, para ver esta pantalla: </br> ![Jenkins is ready!](images/2025-09-15_104817.png "Jenkins is ready!")
+
+
+
+
+
+
+
+11. Presiono el botón `Start using Jenkins` y tengo esta pantalla: </br> ![Welcome to Jenkins!](images/2025-09-15_105051.png "Welcome to Jenkins!")
+
+
+
+
+
+
+
+12. Esto es lo que sugiere el Instructor, ir al mismo sitio [Download and deploy](https://www.jenkins.io/download/)
+13. La versión en pantalla es la `2.401.3` (Yo descargué `2.516.2`).
+14. Descargó la versión de Windows y el proceso instala en la carpeta **"c:\Program Files\Jenkins"**.
+15. También pregunta por el puerto, que por defecto es el `8080`.
+16. Consulta por la verión de `Java` instalada, en mi caso la versión sería `17.0.12`.
+17. Al entrar en la página el usuario es `admin` y la contraseña está en este archivo **`C:/ProgramData/jenkins/jenkins/secrets/initialAdminPassword`**.
+18. También menciona que el archivo en un MAC, estaría en **`/var/jenkins_home/secrets/initialAdminPassword`**.
+19. En mi caso como lo mencióne lo dejó en este archivo **`C:/Users/<username>/.jenkins/secrets/initialAdminPasswor`**
+20. El Instructor llega a la pantalla  del paso 11: </br> ![Instructor -> Welcome to Jenkins!](images/2025-09-15_105715.png "Instructor -> Welcome to Jenkins!").
+21. Si le damos clic a la opción de `Manage Jenkins`, que en mi caso aparece en la parte superior derecha con este símbolo <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" height="24px" version="1.1" viewBox="0 0 512 512" width="24px">    <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">        <g stroke="currentColor" stroke-width="32" transform="translate(50.378500, 42.000000)">            <path d="M211.9115,150.31 C185.005783,147.652748 159.332619,162.189611 147.769706,186.628874 C136.206793,211.068138 141.24875,240.137201 160.366525,259.254975 C179.484299,278.37275 208.553362,283.414707 232.992626,271.851794 C257.431889,260.288881 271.968752,234.615717 269.3115,207.71 C266.263249,177.360931 242.260569,153.358251 211.9115,150.31 L211.9115,150.31 Z M410.9165,277.125 C411.707607,281.564887 410.903766,286.141508 408.647035,290.04607 L372.853966,351.97469 C370.607176,355.862053 367.040281,358.81433 362.8015,360.295 C358.482479,361.803699 353.868429,362.272089 349.334332,361.662103 L320.522752,357.785994 C299.879684,355.00882 279.988607,366.61094 272.243485,385.946453 L261.688643,412.296365 C259.969284,416.588704 257.239668,420.402837 253.7315,423.415 C250.285888,426.373452 245.894629,428 241.353189,428 L169.796876,428 C165.308275,428 160.960823,426.431216 157.5065,423.565 C153.996701,420.652754 151.25415,416.924675 149.518855,412.70702 L138.358864,385.582532 C130.453683,366.368896 110.519057,354.968685 89.9503733,357.89869 L61.8696222,361.898788 C57.3434346,362.543543 52.7286498,362.09476 48.4115003,360.59 C44.1729946,359.112652 40.6059709,356.162306 38.3598585,352.276117 L2.56596537,290.34607 C0.309233973,286.441508 -0.494606827,281.864887 0.296500273,277.425 C1.10103427,272.909758 2.99390287,268.65863 5.81124857,265.039618 L23.4896432,242.330895 C36.4067894,225.738218 36.3997393,202.490855 23.4725314,185.906016 L5.73914207,163.155131 C2.93726987,159.560495 1.06449867,155.330725 0.286500273,150.84 C-0.479118527,146.420732 0.330889273,141.87293 2.57525137,137.989769 L38.3890342,76.0253095 C40.6358245,72.1379474 44.2027191,69.1856702 48.4415003,67.705 C52.7614677,66.1959703 57.3747149,65.7192136 61.9119868,66.3128907 L91.2373143,70.1499486 C111.792442,72.839474 131.546967,61.2195013 139.18365,41.9470371 L149.578712,15.7133384 C151.281675,11.4156234 154.004147,7.5964633 157.5115,4.585 C160.957112,1.6265481 165.348371,0 169.889811,0 L241.446124,0 C245.934725,0 250.282177,1.5687841 253.7365,4.435 C257.245602,7.3466683 259.982278,11.0789954 261.704008,15.3012287 L272.612929,42.053395 C280.490247,61.3711009 300.470109,72.8820729 321.133157,70.007291 L349.370217,66.0787615 C353.899388,65.4486329 358.513486,65.904939 362.8315,67.41 C367.070006,68.8873483 370.637029,71.837694 372.883142,75.7238833 L408.677035,137.65393 C410.933766,141.558492 411.737607,146.135113 410.9465,150.575 C410.140427,155.098876 408.314604,159.379748 405.607548,163.092841 L385.561411,190.588825 C373.755974,206.781577 374.583692,228.954539 387.563545,244.222054 L405.168289,264.929585 C408.130553,268.41394 410.114244,272.622543 410.9165,277.125 Z"></path>        </g>    </g></svg>
+22. Tengo esta imagen en el _browser_: </br> ![Manage Jenkins](images/2025-09-15_111645.png "Manage Jenkins")
+23. Demos clic en <svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" height="24" viewBox="0 0 528 448" width="24">    <path d="M461.66 214.1H434C433.47 214.1 432.961 213.889 432.586 213.514C432.211 213.139 432 212.63 432 212.1V134.86C432 124.554 427.906 114.669 420.618 107.382C413.331 100.094 403.446 96 393.14 96H315.9C315.37 96 314.861 95.7893 314.486 95.4142C314.111 95.0391 313.9 94.5304 313.9 94V66.34C313.9 39.2 292.4 16.48 265.26 16.01C258.684 15.8945 252.152 17.0896 246.043 19.5257C239.934 21.9618 234.372 25.5901 229.68 30.1988C224.989 34.8075 221.262 40.3044 218.718 46.3687C216.173 52.4331 214.862 58.9434 214.86 65.52V94C214.86 94.5304 214.649 95.0391 214.274 95.4142C213.899 95.7893 213.39 96 212.86 96H135.62C125.122 96.0317 115.063 100.216 107.639 107.639C100.216 115.063 96.0317 125.122 96 135.62V206C96 206.53 96.2107 207.039 96.5858 207.414C96.9609 207.789 97.4696 208 98 208H124.91C154.28 208 178.59 233.48 179 262.85C179.42 292.72 155.49 320 125.71 320H98C97.4696 320 96.9609 320.211 96.5858 320.586C96.2107 320.961 96 321.47 96 322V392.38C96.0317 402.878 100.216 412.937 107.639 420.361C115.063 427.784 125.122 431.968 135.62 432H206C206.53 432 207.039 431.789 207.414 431.414C207.789 431.039 208 430.53 208 430V409.07C208 378.79 232.75 352.72 263 352.01C293.1 351.31 320 372.32 320 402.29V430C320 430.53 320.211 431.039 320.586 431.414C320.961 431.789 321.47 432 322 432H393.14C403.446 432 413.331 427.906 420.618 420.618C427.906 413.331 432 403.446 432 393.14V315.14C432 314.61 432.211 314.101 432.586 313.726C432.961 313.351 433.47 313.14 434 313.14H462.48C490.11 313.14 512 290.47 512 262.74C512 235.01 488.8 214.1 461.66 214.1V214.1Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path></svg>`Pugins`.
+24. Muestra los _plugins_ por actualizar, los _plugins_ disponibles y los instalados: </br> ![Installed plugins](images/2025-09-15_154516.png "Installed plugins")
+
+
+
+
+
+
+
+25. El Instructor nos solicita ir a `Available plugins` y buscar `AnsiColor` y proceder a instalar: </br> ![Available plugins](images/2025-09-15_154852.png "Available plugins")
+
+
+
+
+
+
+
+26. Asi se ve el proceso de instalación: </br> ![Download progress](images/2025-09-15_154902.png "Download progress")
+
+
+
+
+
+
+
+
+27. Revisamos de nuevo `Installed plugins` y no aparece el nuevo de `AnsiColor`: </br> ![.](images/2025-09-15_154939.png "")
+
+
+
+
+
+
+28. Siguiendo el mismos proceso instalamos: `HTML Publisher`.
+
+
+
+
