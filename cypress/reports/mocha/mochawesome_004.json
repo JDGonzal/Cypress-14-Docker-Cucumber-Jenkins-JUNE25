@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-28T15:33:43.166Z",
-    "end": "2025-08-28T15:33:43.596Z",
-    "duration": 430,
+    "start": "2025-09-16T00:06:34.403Z",
+    "end": "2025-09-16T00:06:35.037Z",
+    "duration": 634,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "b3676f5e-d5fe-49bc-a34f-42a1db90d776",
+      "uuid": "d1a7870d-ff11-4d15-b840-eb45b3e50305",
       "title": "",
       "fullFile": "cypress\\e2e\\tc16078POSTTesting.cy.js",
       "file": "cypress\\e2e\\tc16078POSTTesting.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "3c85ae12-685b-4d5c-a023-f21f4323c59e",
+          "uuid": "4eba03d9-e623-427e-b74a-4f68ba46289f",
           "title": "API POST testing",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "POST request",
               "fullTitle": "API POST testing POST request",
               "timedOut": null,
-              "duration": 234,
+              "duration": 362,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.request({\n  method: \"POST\",\n  url: \"https://reqres.in/api/users\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: {\n    name: \"morpheus\",\n    job: \"leader\"\n  }\n}).then(response => {\n  var _response$body, _response$body2;\n  expect(response.status).equal(201);\n  expect((_response$body = response.body) === null || _response$body === void 0 ? void 0 : _response$body.name).equal(\"morpheus\");\n  expect((_response$body2 = response.body) === null || _response$body2 === void 0 ? void 0 : _response$body2.job).equal(\"leader\");\n  expect(response.body).to.have.property(\"id\");\n  expect(response.body).to.have.property(\"createdAt\");\n});",
               "err": {},
-              "uuid": "b95269ae-e96f-4f2a-9035-251980f1b6a6",
-              "parentUUID": "3c85ae12-685b-4d5c-a023-f21f4323c59e",
+              "uuid": "59bc9b14-87fa-4b7c-b462-8df2d7bd4410",
+              "parentUUID": "4eba03d9-e623-427e-b74a-4f68ba46289f",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "POST API in ReqRes Testing",
               "fullTitle": "API POST testing POST API in ReqRes Testing",
               "timedOut": null,
-              "duration": 171,
+              "duration": 225,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,21 +65,21 @@
               "context": null,
               "code": "const user = {\n  name: \"JPiza\",\n  job: \"Tester\"\n};\ncy.request({\n  method: \"POST\",\n  url: \"https://reqres.in/api/users\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: user\n}).then(response => {\n  var _response$body3, _response$body4;\n  expect(response.status).equal(201);\n  expect((_response$body3 = response.body) === null || _response$body3 === void 0 ? void 0 : _response$body3.name).equal(user.name);\n  expect((_response$body4 = response.body) === null || _response$body4 === void 0 ? void 0 : _response$body4.job).equal(user.job);\n});",
               "err": {},
-              "uuid": "539029fb-dba4-4604-9c84-51e46bbf90d0",
-              "parentUUID": "3c85ae12-685b-4d5c-a023-f21f4323c59e",
+              "uuid": "39861257-4421-46a3-a007-6cbd35b7d6bd",
+              "parentUUID": "4eba03d9-e623-427e-b74a-4f68ba46289f",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "b95269ae-e96f-4f2a-9035-251980f1b6a6",
-            "539029fb-dba4-4604-9c84-51e46bbf90d0"
+            "59bc9b14-87fa-4b7c-b462-8df2d7bd4410",
+            "39861257-4421-46a3-a007-6cbd35b7d6bd"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 405,
+          "duration": 587,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

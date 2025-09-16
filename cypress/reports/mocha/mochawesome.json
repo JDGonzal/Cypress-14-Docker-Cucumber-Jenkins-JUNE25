@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-28T15:33:17.475Z",
-    "end": "2025-08-28T15:33:22.040Z",
-    "duration": 4565,
+    "start": "2025-09-16T00:06:03.315Z",
+    "end": "2025-09-16T00:06:08.443Z",
+    "duration": 5128,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "2e1dd98b-8386-4899-9767-083aad7491a8",
+      "uuid": "026ac888-07c0-4aae-beac-b3f31010bc4a",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071a.spec.cy.js",
       "file": "cypress\\e2e\\tc13071a.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "d569f232-1b05-4a4e-88f8-fd7d7a70abc4",
+          "uuid": "622a4d15-3fa2-4c50-8577-0f8e7ea0355a",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Login Test using Conduit",
               "fullTitle": "Login Functionality Login Test using Conduit",
               "timedOut": null,
-              "duration": 2554,
+              "duration": 2670,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#login']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {},
-              "uuid": "8fe14574-8ce2-47db-9c8d-899725e52ff1",
-              "parentUUID": "d569f232-1b05-4a4e-88f8-fd7d7a70abc4",
+              "uuid": "3aafe1c2-87d2-4c63-ac32-f59b755a8832",
+              "parentUUID": "622a4d15-3fa2-4c50-8577-0f8e7ea0355a",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "8fe14574-8ce2-47db-9c8d-899725e52ff1"
+            "3aafe1c2-87d2-4c63-ac32-f59b755a8832"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 2554,
+          "duration": 2670,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

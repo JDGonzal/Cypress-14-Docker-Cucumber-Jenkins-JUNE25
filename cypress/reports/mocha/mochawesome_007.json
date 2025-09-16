@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2025-08-28T15:33:51.276Z",
-    "end": "2025-08-28T15:33:58.385Z",
-    "duration": 7109,
+    "failures": 1,
+    "start": "2025-09-16T00:06:45.664Z",
+    "end": "2025-09-16T00:06:53.839Z",
+    "duration": 8175,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "f8941e39-e103-4260-ba9c-090d4d63296a",
+      "uuid": "73aa8851-765a-4003-accf-01f7d7712e83",
       "title": "",
       "fullFile": "cypress\\e2e\\tc17083MockOrangeHRM.spec.cy.js",
       "file": "cypress\\e2e\\tc17083MockOrangeHRM.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "aead1e21-7675-4e20-bd5a-45dc393adcaa",
+          "uuid": "87c9734b-ec7a-4739-9db8-5667040d40fe",
           "title": "Mock OrangeHRM Testing",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "locations Mock",
               "fullTitle": "Mock OrangeHRM Testing locations Mock",
               "timedOut": null,
-              "duration": 5001,
-              "state": "passed",
-              "speed": "medium",
-              "pass": true,
-              "fail": false,
+              "duration": 5481,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
-              "context": null,
+              "context": "\"assets/tc17083MockOrangeHRM.spec.cy.js/Mock OrangeHRM Testing -- locations Mock (failed).png\"",
               "code": "// const url = \"api/v2/dashboard/employees/locations\";\nconst url = \"https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/locations\";\ncy.log(url);\n// Intercept instead a request, for a _Mock_ values\ncy.intercept({\n  method: \"GET\",\n  url: url\n}, {\n  fixture: \"mock-locations.json\"\n});\ncy.wait(2500);\ncy.contains(\"Employee Distribution by Location\").should(\"be.visible\");\n// El siguiente proceso lo debo hacer porque existen muchos elementos con la misma clase \ncy.get(\".orangehrm-dashboard-widget-body\").then($elements => {\n  // $elements is a jQuery object containing all elements with the class 'my-class'\n  // You can treat it like an array and iterate over it or access elements by index.\n  // Example: Log the text of each element\n  $elements.each((index, element) => {\n    cy.log(`Element ${index + 1}: ${Cypress.$(element).text()}`);\n  });\n  // Example: Assert the number of elements\n  expect($elements).to.have.length(6);\n  // Necesito el quinto elemento que es el de `locations`\n  cy.wrap($elements.eq(5)).should(\"contain\", \"Texas R&D\").and(\"contain\", \"New York Sales Office\").and(\"contain\", \"Medellin\");\n});",
-              "err": {},
-              "uuid": "c3de39c6-2bf0-4710-80b6-a2efc1e3e71d",
-              "parentUUID": "aead1e21-7675-4e20-bd5a-45dc393adcaa",
+              "err": {
+                "message": "AssertionError: Too many elements found. Found '7', expected '6'.",
+                "estack": "AssertionError: Too many elements found. Found '7', expected '6'.\n    at Context.eval (webpack://cypress-14-docker-cucumber-jenkins-june25/./cypress/e2e/tc17083MockOrangeHRM.spec.cy.js:47:32)\n    at getRet (https://opensource-demo.orangehrmlive.com/__cypress/runner/cypress_runner.js:120768:20)\n    at tryCatcher (https://opensource-demo.orangehrmlive.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://opensource-demo.orangehrmlive.com/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://opensource-demo.orangehrmlive.com/__cypress/runner/cypress_runner.js:120779:66)",
+                "diff": "- 7\n+ 6\n"
+              },
+              "uuid": "60b69d07-f70a-4fa3-bf21-9afc1a053e52",
+              "parentUUID": "87c9734b-ec7a-4739-9db8-5667040d40fe",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "c3de39c6-2bf0-4710-80b6-a2efc1e3e71d"
+          "passes": [],
+          "failures": [
+            "60b69d07-f70a-4fa3-bf21-9afc1a053e52"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 5001,
+          "duration": 5481,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

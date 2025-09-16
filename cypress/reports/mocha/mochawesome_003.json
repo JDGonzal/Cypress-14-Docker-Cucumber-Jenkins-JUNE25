@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-28T15:33:40.174Z",
-    "end": "2025-08-28T15:33:40.891Z",
-    "duration": 717,
+    "start": "2025-09-16T00:06:30.269Z",
+    "end": "2025-09-16T00:06:31.094Z",
+    "duration": 825,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "9071502a-b13a-43e9-a799-5198b0625966",
+      "uuid": "906b22e1-1495-4d8d-9bb4-c8ced4151962",
       "title": "",
       "fullFile": "cypress\\e2e\\tc16077GETTesting.cy.js",
       "file": "cypress\\e2e\\tc16077GETTesting.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "58d4b840-7095-443c-a030-75ce33f4fe02",
+          "uuid": "003b0043-aaeb-4e9b-8240-17f8c9009e46",
           "title": "API GET testing",
           "fullFile": "",
           "file": "",
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.request(\"https://jsonplaceholder.typicode.com/posts/1\").then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property(\"id\", 1);\n  expect(response.body).to.have.property(\"userId\", 1);\n  expect(response.body).to.have.property(\"title\");\n  expect(response.body).to.have.property(\"body\");\n});",
               "err": {},
-              "uuid": "b192e397-9104-439b-a445-1cbc6fe02391",
-              "parentUUID": "58d4b840-7095-443c-a030-75ce33f4fe02",
+              "uuid": "161da81c-b52f-4059-87d1-d682ad02f8a4",
+              "parentUUID": "003b0043-aaeb-4e9b-8240-17f8c9009e46",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "GET API in ReqRes Testing",
               "fullTitle": "API GET testing GET API in ReqRes Testing",
               "timedOut": null,
-              "duration": 325,
+              "duration": 412,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,21 +65,21 @@
               "context": null,
               "code": "cy.request({\n  method: \"GET\",\n  url: \"https://reqres.in/api/users?page=2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  }\n}).then(response => {\n  var _response$body$data$, _response$body;\n  expect(response.status).equal(200);\n  expect((_response$body$data$ = response.body.data[1]) === null || _response$body$data$ === void 0 ? void 0 : _response$body$data$.first_name).equal(\"Lindsay\");\n  expect((_response$body = response.body) === null || _response$body === void 0 ? void 0 : _response$body.support.text).contains(\"Tired of writing endless\");\n});",
               "err": {},
-              "uuid": "bced2224-ac1d-458b-b97f-2a876818cc08",
-              "parentUUID": "58d4b840-7095-443c-a030-75ce33f4fe02",
+              "uuid": "fe301daa-ee17-409c-8e03-45f5621adea6",
+              "parentUUID": "003b0043-aaeb-4e9b-8240-17f8c9009e46",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "b192e397-9104-439b-a445-1cbc6fe02391",
-            "bced2224-ac1d-458b-b97f-2a876818cc08"
+            "161da81c-b52f-4059-87d1-d682ad02f8a4",
+            "fe301daa-ee17-409c-8e03-45f5621adea6"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 693,
+          "duration": 780,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

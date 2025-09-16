@@ -5,9 +5,9 @@
     "passes": 0,
     "pending": 1,
     "failures": 0,
-    "start": "2025-08-28T15:33:34.840Z",
-    "end": "2025-08-28T15:33:34.860Z",
-    "duration": 20,
+    "start": "2025-09-16T00:06:24.106Z",
+    "end": "2025-09-16T00:06:24.133Z",
+    "duration": 27,
     "testsRegistered": 1,
     "passPercent": null,
     "pendingPercent": 100,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "2b34a14f-8bcd-4389-9884-be4ef8c44e83",
+      "uuid": "46a0cbf4-da89-4d7e-bd18-19eb24581000",
       "title": "",
       "fullFile": "cypress\\e2e\\tc13071c.spec.cy.js",
       "file": "cypress\\e2e\\tc13071c.spec.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "118fbc95-d9a0-4208-a365-e6243ec29032",
+          "uuid": "e73427b7-e88d-4cc1-93a0-21626a8bf7fb",
           "title": "Login Functionality",
           "fullFile": "",
           "file": "",
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.visit(\"https://react-redux.realworld.io/\");\ncy.get(\"a[href='#login']\").click();\ncy.get(\"input[placeholder='Email']\").type(\"cypressdemo@gmail.com\", {\n  delay: 0\n});\ncy.get(\"input[placeholder='Password']\").type(\"cypressdemo\", {\n  delay: 0\n});\ncy.get(\"button[type='submit']\").click();\ncy.get(\"button[type='submit']\").should(\"be.disabled\");\ncy.xpath(\"//a[normalize-space()='Home']\").click();",
               "err": {},
-              "uuid": "52e09308-bc78-43b5-ab60-115eed658887",
-              "parentUUID": "118fbc95-d9a0-4208-a365-e6243ec29032",
+              "uuid": "00a15954-5921-41df-b9c0-e0bf7f844f08",
+              "parentUUID": "e73427b7-e88d-4cc1-93a0-21626a8bf7fb",
               "isHook": false,
               "skipped": false
             }
@@ -57,7 +57,7 @@
           "passes": [],
           "failures": [],
           "pending": [
-            "52e09308-bc78-43b5-ab60-115eed658887"
+            "00a15954-5921-41df-b9c0-e0bf7f844f08"
           ],
           "skipped": [],
           "duration": 0,

@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-28T15:33:48.625Z",
-    "end": "2025-08-28T15:33:49.011Z",
-    "duration": 386,
+    "start": "2025-09-16T00:06:41.845Z",
+    "end": "2025-09-16T00:06:42.369Z",
+    "duration": 524,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "aa191659-e11c-4029-afd0-cbef05681b80",
+      "uuid": "d7ccc93d-81d5-455b-ab5c-b9817bfabfbd",
       "title": "",
       "fullFile": "cypress\\e2e\\tc16080DELETETesting.cy.js",
       "file": "cypress\\e2e\\tc16080DELETETesting.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+          "uuid": "6b1f6893-a7c8-4617-8454-dedfa61023a2",
           "title": "API DELETE testing",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "DELETE request",
               "fullTitle": "API DELETE testing DELETE request",
               "timedOut": null,
-              "duration": 194,
+              "duration": 233,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.request({\n  method: \"DELETE\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  }\n}).then(response => {\n  expect(response.status).equal(204);\n});",
               "err": {},
-              "uuid": "a17516c6-c9ff-4978-a6b1-780b020ace70",
-              "parentUUID": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+              "uuid": "ec514fee-1137-4448-9cf1-7e3c754cc710",
+              "parentUUID": "6b1f6893-a7c8-4617-8454-dedfa61023a2",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "DELETE API in ReqRes Testing",
               "fullTitle": "API DELETE testing DELETE API in ReqRes Testing",
               "timedOut": null,
-              "duration": 167,
+              "duration": 227,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,21 +65,21 @@
               "context": null,
               "code": "cy.request({\n  method: \"DELETE\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  }\n}).then(response => {\n  expect(response.status).equal(204);\n});",
               "err": {},
-              "uuid": "30427776-b8e0-4e45-87cb-e110f32614e2",
-              "parentUUID": "0b330dc0-d31a-4f15-9420-ea8b7ab891eb",
+              "uuid": "ca869d7b-b8d0-4698-9be4-24a5cb9eb76c",
+              "parentUUID": "6b1f6893-a7c8-4617-8454-dedfa61023a2",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "a17516c6-c9ff-4978-a6b1-780b020ace70",
-            "30427776-b8e0-4e45-87cb-e110f32614e2"
+            "ec514fee-1137-4448-9cf1-7e3c754cc710",
+            "ca869d7b-b8d0-4698-9be4-24a5cb9eb76c"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 361,
+          "duration": 460,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
