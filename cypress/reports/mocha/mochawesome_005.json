@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-28T15:33:45.898Z",
-    "end": "2025-08-28T15:33:46.382Z",
-    "duration": 484,
+    "start": "2025-09-16T00:06:38.084Z",
+    "end": "2025-09-16T00:06:38.714Z",
+    "duration": 630,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "a227969d-592b-4b35-9d0b-14c478a85b47",
+      "uuid": "eea675dc-6a1a-488c-8efc-1de1c2cf4df8",
       "title": "",
       "fullFile": "cypress\\e2e\\tc16079PUTTesting.cy.js",
       "file": "cypress\\e2e\\tc16079PUTTesting.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+          "uuid": "f7bdbcd1-9cac-4ad8-a000-693e0273e490",
           "title": "API PUT testing",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "PUT request",
               "fullTitle": "API PUT testing PUT request",
               "timedOut": null,
-              "duration": 286,
+              "duration": 358,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.request({\n  method: \"PUT\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: {\n    name: \"morpheus\",\n    job: \"zion resident\"\n  }\n}).then(response => {\n  var _response$body, _response$body2;\n  expect(response.status).equal(200);\n  expect((_response$body = response.body) === null || _response$body === void 0 ? void 0 : _response$body.name).equal(\"morpheus\");\n  expect((_response$body2 = response.body) === null || _response$body2 === void 0 ? void 0 : _response$body2.job).equal(\"zion resident\");\n  expect(response.body).to.have.property(\"updatedAt\");\n});",
               "err": {},
-              "uuid": "2fe36772-96b2-4613-8434-0a2a6b9e08b8",
-              "parentUUID": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+              "uuid": "a14bf228-cf0f-4221-a7a6-943834318d94",
+              "parentUUID": "f7bdbcd1-9cac-4ad8-a000-693e0273e490",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "PUT API in ReqRes Testing",
               "fullTitle": "API PUT testing PUT API in ReqRes Testing",
               "timedOut": null,
-              "duration": 171,
+              "duration": 218,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,21 +65,21 @@
               "context": null,
               "code": "const user = {\n  name: \"JPiza\",\n  job: \"Developer\"\n};\ncy.request({\n  method: \"PUT\",\n  url: \"https://reqres.in/api/users/2\",\n  headers: {\n    \"x-api-key\": \"reqres-free-v1\"\n  },\n  body: user\n}).then(response => {\n  var _response$body3, _response$body4;\n  expect(response.status).equal(200);\n  expect((_response$body3 = response.body) === null || _response$body3 === void 0 ? void 0 : _response$body3.name).equal(user.name);\n  expect((_response$body4 = response.body) === null || _response$body4 === void 0 ? void 0 : _response$body4.job).equal(user.job);\n});",
               "err": {},
-              "uuid": "936e847d-fea1-43ab-b876-e039e291fd7c",
-              "parentUUID": "57bfa585-e84c-4c8d-8d0e-4cc8bc81e771",
+              "uuid": "4515a0c9-f9a7-4811-86e5-0522565ce5a8",
+              "parentUUID": "f7bdbcd1-9cac-4ad8-a000-693e0273e490",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "2fe36772-96b2-4613-8434-0a2a6b9e08b8",
-            "936e847d-fea1-43ab-b876-e039e291fd7c"
+            "a14bf228-cf0f-4221-a7a6-943834318d94",
+            "4515a0c9-f9a7-4811-86e5-0522565ce5a8"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 457,
+          "duration": 576,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

@@ -7228,3 +7228,67 @@ Then(/^User should be logged out successfully$/, () => {
 
 
 
+
+### 114. Creation of Nonparameterized Project
+
+1. Ya tenemos funcionando el servidor de `Jenkins`, ejecutando en una `TERMINAL` el comando: </br> `java -jar C:\dev\jenkins.2.516.2.war` </br> Entro en un _browser_ a esta dirección: </br> `http://localhost:8080/`
+2. Doy clic en `➕ New Item`.
+3. En el campo `Enter an item name`, coloco: </br> `Cypress Demo Project`.
+4. Selecciono ea primera opción de <svg class="icon-xlg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" height="24px" version="1.1" viewBox="0 0 512 512" width="24px">    <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">        <path d="M128,124.484 L128,161.51 L96.707,179.724136 L256,273.426293 L415.292,179.724136 L391,165.587 L391,128.563 L440.164988,157.175487 C454.751601,165.67452 463.789525,181.203071 463.996406,198.076708 L464,198.61 L464,369.37 C464,386.257202 455.122424,401.887313 440.637192,410.557174 L440.177904,410.828639 L288.17,499.293235 C278.566623,504.874804 267.873441,507.760483 257.142311,507.949755 C256.765116,507.976463 256.384139,507.99 256,507.99 C255.611721,507.99 255.226672,507.976169 254.84532,507.948974 C244.368183,507.75831 233.926008,504.997049 224.498193,499.664826 L223.842096,499.288639 L71.8350028,410.824508 C57.2392416,402.320132 48.1998345,386.777928 48.0032642,369.903319 L48,369.37 L48,198.590487 C48.0206007,181.708472 56.9067951,166.092598 71.3762303,157.446207 L71.8350119,157.175487 L128,124.484 Z M432,207.022136 L272,301.140293 L272,471.678136 L272.082096,471.631361 L424.065,383.181325 C428.874238,380.374508 431.870592,375.276842 431.99592,369.73222 L432.000012,369.37 L432,207.022136 Z M79.999,207.022136 L79.9999972,369.360492 C79.9999972,374.92957 82.9010275,380.086826 87.6271049,382.985536 L87.9379037,383.171361 L239.93,471.626765 C239.953568,471.640463 239.977149,471.654128 240.000744,471.667761 L240,301.141293 L79.999,207.022136 Z" fill="currentColor" fill-rule="nonzero"></path>        <path d="M256,5 C339.394997,5 407,72.6050028 407,156 C407,166.416067 405.945355,176.585808 403.937024,186.408265 L361.297382,211.490202 C370.046594,194.92213 375,176.03953 375,156 C375,90.2781148 321.721885,37 256,37 C190.278115,37 137,90.2781148 137,156 C137,176.03953 141.953406,194.92213 150.702618,211.490202 L108.062976,186.408265 C106.054645,176.585808 105,166.416067 105,156 C105,72.6050028 172.605003,5 256,5 Z" fill="currentColor" fill-rule="nonzero"></path>    </g></svg> `Freestyle project`: </br> Tipo de trabajo clásico, de propósito general, que extrae de hasta un **SCM** <sub>`*`</sub>, ejecuta pasos de compilación en serie, seguidos de pasos posteriores a la compilación, como archivar artefactos y enviar notificaciones por correo electrónico.</br><sub>`*`</sub> **SCM**: Software Configuration Management (Gestión de Configuración de Software), que gestiona los cambios en el código y los activos de software, y Supply Chain Management (Gestión de la Cadena de Suministro), que optimiza los procesos de producción y distribución de bienes.
+5. Presiono el botón `[OK]` y obtengo una pantalla similar a esta: </br> ![Cypress Demo Project -> Configuration](images/2025-09-15_175750.png "Cypress Demo Project -> Configuration")
+
+
+
+
+
+
+6. En `Description` pongo `This is a Cypress Jenkins Project`.
+7. Tenemos dos opciones: </br> ![.](images/2025-09-15_180608.png "")
+   * `[Advanced]` -> `Use custom workspace` -> `Directory`
+   * `⚪ Git` -> `Repository URL`
+
+
+
+
+8. Vamos a utilizar el primero poniendo la ruta completa.
+9. Puedo en la opción `Triggers`, seleccionar lo que se requieran.
+10. En `Environment`, selecciono `Color ANSI Console Output` y dejo por defecto `xtern`.
+11. En `Build Steps`, selecciono `Execute Windows batch command` y lo lleno con `pnpm test`.
+12. En `Post-build Actions`, selecciono `Publish HTML reports`, presiono el botón `[Add]`, la ruta dentro del proyecto para este archivo </br> **`cypress/reports/mochareports/report.html`**
+13. En `Report title`, le ponemos `Cypress HTML Report`.
+14. Presionamos el botón `[Save]`.
+15. Regresamos a la página del _Home_ dando clic en la imagen de <img alt="Jenkins Logo" title="Jenkins Logo" style="background-color:white" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Jenkins_logo_with_title.svg" height="24px">.
+16. De nuevo al ícono en la parte superior derecha de `Manage Jenkins`.
+17. Vamos a la parte inferior de <svg width="24px" heigth="24px" class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 512 512"><title></title><circle cx="256" cy="256" fill="currentColor" r="26"></circle><circle cx="346" cy="256" fill="currentColor" r="26"></circle><circle cx="166" cy="256" fill="currentColor" r="26"></circle><path d="M160 368L32 256l128-112M352 368l128-112-128-112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path></svg> `Script Console`.
+18. Al cuadro de diálogo que nos sale le escribimos lo siguiente: </br> `System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")`
+19. Presiono el botón `[Run]`, muestra un movimiento rápido y regresa.
+20. De nuevo regresamos a la página del _Home_ dando clic en la imagen de <img alt="Jenkins Logo" title="Jenkins Logo" style="background-color:white" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Jenkins_logo_with_title.svg" height="24px">.
+21. Damos clic al único proyecto que tenemos en pantalla y damos clic en el menú de la izquierda a <svg width="24px" heigth="24px" class="icon-clock icon-md" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"  viewBox="0 0 512 512" ><title></title><path d="M112,111V401c0,17.44,17,28.52,31,20.16l247.9-148.37c12.12-7.25,12.12-26.33,0-33.58L143,90.84C129,82.48,112,93.56,112,111Z" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:32px"></path></svg> `Build Now`
+22. Este sería el resultado del proceso: </br> ![Buid Now #1](images/2025-09-15_184436.gif "Buid Now #1")
+
+
+
+
+
+
+
+23. El instructor nos sugiere añadir un `Build Steps` mas , para obligar a instalar `Cypress` desde el principio: </br> `./node_modules/.bin/cypress.CMD install --force` </br> ![Build Steps +2](images/2025-09-15_185555.png "Build Steps +2")</br> Y le damos al botón `[Save]`.
+
+
+
+
+
+
+
+24. Volvemos a ejecutar con `Build Now`: </br> ![Buid Now #5](images/2025-09-15_190735.gif "Buid Now #5")
+
+
+
+
+
+
+
+25. En la `TERMINAL` donde corre el comando para `Jenkins`, le damos varias veces las teclas [`CTRL`] + [`C`], hasta que cierre el proceso.
+
+
+
