@@ -12,12 +12,18 @@
     "smoke-test": "cypress run --spec 'cypress/e2e/smokeTests/*.cy.js'",
     "regression-test": "cypress run --spec 'cypress/e2e/regressionTests/*.cy.js'",
     "test-dashboard": "cypress run --record --key 20579074-fe31-4f73-9257-7d0a7d72c0fa",
+    "electron": "cypress run --browser electron",
+    "chrome": "cypress run --browser chrome",
+    "firefox": "cypress run --browser firefox",
     "scripts": "cypress run",
     "pretest": "node create-dirs.js",
     "report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
     "report:generate": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
     "report:post": "pnpm report:merge && pnpm report:generate",
-    "test": "pnpm scripts || pnpm report:post"
+    "test": "pnpm scripts || pnpm report:post",
+    "test:chrome": "pnpm chrome || pnpm report:post",
+    "test:firefox": "pnpm firefox || pnpm report:post",
+    "test:electron": "pnpm electron || pnpm report:post"
   },
   "repository": {
     "type": "git",

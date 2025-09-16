@@ -7292,3 +7292,191 @@ Then(/^User should be logged out successfully$/, () => {
 
 
 
+
+### 115. Creation of Parameterized Project
+
+>[!NOTE]
+>
+>En este vídeo aprenderemos a crear un proyecto parametrizado.
+>En el vídeo anterior ya aprendimos a crear un proyecto general no parametrizado.
+>La diferencia entre el proyecto de vídeo anterior y el proyecto actual, que vamos a construir,
+>está en el proyecto actual.
+>
+>Muestra un desplegable donde podemos decir qué acción debe realizarse como parte de este proyecto.
+>
+>Por ejemplo, supongamos que queremos ejecutar la prueba en Chrome, en Electron o en Firefox.
+>Podemos añadirlo como parámetro como parte de este proyecto.
+>Y cuando queramos construirlo, nos mostrará el desplegable para decir en qué navegador tenemos que ejecutar este
+>test.
+>
+
+1. Abrimos el archivo **`package.json`** y agregamos dos `"scripts"`:
+```json
+  "scripts": {
+    ...
+    "electron": "cypress run --browser electron",
+    "chrome": "cypress run --browser chrome",
+    "firefox": "cypress run --browser firefox",
+    "scripts": "cypress run",
+    ...
+  },
+```
+2. Agregamos otros mas a estos `"scripts"`:
+```json
+    "test:chrome": "pnpm chrome || pnpm report:post",
+    "test:firefox": "pnpm firefox || pnpm report:post",
+    "test:electron": "pnpm electron || pnpm report:post"
+```
+3. Activamos en una `TERMINAL` el servidor de `Jenkins`, con este comando: </br> `java -jar C:\dev\jenkins.2.516.2.war` </br> Entro en un _browser_ a esta dirección: </br> `http://localhost:8080/`
+4. Damos clic en el botón de `➕ New Item`.
+5. En el campo de `Enter an item name`, ponemos el nombre de : </br> `Cypress Demo Parametrized Project`.
+6. Seleccionamos <svg class="icon-xlg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" height="24px" version="1.1" viewBox="0 0 512 512" width="24px">    <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">        <path d="M128,124.484 L128,161.51 L96.707,179.724136 L256,273.426293 L415.292,179.724136 L391,165.587 L391,128.563 L440.164988,157.175487 C454.751601,165.67452 463.789525,181.203071 463.996406,198.076708 L464,198.61 L464,369.37 C464,386.257202 455.122424,401.887313 440.637192,410.557174 L440.177904,410.828639 L288.17,499.293235 C278.566623,504.874804 267.873441,507.760483 257.142311,507.949755 C256.765116,507.976463 256.384139,507.99 256,507.99 C255.611721,507.99 255.226672,507.976169 254.84532,507.948974 C244.368183,507.75831 233.926008,504.997049 224.498193,499.664826 L223.842096,499.288639 L71.8350028,410.824508 C57.2392416,402.320132 48.1998345,386.777928 48.0032642,369.903319 L48,369.37 L48,198.590487 C48.0206007,181.708472 56.9067951,166.092598 71.3762303,157.446207 L71.8350119,157.175487 L128,124.484 Z M432,207.022136 L272,301.140293 L272,471.678136 L272.082096,471.631361 L424.065,383.181325 C428.874238,380.374508 431.870592,375.276842 431.99592,369.73222 L432.000012,369.37 L432,207.022136 Z M79.999,207.022136 L79.9999972,369.360492 C79.9999972,374.92957 82.9010275,380.086826 87.6271049,382.985536 L87.9379037,383.171361 L239.93,471.626765 C239.953568,471.640463 239.977149,471.654128 240.000744,471.667761 L240,301.141293 L79.999,207.022136 Z" fill="currentColor" fill-rule="nonzero"></path>        <path d="M256,5 C339.394997,5 407,72.6050028 407,156 C407,166.416067 405.945355,176.585808 403.937024,186.408265 L361.297382,211.490202 C370.046594,194.92213 375,176.03953 375,156 C375,90.2781148 321.721885,37 256,37 C190.278115,37 137,90.2781148 137,156 C137,176.03953 141.953406,194.92213 150.702618,211.490202 L108.062976,186.408265 C106.054645,176.585808 105,166.416067 105,156 C105,72.6050028 172.605003,5 256,5 Z" fill="currentColor" fill-rule="nonzero"></path>    </g></svg> `Freestyle project` y presionamos el botón `[OK]`.
+7. Ponemos una `Description`: </br> `This is a Parametrized project`
+8. Le damos clic en la opción `This project is parameterized`.
+9. En el botón `[Add Parameter]`, seleccionamos la opción: </br> `Choice Parameter`
+10. En el campo `Name`, le ponemos `testscript`.
+11. En el campo `Choices`, ponemos estos valores:
+```txt
+test:chrome
+test:firefox
+test:electron
+```
+12. En `Description`, ponemos este texto: </br> `Please select wich browser the test should be executed` </br> ![Choice Parameter](images/2025-09-16_073955.png "Choice Parameter")
+
+
+
+
+
+
+
+13. En la parte de `[Advanced]`, seleccionamos `Use custom workspace` y ponemos la ruta completa donde está el proyecto.
+14. Activamos en la sección de `Environment`, el valor de `Color ANSI Console Output` y le dejamos por defecto el valor de `xtern`.
+15. Agregamos en `Build Steps`, la opción de `Execute Windows batch command`.
+16. El primer `Command` es para reinstalar el `Cypress`: </br> `./node_modules/.bin/cypress.CMD install --force`
+17. Agregamos otro con el botón `[Add build step]` y seleccionamos `Execute Windows batch command`.
+18. En el segundo `Command`, ejecutamos uno con parámetros: </br> `pnpm install %testscript%` </br> Es sospechoso que use este comando pero lo veremos mas adelante.
+19. Abajo en `Post-build Actions`, seleccionamos `Publish HTML reports`.
+20. Presionamos el botón `[Add]` dentro de `Publish HTML reports` </br> **`cypress/reports/mochareports/report.html`**
+21. En `Report title`, le ponemos `Cypress HTML Report`.
+22. Presionamos el último botón de `[Save]`.
+23. Ejecutamos el botón <svg class="icon-clock icon-md" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" height="24" viewBox="0 0 512 512" width="24"><title></title><path d="M112,111V401c0,17.44,17,28.52,31,20.16l247.9-148.37c12.12-7.25,12.12-26.33,0-33.58L143,90.84C129,82.48,112,93.56,112,111Z" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:32px"></path></svg> `[Build with Parameters]`
+24. Así se ve el proceso que le quedó faltando algo: </br> ![Cypress Demo Parametrized Project #1](images/2025-09-16_081015.gif "Cypress Demo Parametrized Project #1")
+
+
+
+
+
+
+
+25. Regresamos al link superior de `Cypress Demo Parametrized Project` y seleccionamos el de `Configure`.
+26. Corregimos el paso 18, con este comando: </br> `pnpm %testscript%` </br> ![Build Steps](images/2025-09-16_081552.png "Build Steps")
+
+
+
+
+
+
+
+27. Damos al botón `[Save]`.
+28. Volvemos a darle clic al botón <svg class="icon-clock icon-md" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" height="24" viewBox="0 0 512 512" width="24"><title></title><path d="M112,111V401c0,17.44,17,28.52,31,20.16l247.9-148.37c12.12-7.25,12.12-26.33,0-33.58L143,90.84C129,82.48,112,93.56,112,111Z" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:32px"></path></svg> `[Build with Parameters]`
+29. Este es el resultado final: </br> ![Cypress Demo Parametrized Project #2](images/2025-09-16_082635.gif "Cypress Demo Parametrized Project #2")
+
+
+
+
+
+
+
+30. Cerramos en el _browser_ que tiene la página de `Jenkins`.
+31. En la `TERMINAL` donde corre el comando para `Jenkins`, le damos varias veces las teclas [`CTRL`] + [`C`], hasta que cierre el proceso.
+
+
+
+## Section 21: Additional Content
+
+### 116. Bonus Content
+
+>[!NOTE]
+>
+>![Vignesh Rinivasa Raghavan](images/2025-09-16_084959.png "Vignesh Rinivasa Raghavan")
+>
+>Hola a todos.
+>
+>Gracias por inscribirse en este curso y enhorabuena por haberlo completado con éxito.
+>Permítanme que dedique un momento a compartir mis otros cursos.
+>Por favor, visite a Vignesh tutor en línea punto Github. io.
+>
+>Así que si usted visita a esta página GitHub entonces usted puede ver todos mis cursos se han mostrado aquí y todos los cursos
+>también tiene un descuento precios disponibles.
+>Por ejemplo, si haces clic en cualquiera de estos cursos, digamos que si hago clic en este curso de dramaturgia,
+>puedes ver que se redirige automáticamente al sitio web de Udemy.
+>Y también se puede ver que tiene por defecto el código de cupón aplicado como parte de este enlace.
+>
+>Así que si usted está comprando el curso a través de este enlace, entonces el 99% de las veces siempre se aplicará el código de
+>cupón.
+>¿Cuál es la ventaja de comprar el curso haciendo clic en este enlace es.
+>La mayoría de las veces obtendrá más descuentos para todos los cursos cercanos al 95 por ciento.
+>Así que les pido encarecidamente que compren todos estos cursos y obtengan grandes beneficios.
+>
+>Sólo tienes que navegar a los cursos sólo a través de hacer clic en este enlace, y usted tiene que completar
+>la compra antes de 24 horas, por lo que sólo si lo hace usted puede obtener el beneficio completo del código de cupón, que
+>he etiquetado a todos estos cursos aquí.
+>Si se desplaza hacia abajo, podrá ver que estas son las magníficas reseñas de todos los cursos que
+>se han publicado.
+>
+>Así que aquí se puede ver que hay miles de estudiantes que se están beneficiando de estos cursos.
+>Así que te animo a que visites todos estos cursos y los compres para aumentar tus conocimientos sobre automatización.
+>
+
+## Section 22: ALL  Project Download
+
+
+### 117. Cypress + Cucumber + Docker + Javascript Basics Project Download
+
+>[!NOTE]
+>
+>**Cypress :**
+>
+>1. Download the zip folder attached to this Article
+>
+>     * After downloading the zip file, please open this folder in the VS Code
+>
+>     * Run the command  npm install to download all the dependencies
+>
+>2. Directly you can clone the Repository from GitHub - <https://github.com/vigneshonlinetutor/Cypress-Udemy-Course>
+>
+>**Docker :**
+>
+>1. Download the zip folder attached to this Article
+>     * After downloading the zip file, please open this folder in the VS Code
+>
+>     * Run the command  npm install to download all the dependencies
+>
+>2. Directly you can clone the Repository from GitHub - <https://github.com/vigneshonlinetutor/Cypress-Docker-Udemy>
+>
+>**Cucumber :**
+>
+>1. Download the zip folder attached to this Article
+>
+>     * After downloading the zip file, please open this folder in the VS Code
+>
+>     * Run the command  npm install to download all the dependencies
+>
+>2. Directly you can clone the Repository from GitHub - <https://github.com/vigneshonlinetutor/Cypress-Cucumber-Udemy>
+>
+>**Javascript :**
+>
+>1. Download the zip folder attached to this Article
+>
+>     * After downloading the zip file, please open this folder in the VS Code
+>
+>2. Directly you can clone the Repository from GitHub - <https://github.com/vigneshonlinetutor/JavaScript-Basics-UdemyCourse>
+>
+> **Resources for this lecture**
+>
+> * [`JavaScript-Basics-UdemyCourse-main.zip`](https://att-c.udemycdn.com/2024-05-01_14-27-23-5508c6f50c396492460068c3631eefde/original.zip?response-content-disposition=attachment%3B+filename%3DJavaScript-Basics-UdemyCourse-main.zip&Expires=1758047339&Signature=nx1JAQF4PDYGHHxeU3vd7OhDMvF1o8LUl8HQtseANhgCDshEgtogtSdbssFBjcWTEwSBozz8JzdmfoF~qm2DmTMR0DvaoWYI9bigMKnjNaPAxOQdbMmI64HD6TFyVV6lj~DE~cocZAlpqz1kiyAlSKYV-0LFETeAeA~itVKG0cJ3nBwrJesbYfwtMn3I-FVRwy7bYyp7FKciDtp6Mz89tTv86cjScIEZAaHFberKh0jauIqw2znPVfShctr7IWJwDIiGSuXIS518KLmMWqrpDrigEdhu~1G3sGps~~2D48~2MlLD5l6j4Z3oKz8vzHq8r4UKlTu0idX9ECE9xT-kWQ__&Key-Pair-Id=K3MG148K9RIRF4)
+> * [`Cypress-Udemy-Course-main.zip`](https://att-c.udemycdn.com/2025-09-02_10-53-26-4249e44489e551ef6e6358388294f052/original.zip?response-content-disposition=attachment%3B+filename%3DCypress-Udemy-Course-main.zip&Expires=1758047337&Signature=ELM-7fwGRMs7v9XSKVvKSJ8Gc~rM15rpOdxu1KlUMN6GCYEA5Z-9z-ytUG-HHBTzGvM1DDZz-8lkEs3rLurRHL8bmEIHQvsX7IC8rKEAakIXqe0Hhlv8ltHHEMhIr5Qa3DvNiwAIZJhtzcJ-dkfY-ViX51nZtX4Wlt7~BZehXq40KamrQObtsmszxjudtudH8~Wqok~CHNmdZLK1qobkfE27FJl236DuQkUOT6BhVwhr1CB56W5J7NhQBgz1CtK25e3LAjr~9jeGZlPx~LjK-VyFTBILmALBoxDk283-HEvyAzjdSP6hH3aODgGooaSMljQLEaNZ-gHqbsmOlyomTA__&Key-Pair-Id=K3MG148K9RIRF4)
+> * [`Cypress-Docker-Udemy-main.zip`](https://att-c.udemycdn.com/2025-09-02_10-53-32-6d79fb60977badcbedc36d7b97944d6f/original.zip?response-content-disposition=attachment%3B+filename%3DCypress-Docker-Udemy-main.zip&Expires=1758047064&Signature=HoSNIaIEIVVUJCVR87BMjzWeo8g7iXQ170Me1jWIJAYPwFVHUHi-0kSw4pJ1imYse06LYTO-mVsyGGazmy7oPqXs8mVPMT4f3Sl~jCtzijYS8hdp3Ti9EGbvIQ1qEI8tH7v6D2OoDSLghz2qh~3hPyQwQcZCfORUaGYmkwIf0DBzO4fP9Puti--EJ2euST~ofUxw4150jpr8DHl6kywweRrgx5iXqVTya~KKY6UMFV1PFN8VmSh34oSVjfrRC1s6Y3SIDhlZsKpSPfapsoeHAejLGWLQXZZL9vqJehj~HsxVD8R6HbIdRx~vLTg-Pba3vEJDa37ZHhRY6Mgxq4GCIQ__&Key-Pair-Id=K3MG148K9RIRF4)
+> * [`Cypress-Cucumber-Udemy-main.zip`](https://att-c.udemycdn.com/2025-09-02_10-53-37-88b7dd3cdc3eefde5147d01e40dcfa9f/original.zip?response-content-disposition=attachment%3B+filename%3DCypress-Cucumber-Udemy-main.zip&Expires=1758047059&Signature=pBtEX4HdhU~6yO9RHVVxGjPDZUJKiLLmS5phBrqgPn0Rt27ADObRAeet-bMspSTttNIky9csW7co4UPTwgg1QVAGQCnDIkKGtuOUUHA9VfzqNzksrx2fUvqr0H0Kve1UDTgdUOXGMHs927qx~4XpV6boGNJgGkvkl1-BZu76UPMzH0UfqUwrGQhvVRTKui94Icorhk29D2mcWdKBBe2NNadtHUXRptX93HcFbqODLMBHCI8Jw2PVIxJz8p9E3me0eo19hG1NMfglIFT5HDXiiDLC2mQ5m4IxmQPHGwQSgCzomxS~pPEKt5M4ogtPEOVWRg10pxit3W4qjHJeKRYEOg__&Key-Pair-Id=K3MG148K9RIRF4)
+
+
